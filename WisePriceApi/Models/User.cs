@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WisePriceApi.Models
 {
@@ -14,6 +15,14 @@ namespace WisePriceApi.Models
     public string Email { get; set; }
     public string Zip { get; set; }
     public int Password {get; set;}
+    public virtual ICollection<Deal> PinnedDeals {get; set;}
+    public virtual ICollection<Deal> AddedDeals {get; set;}
+
+    public User()
+    {
+      this.PinnedDeals = new HashSet<Deal>();
+      this.AddedDeals = new HashSet<Deal>();
+    }
       
   }
 }
