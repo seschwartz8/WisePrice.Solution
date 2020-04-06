@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WisePriceApi.Models
 {
@@ -15,7 +16,9 @@ namespace WisePriceApi.Models
     public string Email { get; set; }
     public string Zip { get; set; }
     public int Password {get; set;}
+    // [InverseProperty(nameof(PinnedDeal.User))]
     public virtual ICollection<Deal> PinnedDeals {get; set;}
+    [InverseProperty(nameof(Deal.Poster))] 
     public virtual ICollection<Deal> PostedDeals {get; set;}
 
     public User()

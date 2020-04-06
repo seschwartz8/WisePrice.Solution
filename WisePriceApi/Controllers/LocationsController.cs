@@ -21,7 +21,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/locations
     [HttpGet]
-    public ActionResult<IEnumerable<Location>> Get(string name, int? zipcode, string address)
+    public ActionResult<IEnumerable<Location>> Get(string name, int? zipcode, string address, int page, int size)
     {
       var query  = _db.Locations.AsQueryable();
 
@@ -40,10 +40,43 @@ namespace WisePriceApi.Controllers
         query = query.Where(entry => entry.Address.Contains(address));
       }
 
-      return query.ToList();
+      // Pagination
+      int maxPageSize = 40; // max of 40 locations per page
+      int pageSize = 20; //defaults to 20 locations per page
+
+      int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+      if (size > 0)
+      {
+        pageSize = (size > maxPageSize) ? maxPageSize : size;
+      }
+
+      return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
     }
 
-    [HttpGet("nearestStore")]
+    // GET api/locations/count
+    [HttpGet("count")]
+    public ActionResult<int> CountLocations(string name, int? zipcode, string address)
+    {
+      var query = _db.Locations.AsQueryable();
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name.Contains(name));
+      }
+
+      if (zipcode != null)
+      {
+        query = query.Where(entry => entry.ZipCode == zipcode);
+      }
+
+      if (address != null)
+      {
+        query = query.Where(entry => entry.Address.Contains(address));
+      }
+      return query.ToList().Count();
+    }
+
+    [HttpGet("nearestStores")]
     public ActionResult<IEnumerable<Location>> GetNearestStore(int zipcode)
     {
       var query = _db.Locations.Include(entry => entry.Deals).Where(s => s.ZipCode == zipcode).AsQueryable();

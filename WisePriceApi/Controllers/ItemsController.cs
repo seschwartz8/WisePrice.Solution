@@ -20,7 +20,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/items
     [HttpGet]
-    public ActionResult<IEnumerable<Item>> Get(string name)
+    public ActionResult<IEnumerable<Item>> Get(string name, int page, int size)
     {
       var query = _db.Items.AsQueryable();
 
@@ -28,8 +28,31 @@ namespace WisePriceApi.Controllers
       {
           query = query.Where(entry => entry.ItemName.Contains(name));
       }
+      
+      // Pagination
+      int maxPageSize = 40; // max of 40 items per page
+      int pageSize = 20; //defaults to 20 items per page
 
-      return query.ToList();
+      int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+      if (size > 0)
+      {
+        pageSize = (size > maxPageSize) ? maxPageSize : size;
+      }
+
+      return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+    }
+
+    // GET api/items/count
+    [HttpGet("count")]
+    public ActionResult<int> CountItems(string itemName)
+    {
+      var query = _db.Items.AsQueryable();
+
+      if (itemName != null)
+      {
+        query = query.Where(entry => entry.ItemName.Contains(itemName));
+      }
+      return query.ToList().Count();
     }
 
     // GET api/items/5
