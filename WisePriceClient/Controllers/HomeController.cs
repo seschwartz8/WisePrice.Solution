@@ -12,7 +12,7 @@ namespace WisePriceClient.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Account", "Login");
         }
 
         public IActionResult Privacy()
