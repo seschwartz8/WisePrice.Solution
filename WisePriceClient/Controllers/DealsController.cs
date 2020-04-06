@@ -12,14 +12,20 @@ namespace WisePriceClient.Controllers
   {
     public IActionResult Index()
     {
-      var allDeals = Deal.GetDeals();
+      var allDeals = Deal.GetAll();
       return View(allDeals);
     }
 
-    [HttpPost]
-    public IActionResult Index(Deal deal)
+    public IActionResult Create()
     {
-      Deal.AddDeal(deal);
+      return View();
+    }
+
+    [HttpPost]
+    public IActionResult Index(Deal newDeal)
+    {
+      ViewBag.ItemId = Item.GetAll(); // returns a list of Item objects for dropdown of items
+      Deal.Post(newDeal);
       return RedirectToAction("Index");
     }
 
@@ -31,15 +37,15 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Edit(int id)
     {
-      var selectedDeal = Deal.GetDetails(id);
+      var selectedDeal = Deal.Get(id);
       return View(selectedDeal);
     }
 
     [HttpPost]
-    public IActionResult Details(int id, Deal deal)
+    public IActionResult Details(int id, Deal dealToEdit)
     {
-      deal.DealId = id;
-      Deal.Update(deal);
+      dealToEdit.DealId = id;
+      Deal.Put(dealToEdit);
       return RedirectToAction("Details", id);
     }
 
