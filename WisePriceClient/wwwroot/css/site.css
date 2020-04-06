@@ -4,6 +4,35 @@
   flex-direction: column;
 }
 
+h1 {
+  text-align: center;
+}
+
+.center-horizontal {
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  flex-direction: column;
+  align-items: center;
+}
+
 .content {
   flex: 1;
+}
+
+footer {
+  padding: 1%;
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #efefef;
+  color: #757575;
+}
+
+footer div.names a {
+  margin: 0 10px;
 }

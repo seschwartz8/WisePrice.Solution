@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <div class="ui menu">
+        <div class="navbar ui menu">
             <a asp-controller="Home" asp-action="Index" class="item header">
                 WISE PRICE
             </a>
@@ -35,13 +35,14 @@
             </div>
         </div>
     </header>
+
     <div class="ui container content">
         @RenderBody()
     </div>
 
     <footer>
         <div>Created by</div>
-        <div>
+        <div class='names'>
             <a target="_blank" href='http://www.github.com/ayohana'>Adela Darmansyah</a> <a target="_blank" href='http://www.github.com/jiwon-seattle'>Jiwon Han</a> <a target="_blank" href='http://www.github.com/seschwartz8'>Sasa Schwartz</a> <a target="_blank" href='http://www.github.com/tsiu88'>Tiffany Siu</a>
         </div>
         <div>
