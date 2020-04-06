@@ -1,14 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<h1 class="display-4">Wise Price</h1>
-<div class='center-horizontal column'>
-    <a asp-controller="Account" asp-action="Login">
-        <button class="ui button">
-            Log In
-        </button>
-    </a>
-    <small>New to Wise Price? <a asp-action="Register">Register.</a></small>
+<div class='homepage-body'>
+    <div>
+        <h1 class='title'>Wise Price</h1>
+    </div>
+    <div class='homepage-sub'>
+        <div>
+            <a asp-controller="Account" asp-action="Login">
+                <button class="ui button">
+                    Log In
+                </button>
+             </a>
+        </div>
+        <small>New to Wise Price? <a asp-action="Register">Register.</a></small>
+    </div>
 </div>
+
 
