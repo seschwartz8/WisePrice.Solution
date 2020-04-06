@@ -12,8 +12,8 @@ namespace WisePriceClient.Controllers
   {
     public IActionResult Index()
     {
-      var allDeals = Deal.GetDeals();
-      return View(allDeals);
+      // var allDeals = Deal.GetDeals();
+      return View();
     }
 
     [HttpPost]
