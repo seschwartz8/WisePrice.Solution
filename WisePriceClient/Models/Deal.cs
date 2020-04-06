@@ -17,6 +17,7 @@ namespace WisePriceClient.Models
     public int DownVotes { get; set; }
     public virtual Item Item {get; set;}
     public virtual Location Location {get; set;}
+    
     public static List<Deal> GetAll()
     {
       var apiCallTask = ApiHelper.GetAllDeals();

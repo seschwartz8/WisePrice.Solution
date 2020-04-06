@@ -13,11 +13,6 @@ namespace WisePriceClient.Models
     public string Address { get; set; }
     public virtual ICollection<Deal> Deals {get; set;}
 
-    public Location()
-    {
-      this.Deals = new HashSet<Deal>();
-    }
-
     public static List<Location> GetAll()
     {
       var apiCallTask = ApiHelper.GetAllLocations();

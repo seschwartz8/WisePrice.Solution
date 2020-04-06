@@ -11,11 +11,6 @@ namespace WisePriceClient.Models
     public int ItemId {get; set;}
     public virtual ICollection<Deal> Deals {get; set;}
 
-    public Item()
-    {
-      this.Deals = new HashSet<Deal>();
-    }
-
     public static List<Item> GetAll()
     {
       var apiCallTask = ApiHelper.GetAllItems();
