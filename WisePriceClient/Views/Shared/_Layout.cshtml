@@ -1,32 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
+  
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Wise Price</title>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js'>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <header>
         <div class="ui menu">
-            <a class="item header">
+            <a asp-controller="Home" asp-action="Index" class="item header">
                 WISE PRICE
             </a>
-            <a class="item">
+            <a asp-controller="Deals" asp-action="Index" class="item">
                 Deals
             </a>
-            <a class="item">
+            <a asp-controller="Deals" asp-action="Create" class="item">
                 Add
             </a>
-            <div class="ui pointing dropdown link item right aligned">
-                <span class="text">Profile</span>
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item">My Pinned Deals</a>
-                    <a class="item">Posted Deals</a>
-                    <a class="item">Account</a>
+            <div class="ui menu right aligned">
+                <div class="ui simple dropdown item">
+                    Profile
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                    <a asp-controller="Deals" asp-action="Pinned" class="item">My Pinned Deals</a>
+                    <a asp-controller="Deals" asp-action="Posted" class="item">Posted Deals</a>
+                    <a asp-controller="Account" asp-action="Index" class="item">Account</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,8 +48,7 @@
             &copy; 2020 - Wise Price - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    @RenderSection("Scripts", required: false)
     
-
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
