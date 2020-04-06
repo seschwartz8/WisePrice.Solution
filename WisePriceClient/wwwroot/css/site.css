@@ -6,15 +6,33 @@
 
 h1 {
   text-align: center;
+  font-size: 4em;
 }
 
-.center-horizontal {
+.button {
+  margin: 10px;
+}
+
+small {
+  font-size: 1em;
+}
+
+h1.title {
+  font-size: 8em;
+}
+
+.homepage-body {
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.column {
+.homepage-sub {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
