@@ -30,13 +30,6 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Details(int id)
-    {
-      // var selectedDeal = Deal.GetDetails(id);
-      // return View(selectedDeal);
-      return View();
-    }
-
     public IActionResult Edit(int id)
     {
       var selectedDeal = Deal.Get(id);
