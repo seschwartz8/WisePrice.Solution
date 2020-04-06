@@ -14,5 +14,6 @@ namespace WisePriceApi.Models
     public int DownVotes { get; set; }
     public virtual Item Item {get; set;}
     public virtual Location Location {get; set;}
+    public virtual User Poster {get; set;}
   }
 }

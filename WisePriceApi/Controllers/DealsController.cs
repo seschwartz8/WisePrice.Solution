@@ -21,7 +21,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/deals
     [HttpGet]
-    public ActionResult<IEnumerable<Deal>> Get(string itemName, string location)
+    public ActionResult<IEnumerable<Deal>> Get(string itemName, string location, int page, int size)
     {
       var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
       
@@ -35,7 +35,35 @@ namespace WisePriceApi.Controllers
         query = query.Where(entry => entry.Location.ZipCode.ToString() == location);
       }
 
-      return query.ToList();
+      // Pagination
+      int maxPageSize = 40; // max of 40 deals per page
+      int pageSize = 20; //defaults to 20 deals per page
+
+      int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+      if (size > 0)
+      {
+        pageSize = (size > maxPageSize) ? maxPageSize : size;
+      }
+
+      return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+    }
+
+    // GET api/deals/count
+    [HttpGet("count")]
+    public ActionResult<int> CountDeals(string itemName, string location)
+    {
+      var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
+
+      if (itemName != null)
+      {
+        query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
+      }
+
+      if (location != null)
+      {
+        query = query.Where(entry => entry.Location.Name.Contains(location));
+      }
+      return query.ToList().Count();
     }
 
 
