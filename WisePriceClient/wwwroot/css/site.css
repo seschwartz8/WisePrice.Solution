@@ -103,7 +103,25 @@ div.ui.bottom {
   justify-content: space-between;
 }
 
+/* CREATE DEAL */
+.create-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+}
 
+.create-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.create-sub {
+  margin: 5%;
+}
 
 /* FOOTER */
 footer {
