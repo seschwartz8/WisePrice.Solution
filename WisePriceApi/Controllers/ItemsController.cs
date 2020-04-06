@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceApi.Models;
-
 namespace WisePriceApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("/[controller]")]
   [ApiController]
   public class ItemsController : ControllerBase
   {
@@ -17,36 +16,45 @@ namespace WisePriceApi.Controllers
     {
       _db = db;
     }
-    // GET api/items
+
+    // GET api/values
     [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
+    public ActionResult<IEnumerable<Item>> Get(string item)
     {
-      return new string[] { "value1", "value2" };
+      var query = _db.Items.AsQueryable();
+
+      if (item != null)
+      {
+          query = query.Where(entry => entry.ItemName.Contains(item));
+      }
+
+      return query.ToList();
     }
 
-    // GET api/items/5
+    // GET api/values/5
     [HttpGet("{id}")]
     public ActionResult<string> Get(int id)
     {
       return "value";
     }
 
-    // POST api/items
+    // POST api/values
     [HttpPost]
     public void Post([FromBody] string value)
     {
     }
 
-    // PUT api/items/5
+    // PUT api/values/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
     {
     }
 
-    // DELETE api/items/5
+    // DELETE api/values/5
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
     }
   }
 }
+
