@@ -71,13 +71,16 @@ div.ui.icon.input {
 }
 
 .deals-cards-container {
-  /* border: 1px solid green; */
   padding: 2%;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.card {
-  padding: 5%;
+.ui.cards {
+  margin: 1%;  
 }
 
 .content, .description {
