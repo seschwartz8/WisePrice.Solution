@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Deals";
+}
+
+<div class='deals-body'>
+    <div class='deals-top'>
+        <div class='col'></div>
+        <h1>Deals</h1>
+        <div class='col'></div>
+    </div>
+
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Search by item...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+
+    <div class='deals-cards-container'>
+    <!-- FOR LOOP FOR EACH CARD IN MODEL -->
+        <div class="ui cards">
+          <div class="card">
+            <div class="ui top">
+              <a><i class="thumbtack icon large"></i></a>
+            </div>
+            <div class="content">
+              <div class="header">Item Name</div>
+              <div class="description">
+                <div>
+                  Store Location
+                </div>
+                <div>
+                  Date
+                </div>
+              </div>
+            </div>
+            <div class="ui bottom">
+              <a><i class="thumbs up outline icon large"></i></a>
+              <a><i class="thumbs down outline icon large"></i></a>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+</div>
+
+
