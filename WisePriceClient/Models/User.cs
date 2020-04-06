@@ -14,5 +14,7 @@ namespace WisePriceClient.Models
     public string Email { get; set; }
     public string Zip { get; set; }
     public int Password {get; set;}
+    public virtual ICollection<Deal> PinnedDeals {get; set;}
+    public virtual ICollection<Deal> PostedDeals {get; set;}
   }
 }
