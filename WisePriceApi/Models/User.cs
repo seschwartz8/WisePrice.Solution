@@ -16,12 +16,12 @@ namespace WisePriceApi.Models
     public string Zip { get; set; }
     public int Password {get; set;}
     public virtual ICollection<Deal> PinnedDeals {get; set;}
-    public virtual ICollection<Deal> AddedDeals {get; set;}
+    public virtual ICollection<Deal> PostedDeals {get; set;}
 
     public User()
     {
       this.PinnedDeals = new HashSet<Deal>();
-      this.AddedDeals = new HashSet<Deal>();
+      this.PostedDeals = new HashSet<Deal>();
     }
       
   }
