@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
@@ -19,9 +20,10 @@ namespace WisePriceApi.Controllers
 
     // GET api/pinneddeals
     [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
+    public ActionResult<IEnumerable<PinnedDeal>> Get()
     {
-      return new string[] { "value1", "value2" };
+      var query = _db.PinnedDeals.Include(entry => entry.User).Include(entry => entry.Deal).AsQueryable();
+      return query.ToList();
     }
 
     // GET api/pinneddeals/5
