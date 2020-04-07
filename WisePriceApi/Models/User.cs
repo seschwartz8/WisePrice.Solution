@@ -16,14 +16,13 @@ namespace WisePriceApi.Models
     public string Email { get; set; }
     public string Zip { get; set; }
     public int Password {get; set;}
-    // [InverseProperty(nameof(PinnedDeal.User))]
-    public virtual ICollection<Deal> PinnedDeals {get; set;}
-    [InverseProperty(nameof(Deal.Poster))] 
+
+    public virtual ICollection<PinnedDeal> PinnedDeals {get; set;}
     public virtual ICollection<Deal> PostedDeals {get; set;}
 
     public User()
     {
-      this.PinnedDeals = new HashSet<Deal>();
+      this.PinnedDeals = new HashSet<PinnedDeal>();
       this.PostedDeals = new HashSet<Deal>();
     }
       
