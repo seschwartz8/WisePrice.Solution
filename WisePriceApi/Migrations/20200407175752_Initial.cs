@@ -40,30 +40,12 @@ namespace WisePriceApi.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    NormalizedUserName = table.Column<string>(nullable: true),
-                    NormalizedEmail = table.Column<string>(nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Zip = table.Column<string>(nullable: true),
-                    Password = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +77,12 @@ namespace WisePriceApi.Migrations
                         principalTable: "Locations",
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Deals_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,8 +92,7 @@ namespace WisePriceApi.Migrations
                     PinnedDealId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
-                    DealId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true)
+                    DealId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,11 +104,37 @@ namespace WisePriceApi.Migrations
                         principalColumn: "DealId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PinnedDeals_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_PinnedDeals_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostedDeals",
+                columns: table => new
+                {
+                    PostedDealId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    DealId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostedDeals", x => x.PostedDealId);
+                    table.ForeignKey(
+                        name: "FK_PostedDeals_Deals_DealId",
+                        column: x => x.DealId,
+                        principalTable: "Deals",
+                        principalColumn: "DealId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostedDeals_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -135,14 +148,29 @@ namespace WisePriceApi.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Deals_UserId",
+                table: "Deals",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PinnedDeals_DealId",
                 table: "PinnedDeals",
                 column: "DealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PinnedDeals_UserId1",
+                name: "IX_PinnedDeals_UserId",
                 table: "PinnedDeals",
-                column: "UserId1");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostedDeals_DealId",
+                table: "PostedDeals",
+                column: "DealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostedDeals_UserId",
+                table: "PostedDeals",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -151,16 +179,19 @@ namespace WisePriceApi.Migrations
                 name: "PinnedDeals");
 
             migrationBuilder.DropTable(
-                name: "Deals");
+                name: "PostedDeals");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Deals");
 
             migrationBuilder.DropTable(
                 name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
