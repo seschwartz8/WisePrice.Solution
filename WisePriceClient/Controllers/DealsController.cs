@@ -32,8 +32,9 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Edit(int id)
     {
-      var selectedDeal = Deal.Get(id);
-      return View(selectedDeal);
+      // var selectedDeal = Deal.Get(id);
+      // return View(selectedDeal);
+      return View();
     }
 
     [HttpPost]

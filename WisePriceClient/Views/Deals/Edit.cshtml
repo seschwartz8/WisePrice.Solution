@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Edit Deal";
+}
+
+<div class='create-body'>
+  <div class='create-top'>
+      <div class='col'></div>
+      <h1>Edit Deal</h1>
+      <div class='col'></div>
+  </div>
+  <h4>Original Item Name: Original price typed right here, Location?</h4>
+
+
+  <div class='create-sub'>
+
+    <form asp-controller='Deals' asp-action='Edit' method='post' class="ui equal width form">
+
+        <div class="field">
+          <label for='Item'>Item</label>
+          <div class="ui compact menu">
+            <div class="ui simple selection dropdown">
+            Select the item
+              <i class="dropdown icon"></i>
+              <div asp-for='Item' id='Item' class="menu">
+              <!-- FOR LOOP FOR ALL ITEMS -->
+                <div class="item">ITEM FOR LOOP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for='Item'>Add a new item</label>
+          <input type="text" placeholder="Spaghetti Squash">
+        </div>
+        
+        <div class="field">
+          <label>Location</label>
+          <div class="ui compact menu">
+            <div class="ui simple selection dropdown">
+            Select the location
+              <i class="dropdown icon"></i>
+              <div class="menu">
+              <!-- FOR LOOP FOR ALL LOCATIONS -->
+                <div class="item">LOCATION FOR LOOP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for='Price'>Price per unit</label>
+          <!-- <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb"> -->
+          <input type="text" placeholder="$3.50 per lb">
+        </div>
+      </div>
+
+      <button class='ui button' type='submit'>Add Deal</button>
+      <small><a asp-action='Index'>Cancel</a></small>
+
+  </form>
+
+</div>
+
+

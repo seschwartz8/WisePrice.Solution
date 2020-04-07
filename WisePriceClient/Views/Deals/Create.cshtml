@@ -11,15 +11,15 @@
 
   <div class='create-sub'>
 
-    <form class="ui equal width form">
+    <form asp-controller='Deals' asp-action='Create' method='post' class="ui equal width form">
 
         <div class="field">
-          <label>Item</label>
+          <label for='Item'>Item</label>
           <div class="ui compact menu">
             <div class="ui simple selection dropdown">
             Select the item
               <i class="dropdown icon"></i>
-              <div class="menu">
+              <div asp-for='Item' id='Item' class="menu">
               <!-- FOR LOOP FOR ALL ITEMS -->
                 <div class="item">ITEM FOR LOOP</div>
               </div>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="field">
-          <label>Add a new item</label>
+          <label for='Item'>Add a new item</label>
           <input type="text" placeholder="Spaghetti Squash">
         </div>
         
@@ -47,12 +47,14 @@
         </div>
 
         <div class="field">
-          <label>Price per unit</label>
+          <label for='Price'>Price per unit</label>
+          <!-- <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb"> -->
           <input type="text" placeholder="$3.50 per lb">
         </div>
       </div>
 
       <button class='ui button' type='submit'>Add Deal</button>
+      <small><a asp-action='Index'>Cancel</a></small>
 
   </form>
 
