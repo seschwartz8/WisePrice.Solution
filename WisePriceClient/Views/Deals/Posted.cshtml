@@ -25,9 +25,10 @@
               </div>
             </div>
             <div class="ui bottom">
-              <a class="ui button grey"  asp-route-id="@Model.DealId" asp-action="Edit">Edit</a>
+              <!-- <a class="ui button grey"  asp-route-id="@Model.DealId" asp-action="Edit">Edit</a> -->
+              <a class="ui button grey" asp-action="Edit">Edit</a>
                 <form asp-controller="Deals" asp-action="Delete" method="post">
-                  <input type="hidden" value="@Model.DealId" asp-fpr="DealId">
+                  <!-- <input type="hidden" value="@Model.DealId" asp-fpr="DealId"> -->
                   <input type="submit" value="Delete" class="ui button"/>
                 </form>
             </div>
