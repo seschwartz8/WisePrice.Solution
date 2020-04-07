@@ -1,6 +1,16 @@
 @{
     ViewData["Title"] = "Deals";
 }
+@using WisePriceClient.Models
+@model List<Deal>
+
+<!-- TEST -->
+      @foreach (var deal in Model)
+      {
+        <p>@deal.Item.ItemName</p>
+      }
+<!-- TEST -->
+
 
 <div class='deals-body'>
     <div class='deals-top'>

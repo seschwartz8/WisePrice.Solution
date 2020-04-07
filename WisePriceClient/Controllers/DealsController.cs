@@ -12,9 +12,8 @@ namespace WisePriceClient.Controllers
   {
     public IActionResult Index()
     {
-      // var allDeals = Deal.GetAll();
-      // return View(allDeals);
-      return View();
+      var allDeals = Deal.GetAll();
+      return View(allDeals);
     }
 
     public IActionResult Create()
@@ -32,9 +31,8 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Edit(int id)
     {
-      // var selectedDeal = Deal.Get(id);
-      // return View(selectedDeal);
-      return View();
+      var selectedDeal = Deal.Get(id);
+      return View(selectedDeal);
     }
 
     [HttpPost]
