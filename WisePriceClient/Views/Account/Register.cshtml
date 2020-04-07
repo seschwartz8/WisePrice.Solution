@@ -14,7 +14,7 @@
 
 
   <div class='account-sub'>
-    <!-- <form asp-controller='Account' asp-action='Register' method='post' class="ui equal width form">
+    <form asp-controller='Account' asp-action='Register' method='post' class="ui equal width form">
       <div class='two fields'>
         <div class='field'>
           <label>First Name</label>
@@ -46,11 +46,6 @@
         </div>
 
         <div class='field'>
-          <label>Password</label>
-          <input id='password' asp-for="ConfirmPassword" placeholder="Confirm Password" required>
-        </div>
-
-        <div class='field'>
           <label>Zip Code</label>
             <input asp-for="ZipCode" id='ZipCode' placeholder='ZipCode' required>
         </div> 
@@ -62,9 +57,9 @@
         <input type="submit" value="Register" class="ui button" />
         <small>Already have an account? <a asp-action="Login">Log In</a></small>
       </div>
-    </form> -->
+    </form>
 
-      @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+      <!-- @using (Html.BeginForm("Register", "Account", FormMethod.Post))
   {
       @Html.LabelFor(user => user.Email)
       @Html.TextBoxFor(user=> user.Email)
@@ -73,7 +68,7 @@
       @Html.LabelFor(user=> user.ConfirmPassword)
       @Html.PasswordFor(user=> user.ConfirmPassword)
       <input type="submit" value="Register" class="btn btn-default"/>
-  }
+  } -->
   
   </div>
 
