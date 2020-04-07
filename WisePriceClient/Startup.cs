@@ -20,10 +20,6 @@ namespace WisePriceClient
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
-            // var builder = new ConfigurationBuilder()
-            //     .SetBasePath(env.ContentRootPath)
-            //     .AddJsonFile("appsettings.json");
-            // Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -73,11 +69,11 @@ namespace WisePriceClient
                 app.UseHsts();
             }
 
-            app.UseAuthentication();
-
             // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

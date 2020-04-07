@@ -2,6 +2,8 @@
     ViewData["Title"] = "My Account";
 }
 
+@using System.Security.Claims
+
 <div class='account-body'>
   <div class='account-top'>
       <div class='col'></div>
@@ -15,11 +17,11 @@
     <div class='account-info'>
       <div class='row'>
         <h4>Username</h4>
-        <p>detaildetaildetail</p>
+        <p>@User.Identity.Name</p>
       </div>
       <div class='row'>
         <h4>First Name</h4>
-        <p>detaildetaildetail</p>
+        <p></p>
       </div>
       <div class='row'>
         <h4>Last Name</h4>
@@ -27,7 +29,7 @@
       </div>
       <div class='row'>
         <h4>Email</h4>
-        <p>detaildetaildetaildetaildetail</p>
+        <p></p>
       </div> 
       <div class='row'>
         <h4>Zip Code</h4>

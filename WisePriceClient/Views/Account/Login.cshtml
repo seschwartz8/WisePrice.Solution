@@ -2,6 +2,9 @@
     ViewData["Title"] = "Log In";
 }
 
+@using WisePriceClient.ViewModels
+@model LoginViewModel
+
 <div class='account-body'>
   <div class='account-top'>
       <div class='col'></div>
@@ -13,15 +16,13 @@
   <div class='account-sub'>
     <form asp-controller='Account' asp-action='Login' method='post' class="ui equal width form">
       <div class='field'>
-        <label>Email</label>
-        <!-- <input asp-for="Email" id='Email' placeholder='Email' required> -->
-        <input id='Email' placeholder='Email' required>
+        <label for='UserName'>Username</label>
+        <input asp-for="UserName" id='UserName' placeholder='Username' required>
       </div>     
 
       <div class='field'>
-        <label>Password</label>
-        <!-- <input type="password" id='password' asp-for="Password" required> -->
-        <input type="password" id='password' placeholder='Password' required>
+        <label for='Password'>Password</label>
+        <input type='password' id='Password' asp-for="Password" placeholder='Password' required>
       </div>
 
       <div class='submit-field'>

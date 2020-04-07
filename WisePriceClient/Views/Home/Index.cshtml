@@ -2,6 +2,18 @@
     ViewData["Title"] = "Home";
 }
 
+<!-- test -->
+@if (User.Identity.IsAuthenticated)
+{
+    <h3>LOGGED IN TEST! You are logged in!</h3>
+}
+else
+{
+    <h3>You are not logged in!!!!! Test failed</h3>
+}
+<!-- test -->
+
+
 <div class='homepage-body'>
     <div>
         <h1 class='title'>Wise Price</h1>
