@@ -79,6 +79,10 @@ namespace WisePriceApi.Controllers
     public void Post([FromBody] Deal deal)
     {
       _db.Deals.Add(deal);
+      if (deal.ItemId != 0)
+      {
+        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId });
+      }
       _db.SaveChanges();
     }
 
