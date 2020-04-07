@@ -97,8 +97,6 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 | Count all locations                  | GET    | /api/locations/count  | N/A | N/A |
 | Retrieve locations in specific zip code | GET | api/locations/neareststores | int userZipCode | N/A |
 
-> _*Returns a list of items that includes users & locations of other items' users and locations. However, query search works well._
-
 | Action for USERS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
 | :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
 | Retrieve a user's pinned and posted deals  | GET | /api/users/{id} | N/A | N/A |
