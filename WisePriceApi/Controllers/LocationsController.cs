@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
-  [Route("/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class LocationsController : ControllerBase
   {
@@ -23,7 +23,11 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Location>> Get(string name, int? zipcode, string address, int page, int size)
     {
-      var query  = _db.Locations.AsQueryable();
+      var query  = _db.Locations
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.Item)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PinnedDeals)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PostedDeals).AsQueryable();
 
       if (name != null)
       {
@@ -77,9 +81,9 @@ namespace WisePriceApi.Controllers
     }
 
     [HttpGet("nearestStores")]
-    public ActionResult<IEnumerable<Location>> GetNearestStore(int zipcode)
+    public ActionResult<IEnumerable<Location>> GetNearestStore(int userZipcode)
     {
-      var query = _db.Locations.Include(entry => entry.Deals).Where(s => s.ZipCode == zipcode).AsQueryable();
+      var query = _db.Locations.Include(entry => entry.Deals).Where(s => s.ZipCode == userZipcode).AsQueryable();
 
       return query.ToList();
     }
@@ -88,7 +92,10 @@ namespace WisePriceApi.Controllers
     [HttpGet("{id}")]
     public ActionResult<Location> Get(int id)
     {
-      return _db.Locations.FirstOrDefault(entry => entry.LocationId == id);
+      return _db.Locations.Include(entry => entry.Deals).ThenInclude(entry => entry.Item)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PinnedDeals)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PostedDeals)
+      .FirstOrDefault(entry => entry.LocationId == id);
     }
 
 

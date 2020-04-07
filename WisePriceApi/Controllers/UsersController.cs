@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class UsersController : ControllerBase
   {
@@ -21,25 +21,9 @@ namespace WisePriceApi.Controllers
 
     // GET api/users
     [HttpGet]
-    public ActionResult<IEnumerable<User>> Get(string name, string username, string email, int page, int size)
+    public ActionResult<IEnumerable<User>> Get(int page, int size)
     {
-      var query = _db.Users.Include(entry => entry.PinnedDeals).AsQueryable();
-
-      if (name != null)
-      {
-        query = query.Where(entry => entry.FirstName.Contains(name) ||
-          entry.LastName.Contains(name));
-      }
-      
-      if (username != null)
-      {
-        query = query.Where(entry => entry.UserName.Contains(username));
-      }
-
-      if (email != null)
-      {
-        query = query.Where(entry => entry.Email.Contains(email));
-      }
+      var query = _db.Users.Include(entry => entry.PinnedDeals).Include(entry => entry.PostedDeals).AsQueryable();
 
       // Pagination
       int maxPageSize = 40; // max of 40 users per page
@@ -56,25 +40,10 @@ namespace WisePriceApi.Controllers
 
     // GET api/users/count
     [HttpGet("count")]
-    public ActionResult<int> CountUsers(string name, string username, string email)
+    public ActionResult<int> CountUsers()
     {
       var query = _db.Users.AsQueryable();
 
-      if (name != null)
-      {
-        query = query.Where(entry => entry.FirstName.Contains(name) ||
-          entry.LastName.Contains(name));
-      }
-      
-      if (username != null)
-      {
-        query = query.Where(entry => entry.UserName.Contains(username));
-      }
-
-      if (email != null)
-      {
-        query = query.Where(entry => entry.Email.Contains(email));
-      }
       return query.ToList().Count();
     }
 
@@ -82,7 +51,7 @@ namespace WisePriceApi.Controllers
     [HttpGet("{id}")]
     public ActionResult<User> Get(int id)
     {
-      return _db.Users.FirstOrDefault(entry => entry.UserId == id);
+      return _db.Users.Include(entry => entry.PinnedDeals).Include(entry => entry.PostedDeals).FirstOrDefault(entry => entry.UserId == id);
     }
 
     // POST api/users

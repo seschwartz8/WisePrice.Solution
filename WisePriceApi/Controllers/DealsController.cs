@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
-  [Route("/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class DealsController : ControllerBase
   {
@@ -21,18 +21,18 @@ namespace WisePriceApi.Controllers
 
     // GET api/deals
     [HttpGet]
-    public ActionResult<IEnumerable<Deal>> Get(string itemName, string location, int page, int size)
+    public ActionResult<IEnumerable<Deal>> Get(string itemName, string zipCode, int page, int size)
     {
-      var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
+      var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).AsQueryable();
       
       if (itemName != null)
       {
         query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
       }
 
-      if (location != null)
+      if (zipCode != null)
       {
-        query = query.Where(entry => entry.Location.ZipCode.ToString() == location);
+        query = query.Where(entry => entry.Location.ZipCode.ToString() == zipCode);
       }
 
       // Pagination
@@ -50,7 +50,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/deals/count
     [HttpGet("count")]
-    public ActionResult<int> CountDeals(string itemName, string location)
+    public ActionResult<int> CountDeals(string itemName, string locationName)
     {
       var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
 
@@ -59,9 +59,9 @@ namespace WisePriceApi.Controllers
         query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
       }
 
-      if (location != null)
+      if (locationName != null)
       {
-        query = query.Where(entry => entry.Location.Name.Contains(location));
+        query = query.Where(entry => entry.Location.Name.Contains(locationName));
       }
       return query.ToList().Count();
     }
@@ -71,7 +71,7 @@ namespace WisePriceApi.Controllers
     [HttpGet("{id}")]
     public ActionResult<Deal> Get(int id)
     {
-      return _db.Deals.FirstOrDefault(entry => entry.DealId == id);
+      return _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).FirstOrDefault(entry => entry.DealId == id);
     }
 
     // POST api/deals
