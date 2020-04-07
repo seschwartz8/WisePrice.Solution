@@ -31,11 +31,7 @@ namespace WisePriceClient.Controllers
           return View(user);
         }
       }
-
-      // List<ApplicationUser> users = _db.AspNetUsers.ToList();
-      //var thisUser = _db.ApplicationUsers.FirstOrDefault(user => user.UserName == User.Identity.Name);
-      // var thisUser = _userManager.Users.FirstOrDefault(user => user.UserName )
-      return RedirectToAction("Index", "Home");
+      return View();
     }
 
     public IActionResult Register()
