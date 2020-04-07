@@ -99,8 +99,11 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 
 | Action for USERS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
 | :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
-| Retrieve a user's pinned and posted deals  | GET | /api/users/{id} | N/A | N/A |
-| Delete a user along with their pinned and posted deals | DELETE | /api/users/{id} | N/A | N/A |
+| Retrieve a user                  | GET    | /api/users/{id}   | N/A | N/A |
+| Delete a user                    | DELETE | /api/users/{id}   | N/A | N/A |
+| Create a user                    | POST   | /api/users        | N/A | { "UserId": # } |
+
+> USER does not have a PUT method as UserId cannot be edited (due to it being a Primary Key).
 
 #### Example Query Search Parameters
 

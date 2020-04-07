@@ -19,29 +19,31 @@ namespace WisePriceApi.Controllers
       _db = db;
     }
 
+    // NOT USING? ================================
     // GET api/users
-    [HttpGet]
-    public ActionResult<IEnumerable<User>> Get(int page, int size)
-    {
-      var query = _db.Users
-        .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Item)
-        //.Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Location)
-        // .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Location)
-        .Include(entry => entry.PostedDeals).AsQueryable();
+    // [HttpGet]
+    // public ActionResult<IEnumerable<User>> Get(int page, int size)
+    // {
+    //   var query = _db.Users
+    //     .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Item)
+    //     //.Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Location)
+    //     // .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Location)
+    //     .Include(entry => entry.PostedDeals).AsQueryable();
 
-      // Pagination
-      int maxPageSize = 40; // max of 40 users per page
-      int pageSize = 20; //defaults to 20 users per page
+    //   // Pagination
+    //   int maxPageSize = 40; // max of 40 users per page
+    //   int pageSize = 20; //defaults to 20 users per page
 
-      int pageNumber = (page > 0) ? page : 1; //defaults to page 1
-      if (size > 0)
-      {
-        pageSize = (size > maxPageSize) ? maxPageSize : size;
-      }
+    //   int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+    //   if (size > 0)
+    //   {
+    //     pageSize = (size > maxPageSize) ? maxPageSize : size;
+    //   }
 
-      return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-    }
+    //   return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+    // }
 
+    // NOT USING? ================================
     // // GET api/users/count
     // [HttpGet("count")]
     // public ActionResult<int> CountUsers()
@@ -69,14 +71,15 @@ namespace WisePriceApi.Controllers
       _db.SaveChanges();
     }
 
-    // PUT api/users/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] User user)
-    {
-      user.UserId = id;
-      _db.Entry(user).State = EntityState.Modified;
-      _db.SaveChanges();
-    }
+    // NOT USING? =================================
+    // // PUT api/users/5
+    // [HttpPut("{id}")]
+    // public void Put(int id, [FromBody] User user)
+    // {
+    //   user.UserId = id;
+    //   _db.Entry(user).State = EntityState.Modified;
+    //   _db.SaveChanges();
+    // }
 
     // DELETE api/users/5
     [HttpDelete("{id}")]
