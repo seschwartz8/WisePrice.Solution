@@ -9,7 +9,7 @@ namespace WisePriceClient.Models
     public static async Task<string> GetAllDeals()
     {
       RestClient client = new RestClient("http://localhost:5003/api");
-      RestRequest request = new RestRequest($"deals", Method.GET);
+      RestRequest request = new RestRequest("deals", Method.GET);
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;
     }

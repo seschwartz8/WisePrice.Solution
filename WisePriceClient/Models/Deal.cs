@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,9 +15,9 @@ namespace WisePriceClient.Models
     public DateTime TimeUpdated { get; set; }
     public int UpVotes { get; set; }
     public int DownVotes { get; set; }
-    public virtual Item Item {get; set;}
-    public virtual Location Location {get; set;}
-    
+    public virtual Item Item { get; set; }
+    public virtual Location Location { get; set; }
+
     public static List<Deal> GetAll()
     {
       var apiCallTask = ApiHelper.GetAllDeals();
