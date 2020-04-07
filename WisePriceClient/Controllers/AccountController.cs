@@ -1,21 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceClient.Models;
+using WisePriceClient.ViewModels;
 
 namespace WisePriceClient.Controllers
 {
   public class AccountController : Controller
   {
-    public IActionResult Index()
+    private readonly WisePriceClientContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+
+    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, WisePriceClientContext db)
     {
-      return View();
+      _userManager = userManager;
+      _signInManager = signInManager;
+      _db = db;
     }
 
-    public IActionResult Login()
+    public ActionResult Index()
     {
       return View();
     }
@@ -25,9 +29,45 @@ namespace WisePriceClient.Controllers
       return View();
     }
 
-    public IActionResult Logoff()
+    [HttpPost]
+    public async Task<ActionResult> Register(RegisterViewModel model)
     {
-      return RedirectToAction("Index");
+      var user = new ApplicationUser { UserName = model.Email };
+      IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Login");
+      }
+      else
+      {
+        return View();
+      }
+    }
+
+    public ActionResult Login()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel model)
+    {
+      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent : true, lockoutOnFailure : false);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index", "Home");
+      }
+      else
+      {
+        return View();
+      }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> LogOff()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction("Index", "Home");
     }
   }
 }
