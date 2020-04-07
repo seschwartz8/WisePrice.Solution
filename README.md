@@ -95,10 +95,14 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 | Edit location                        | PUT    | /api/locations/{id}   | N/A | { "Name": "[edited location name]" } |
 | Delete location                      | DELETE | /api/locations/{id}   | N/A | N/A |
 | Count all locations                  | GET    | /api/locations/count  | N/A | N/A |
+| Retrieve locations in specific zip code | GET | api/locations/neareststores | int userZipCode | N/A |
 
-> _*Returns a list of items that includes users & locations of other items' users and locations. However, query search works well._
+| Action for USERS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| Retrieve a user's pinned and posted deals  | GET | /api/users/{id} | N/A | N/A |
+| Delete a user along with their pinned and posted deals | DELETE | /api/users/{id} | N/A | N/A |
 
-#### Search Parameters
+#### Example Query Search Parameters
 
 | Parameter | Type   | Example            | Response                                             |
 | :-------- | :----- | :----------------- | :--------------------------------------------------- |

@@ -80,10 +80,11 @@ namespace WisePriceApi.Controllers
       return query.ToList().Count();
     }
 
-    [HttpGet("nearestStores")]
-    public ActionResult<IEnumerable<Location>> GetNearestStore(int userZipcode)
+    // GET api/locations/neareststores
+    [HttpGet("neareststores")]
+    public ActionResult<IEnumerable<Location>> GetNearestStore(int userZipCode)
     {
-      var query = _db.Locations.Include(entry => entry.Deals).Where(s => s.ZipCode == userZipcode).AsQueryable();
+      var query = _db.Locations.Include(entry => entry.Deals).Where(s => s.ZipCode == userZipCode).AsQueryable();
 
       return query.ToList();
     }
@@ -97,8 +98,6 @@ namespace WisePriceApi.Controllers
       .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PostedDeals)
       .FirstOrDefault(entry => entry.LocationId == id);
     }
-
-
 
     // POST api/locations
     [HttpPost]

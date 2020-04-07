@@ -10,12 +10,12 @@ namespace WisePriceApi.Models
     public int UserId { get; set; }
 
     public virtual ICollection<PinnedDeal> PinnedDeals {get; set;}
-    public virtual ICollection<Deal> PostedDeals {get; set;}
+    public virtual ICollection<PostedDeal> PostedDeals {get; set;}
 
     public User()
     {
       this.PinnedDeals = new HashSet<PinnedDeal>();
-      this.PostedDeals = new HashSet<Deal>();
+      this.PostedDeals = new HashSet<PostedDeal>();
     }
       
   }

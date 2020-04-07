@@ -23,7 +23,11 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<User>> Get(int page, int size)
     {
-      var query = _db.Users.Include(entry => entry.PinnedDeals).Include(entry => entry.PostedDeals).AsQueryable();
+      var query = _db.Users
+        .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Item)
+        //.Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Location)
+        // .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Location)
+        .Include(entry => entry.PostedDeals).AsQueryable();
 
       // Pagination
       int maxPageSize = 40; // max of 40 users per page
@@ -38,20 +42,23 @@ namespace WisePriceApi.Controllers
       return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
     }
 
-    // GET api/users/count
-    [HttpGet("count")]
-    public ActionResult<int> CountUsers()
-    {
-      var query = _db.Users.AsQueryable();
-
-      return query.ToList().Count();
-    }
+    // // GET api/users/count
+    // [HttpGet("count")]
+    // public ActionResult<int> CountUsers()
+    // {
+    //   var query = _db.Users.AsQueryable();
+    //   return query.ToList().Count();
+    // }
 
     // GET api/users/5
     [HttpGet("{id}")]
-    public ActionResult<User> Get(int id)
+    public ActionResult<User> Get(int id, int page, int size)
     {
-      return _db.Users.Include(entry => entry.PinnedDeals).Include(entry => entry.PostedDeals).FirstOrDefault(entry => entry.UserId == id);
+      var query = _db.Users
+      .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal)
+      .Include(entry => entry.PostedDeals).ThenInclude(entry => entry.Deal)
+      .FirstOrDefault(entry => entry.UserId == id);
+      return query;
     }
 
     // POST api/users
