@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace WisePriceApi.Models
 {
   public class PinnedDeal

@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace WisePriceApi.Models
 {
   public class PostedDeal
@@ -7,6 +9,7 @@ namespace WisePriceApi.Models
     public int DealId { get; set; }
 
     public virtual User User {get; set;}
+
     public virtual Deal Deal {get; set;}
   }
 }
