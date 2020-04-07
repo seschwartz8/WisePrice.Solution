@@ -9,24 +9,25 @@
       <div class='col'></div>
   </div>
 
-
+@if (User.Identity.IsAuthenticated)
+{
   <div class='account-sub'>
     <div class='account-info'>
       <div class='row'>
         <h4>Username</h4>
-        <p>detail</p>
+        <p>detaildetaildetail</p>
       </div>
       <div class='row'>
         <h4>First Name</h4>
-        <p>detail</p>
+        <p>detaildetaildetail</p>
       </div>
       <div class='row'>
         <h4>Last Name</h4>
-        <p>detail</p>
+        <p>detaildetaildetail</p>
       </div>
       <div class='row'>
         <h4>Email</h4>
-        <p>detail</p>
+        <p>detaildetaildetaildetaildetail</p>
       </div> 
       <div class='row'>
         <h4>Zip Code</h4>
@@ -34,6 +35,19 @@
       </div>     
     </div>
   </div>
+
+  <form asp-controller='Account' asp-action='Logoff' method='post'>
+      <input type="submit" class="ui button" value="Log out" />
+  </form>
+}
+else 
+{
+  <h4>You are not logged in</h4>
+  <a asp-controller='Account' asp-action='Login' class='ui button'>Log In</a>
+  <br/>
+  <a asp-controller='Account' asp-action='Register' class='ui button'>Register</a>
+}
+
 
 </div>
 

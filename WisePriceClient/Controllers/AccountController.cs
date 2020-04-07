@@ -8,21 +8,26 @@ using WisePriceClient.Models;
 
 namespace WisePriceClient.Controllers
 {
-    public class AccountController : Controller
+  public class AccountController : Controller
+  {
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-          return View();
-        }
-
-        public IActionResult Login()
-        {
-          return View();
-        }
-
-        public IActionResult Register()
-        {
-          return View();
-        }
+      return View();
     }
+
+    public IActionResult Login()
+    {
+      return View();
+    }
+
+    public IActionResult Register()
+    {
+      return View();
+    }
+
+    public IActionResult Logoff()
+    {
+      return RedirectToAction("Index");
+    }
+  }
 }
