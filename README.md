@@ -73,10 +73,12 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 | :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
 | List all deals (paginated)       | GET    | /api/deals        | string itemName, string zipCode, int page, int size | N/A |
 | Retrieve specific deal           | GET    | /api/deals/{id}   | N/A | N/A |
-| Create deal                      | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": #, "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
+| Create deal*                     | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": #, "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
 | Edit deal                        | PUT    | /api/deals/{id}   | N/A | { "itemId": #, "locationId": #, "userId": #, "price": #, "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
 | Delete deal                      | DELETE | /api/deals/{id}   | N/A | N/A |
 | Count all deals                  | GET    | /api/deals/count  | string itemName, string locationName | N/A |
+
+> *Creating a new deal will automatically create a PinnedDeal relationship given a userId in the new deal.
 
 | Action for ITEMS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
 | :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
