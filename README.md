@@ -69,14 +69,34 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 
 #### Routes
 
-| Action                           | Method | Endpoint          |
-| :------------------------------- | :----- | :---------------- |
-| List all deals (paginated)       | GET    | /api/deals        |
-| Retrieve specific deal           | GET    | /api/deals/{id}   |
-| Create deal                      | POST   | /api/deals        |
-| Edit deal                        | PUT    | /api/deals/{id}   |
-| Delete deal                      | DELETE | /api/deals/{id}   |
-| Count all deals                  | GET    | /api/deals/count  |
+| Action for DEALS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all deals (paginated)       | GET    | /api/deals        | string itemName, string zipCode, int page, int size | N/A |
+| Retrieve specific deal           | GET    | /api/deals/{id}   | N/A | N/A |
+| Create deal                      | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": #, "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
+| Edit deal                        | PUT    | /api/deals/{id}   | N/A | { "itemId": #, "locationId": #, "userId": #, "price": #, "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
+| Delete deal                      | DELETE | /api/deals/{id}   | N/A | N/A |
+| Count all deals                  | GET    | /api/deals/count  | string itemName, string locationName | N/A |
+
+| Action for ITEMS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all items* (paginated)      | GET    | /api/items        | string name, int page, int size | N/A |
+| Retrieve specific location       | GET    | /api/locations/{id}   | N/A | N/A |
+| Create item                      | POST   | /api/items        | N/A | { "ItemName": "[item name]" } |
+| Edit item                        | PUT    | /api/items/{id}   | N/A | { "ItemName": "[edited item name]" } |
+| Delete item                      | DELETE | /api/items/{id}   | N/A | N/A |
+| Count all items                  | GET    | /api/items/count  | N/A | N/A |
+
+| Action for LOCATIONS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all locations* (paginated)      | GET    | /api/locations        | string name, string zipcode, string address, int page, int size | N/A |
+| Retrieve specific location           | GET    | /api/locations/{id}   | N/A | N/A |
+| Create location                      | POST   | /api/locations        | N/A | { "Name": "[location name]" } |
+| Edit location                        | PUT    | /api/locations/{id}   | N/A | { "Name": "[edited location name]" } |
+| Delete location                      | DELETE | /api/locations/{id}   | N/A | N/A |
+| Count all locations                  | GET    | /api/locations/count  | N/A | N/A |
+
+> _*Returns a list of items that includes users & locations of other items' users and locations. However, query search works well._
 
 #### Search Parameters
 
