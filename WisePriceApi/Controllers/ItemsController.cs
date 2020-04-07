@@ -22,7 +22,23 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Item>> Get(string name, int page, int size)
     {
-      var query = _db.Items.Include(entry => entry.Deals).ThenInclude(entry => entry.Location).AsQueryable();
+      var query = _db.Items
+        // .Include(entry => entry.Deals)
+        // .Include(entry => entry.Deals.User)
+        // .Include(Deals.Location)
+        // .AsQueryable();
+
+        .Include(entry => entry.Deals).ThenInclude(entry => entry.User)
+        .Include(entry => entry.Deals).ThenInclude(deal => deal.Location)
+        .AsQueryable();
+
+        // .Include(e => e.Deals.Select(a => a.User))
+        // .Include(b => b.Deals.Select(c => c.Location))
+        // .AsQueryable();
+
+        // .Include(e => e.Deals).ThenInclude(d => d.User)
+        // .Include(b => b.Deals.Select(c => c.Location))
+        // .AsQueryable();
 
       if (name != null)
       {

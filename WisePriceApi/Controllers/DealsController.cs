@@ -23,7 +23,7 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Deal>> Get(string itemName, string location, int page, int size)
     {
-      var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
+      var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).AsQueryable();
       
       if (itemName != null)
       {
@@ -71,7 +71,7 @@ namespace WisePriceApi.Controllers
     [HttpGet("{id}")]
     public ActionResult<Deal> Get(int id)
     {
-      return _db.Deals.FirstOrDefault(entry => entry.DealId == id);
+      return _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).FirstOrDefault(entry => entry.DealId == id);
     }
 
     // POST api/deals
