@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
-  [Route("/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class LocationsController : ControllerBase
   {
@@ -23,7 +23,7 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Location>> Get(string name, int? zipcode, string address, int page, int size)
     {
-      var query  = _db.Locations.AsQueryable();
+      var query  = _db.Locations.Include(entry => entry.Deals).AsQueryable();
 
       if (name != null)
       {

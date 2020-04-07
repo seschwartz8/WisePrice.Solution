@@ -7,7 +7,7 @@ using WisePriceApi.Models;
 using Microsoft.EntityFrameworkCore;
 namespace WisePriceApi.Controllers
 {
-  [Route("/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class ItemsController : ControllerBase
   {
@@ -22,7 +22,7 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Item>> Get(string name, int page, int size)
     {
-      var query = _db.Items.AsQueryable();
+      var query = _db.Items.Include(entry => entry.Deals).ThenInclude(entry => entry.Location).AsQueryable();
 
       if (name != null)
       {
