@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace WisePriceClient.Controllers
     private readonly WisePriceClientContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    public IEnumerable<ApplicationUser> Users { get; set; }
 
     public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, WisePriceClientContext db)
     {
@@ -21,7 +23,19 @@ namespace WisePriceClient.Controllers
 
     public ActionResult Index()
     {
-      return View();
+      var users = _userManager.Users;
+      foreach (var user in users)
+      {
+        if (user.UserName == User.Identity.Name)
+        {
+          return View(user);
+        }
+      }
+
+      // List<ApplicationUser> users = _db.AspNetUsers.ToList();
+      //var thisUser = _db.ApplicationUsers.FirstOrDefault(user => user.UserName == User.Identity.Name);
+      // var thisUser = _userManager.Users.FirstOrDefault(user => user.UserName )
+      return RedirectToAction("Index", "Home");
     }
 
     public IActionResult Register()

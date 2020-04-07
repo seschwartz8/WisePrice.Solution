@@ -3,6 +3,7 @@
 }
 
 @using System.Security.Claims
+@model ApplicationUser
 
 <div class='account-body'>
   <div class='account-top'>
@@ -21,19 +22,19 @@
       </div>
       <div class='row'>
         <h4>First Name</h4>
-        <p></p>
+        <p>@Model.FirstName</p>
       </div>
       <div class='row'>
         <h4>Last Name</h4>
-        <p>detaildetaildetail</p>
+        <p>@Model.LastName</p>
       </div>
       <div class='row'>
         <h4>Email</h4>
-        <p></p>
+        <p>@Model.Email</p>
       </div> 
       <div class='row'>
         <h4>Zip Code</h4>
-        <p>detail</p>
+        <p>@Model.ZipCode</p>
       </div>     
     </div>
   </div>
