@@ -7,7 +7,7 @@ using WisePriceApi.Models;
 using Microsoft.EntityFrameworkCore;
 namespace WisePriceApi.Controllers
 {
-  [Route("/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class ItemsController : ControllerBase
   {
@@ -22,7 +22,23 @@ namespace WisePriceApi.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Item>> Get(string name, int page, int size)
     {
-      var query = _db.Items.AsQueryable();
+      var query = _db.Items
+        .Include(entry => entry.Deals).ThenInclude(entry => entry.User)
+        .Include(entry => entry.Deals).ThenInclude(entry => entry.Location).AsQueryable();
+
+        // FAILED ATTEMPTS TO LIST ALL ITEMS WITHOUT OVERPOPULATING DATA LOADED IN RESPONSE:
+        // .Include(entry => entry.Deals)
+        // .Include(entry => entry.Deals.User)
+        // .Include(Deals.Location)
+        // .AsQueryable();
+
+        // .Include(e => e.Deals.Select(a => a.User))
+        // .Include(b => b.Deals.Select(c => c.Location))
+        // .AsQueryable();
+
+        // .Include(e => e.Deals).ThenInclude(d => d.User)
+        // .Include(b => b.Deals.Select(c => c.Location))
+        // .AsQueryable();
 
       if (name != null)
       {
@@ -59,7 +75,11 @@ namespace WisePriceApi.Controllers
     [HttpGet("{id}")]
     public ActionResult<Item> Get(int id)
     {
-      return _db.Items.FirstOrDefault(entry => entry.ItemId == id);
+      return _db.Items
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.Location)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PinnedDeals)
+      .Include(entry => entry.Deals).ThenInclude(entry => entry.User).ThenInclude(entry => entry.PostedDeals)
+      .FirstOrDefault(entry => entry.ItemId == id);
     }
 
     // POST api/items

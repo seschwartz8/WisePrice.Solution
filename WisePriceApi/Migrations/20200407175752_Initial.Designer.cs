@@ -9,8 +9,8 @@ using WisePriceApi.Models;
 namespace WisePriceApi.Migrations
 {
     [DbContext(typeof(WisePriceApiContext))]
-    [Migration("20200406185049_AddDealLists")]
-    partial class AddDealLists
+    [Migration("20200407175752_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,19 +38,13 @@ namespace WisePriceApi.Migrations
 
                     b.Property<int>("UserId");
 
-                    b.Property<string>("UserId1");
-
-                    b.Property<string>("UserId2");
-
                     b.HasKey("DealId");
 
                     b.HasIndex("ItemId");
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("UserId1");
-
-                    b.HasIndex("UserId2");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Deals");
                 });
@@ -92,61 +86,39 @@ namespace WisePriceApi.Migrations
 
                     b.Property<int>("UserId");
 
-                    b.Property<string>("UserId1");
-
                     b.HasKey("PinnedDealId");
 
                     b.HasIndex("DealId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("PinnedDeals");
                 });
 
-            modelBuilder.Entity("WisePriceApi.Models.User", b =>
+            modelBuilder.Entity("WisePriceApi.Models.PostedDeal", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("PostedDealId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<int>("Password");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
+                    b.Property<int>("DealId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<string>("UserName");
+                    b.HasKey("PostedDealId");
 
-                    b.Property<string>("Zip");
+                    b.HasIndex("DealId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostedDeals");
+                });
+
+            modelBuilder.Entity("WisePriceApi.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
@@ -164,12 +136,9 @@ namespace WisePriceApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WisePriceApi.Models.User")
-                        .WithMany("AddedDeals")
-                        .HasForeignKey("UserId1");
-
-                    b.HasOne("WisePriceApi.Models.User")
-                        .WithMany("PinnedDeals")
-                        .HasForeignKey("UserId2");
+                        .WithMany("PostedDeals")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WisePriceApi.Models.PinnedDeal", b =>
@@ -180,8 +149,22 @@ namespace WisePriceApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WisePriceApi.Models.User", "User")
+                        .WithMany("PinnedDeals")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WisePriceApi.Models.PostedDeal", b =>
+                {
+                    b.HasOne("WisePriceApi.Models.Deal", "Deal")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("DealId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WisePriceApi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
