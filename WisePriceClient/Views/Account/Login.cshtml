@@ -11,6 +11,25 @@
 
 
   <div class='account-sub'>
+    <form asp-controller='Account' asp-action='Login' method='post' class="ui equal width form">
+      <div class='field'>
+        <label>Email</label>
+        <!-- <input asp-for="Email" id='Email' placeholder='Email' required> -->
+        <input id='Email' placeholder='Email' required>
+      </div>     
+
+      <div class='field'>
+        <label>Password</label>
+        <!-- <input type="password" id='password' asp-for="Password" required> -->
+        <input type="password" id='password' placeholder='Password' required>
+      </div>
+
+      <div class='submit-field'>
+        <input type="submit" value="Log in" class="ui button" />
+        <small>New to Wise Price? <a asp-action="Register">Sign Up</a></small>
+      </div>
+    </form>
+  
   </div>
 
 </div>
