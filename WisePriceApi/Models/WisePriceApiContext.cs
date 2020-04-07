@@ -14,5 +14,6 @@ namespace WisePriceApi.Models
     public DbSet<User> Users { get; set; }
     public DbSet<Deal> Deals { get; set; }
     public DbSet<PinnedDeal> PinnedDeals { get; set; }
+    public DbSet<PostedDeal> PostedDeals { get; set; }
   }
 }
