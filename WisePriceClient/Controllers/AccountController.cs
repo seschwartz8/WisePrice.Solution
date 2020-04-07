@@ -29,6 +29,22 @@ namespace WisePriceClient.Controllers
       return View();
     }
 
+    // [HttpPost]
+    // public async Task<ActionResult> Register(RegisterViewModel model)
+    // {
+    //   var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.UserName, Email = model.Email, ZipCode = model.ZipCode };
+    //   IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+
+    //   if (result.Succeeded)
+    //   {
+    //     return RedirectToAction("Login");
+    //   }
+    //   else
+    //   {
+    //     return View();
+    //   }
+    // }
+
     [HttpPost]
     public async Task<ActionResult> Register(RegisterViewModel model)
     {
@@ -36,7 +52,7 @@ namespace WisePriceClient.Controllers
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)
       {
-        return RedirectToAction("Login");
+        return RedirectToAction("Index");
       }
       else
       {
@@ -53,6 +69,7 @@ namespace WisePriceClient.Controllers
     public async Task<ActionResult> Login(LoginViewModel model)
     {
       Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent : true, lockoutOnFailure : false);
+
       if (result.Succeeded)
       {
         return RedirectToAction("Index", "Home");

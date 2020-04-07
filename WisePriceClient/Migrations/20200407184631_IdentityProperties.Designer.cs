@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WisePriceClient.Models;
 
 namespace WisePriceClient.Migrations
 {
     [DbContext(typeof(WisePriceClientContext))]
-    partial class WisePriceClientContextModelSnapshot : ModelSnapshot
+    [Migration("20200407184631_IdentityProperties")]
+    partial class IdentityProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

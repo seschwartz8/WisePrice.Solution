@@ -2,6 +2,9 @@
     ViewData["Title"] = "Register";
 }
 
+@using WisePriceClient.ViewModels
+@model RegisterViewModel
+
 <div class='account-body'>
   <div class='account-top'>
       <div class='col'></div>
@@ -11,46 +14,45 @@
 
 
   <div class='account-sub'>
-    <form asp-controller='Account' asp-action='Register' method='post' class="ui equal width form">
+    <!-- <form asp-controller='Account' asp-action='Register' method='post' class="ui equal width form">
       <div class='two fields'>
         <div class='field'>
           <label>First Name</label>
-          <!-- <input asp-for="FirstName" id='FirstName' placeholder='FirstName' required> -->
-          <input id='FirstName' placeholder='FirstName' required>
+          <input asp-for="FirstName" id='FirstName' placeholder='FirstName' required>
         </div>
 
         <div class='field'>
           <label>Last Name</label>
-          <!-- <input asp-for="LastName" id='LastName' placeholder='LastName' required> -->
-          <input id='LastName' placeholder='LastName' required>
+          <input asp-for="LastName" id='LastName' placeholder='LastName' required>
         </div>
       </div> 
 
       <div class='two fields'>
         <div class='field'>
           <label>Email</label>
-          <!-- <input asp-for="Email" id='Email' placeholder='Email' required> -->
-          <input id='Email' placeholder='Email' required>
+          <input asp-for="Email" id='Email' placeholder='Email' required>
         </div>   
 
         <div class='field'>
           <label>Username</label>
-          <!-- <input type="username" id='username' asp-for="Username" required> -->
-          <input id='username' placeholder='Username' required>
+          <input id='username' asp-for="UserName" placeholder='UserName' required>
         </div>
       </div> 
 
       <div class='two fields'>
         <div class='field'>
           <label>Password</label>
-          <!-- <input type="password" id='password' asp-for="Password" required> -->
-          <input type="password" id='password' placeholder='Password' required>
+          <input id='password' asp-for="Password" placeholder="Password" required>
+        </div>
+
+        <div class='field'>
+          <label>Password</label>
+          <input id='password' asp-for="ConfirmPassword" placeholder="Confirm Password" required>
         </div>
 
         <div class='field'>
           <label>Zip Code</label>
-            <!-- <input asp-for="ZipCode" id='ZipCode' placeholder='ZipCode' required> -->
-            <input id='ZipCode' placeholder='ZipCode' required>
+            <input asp-for="ZipCode" id='ZipCode' placeholder='ZipCode' required>
         </div> 
       </div>
 
@@ -60,7 +62,18 @@
         <input type="submit" value="Register" class="ui button" />
         <small>Already have an account? <a asp-action="Login">Log In</a></small>
       </div>
-    </form>
+    </form> -->
+
+      @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+  {
+      @Html.LabelFor(user => user.Email)
+      @Html.TextBoxFor(user=> user.Email)
+      @Html.LabelFor(user=> user.Password)
+      @Html.PasswordFor(user=> user.Password)
+      @Html.LabelFor(user=> user.ConfirmPassword)
+      @Html.PasswordFor(user=> user.ConfirmPassword)
+      <input type="submit" value="Register" class="btn btn-default"/>
+  }
   
   </div>
 
