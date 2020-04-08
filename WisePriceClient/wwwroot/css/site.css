@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+a {
+  color: steelblue;
+}
+
 h1 {
   text-align: center;
   font-size: 4em;
@@ -136,7 +140,7 @@ div.ui.bottom {
 }
 
 #item-btn {
-  color: #0000ee;
+  color: steelblue;
   float: right;
 }
 
