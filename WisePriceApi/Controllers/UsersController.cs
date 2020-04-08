@@ -54,7 +54,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/users/5
     [HttpGet("{id}")]
-    public ActionResult<User> Get(int id, int page, int size)
+    public ActionResult<User> Get(int id)
     {
       var query = _db.Users
       .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal)
@@ -71,16 +71,6 @@ namespace WisePriceApi.Controllers
       _db.SaveChanges();
     }
 
-    // NOT USING? =================================
-    // // PUT api/users/5
-    // [HttpPut("{id}")]
-    // public void Put(int id, [FromBody] User user)
-    // {
-    //   user.UserId = id;
-    //   _db.Entry(user).State = EntityState.Modified;
-    //   _db.SaveChanges();
-    // }
-
     // DELETE api/users/5
     [HttpDelete("{id}")]
     public void Delete(int id)
@@ -89,5 +79,15 @@ namespace WisePriceApi.Controllers
       _db.Users.Remove(userToDelete);
       _db.SaveChanges();
     }
+
+    // GET api/users/5/pinneddeals
+    // [HttpGet("{id}/pinneddeals")]
+    // public ActionResult<User> Get(int id, int page, int size)
+    // {
+    //   var query = _db.Users
+    //   .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal)
+    //   .FirstOrDefault(entry => entry.UserId == id);
+    //   return query;
+    // }
   }
 }
