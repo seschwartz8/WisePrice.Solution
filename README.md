@@ -75,10 +75,11 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 | Retrieve specific deal           | GET    | /api/deals/{id}   | N/A | N/A |
 | Create deal*                     | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
 | Edit deal                        | PUT    | /api/deals/{id}   | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "timeUpdated": "YYYY-MM-DD", "upVotes": #, "downVotes": # } |
-| Delete deal                      | DELETE | /api/deals/{id}   | N/A | N/A |
+| Delete deal**                    | DELETE | /api/deals/{userId}/{dealId} | N/A | N/A |
 | Count all deals                  | GET    | /api/deals/count  | string itemName, string locationName | N/A |
 
-> *Creating a new deal will automatically create a PinnedDeal relationship given a userId in the new deal.
+> *Creating a new deal will automatically create a PostedDeal relationship given a userId in JSON input.
+> **Deleting a deal will automatically delete its PostedDeal.
 
 | Action for ITEMS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
 | :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
@@ -105,7 +106,29 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 | Delete a user                    | DELETE | /api/users/{id}   | N/A | N/A |
 | Create a user                    | POST   | /api/users        | N/A | { "UserId": # } |
 
-> USER does not have a PUT method as UserId cannot be edited (due to it being a Primary Key).
+> USER does NOT have a PUT method as UserId cannot be edited (due to it being a Primary Key).
+
+| Action for PINNED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
+| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
+| List all pinned deals sorted by item name (paginated)* | GET | /api/pinneddeals/{userId} | int page, int size | N/A |
+| Retrieve specific pinned deal      | GET    | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
+| Create pinned deal and doensn't allow duplicated pinned deal | POST | /api/posteddeals | N/A | { "userId": "[User Id]" } { "dealId": "[Deal Id]" }|
+| Delete pinned deal                 | DELETE | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
+| Count all pinneddeals              | GET    | /api/pinneddeals/count | N/A | N/A |
+
+> PINNED DEALS do not have a PUT method as when a user pins/unpins a deal, the user creates/deletes a PinnedDeal relationship.
+
+| Action for POSTED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
+| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
+| List all posted deals (paginated)* | GET  | /api/posteddeals/{userId}  | int page, int size | N/A |
+| Retrieve specific posted deal      | GET  | /api/posteddeals/{userId}/{dealId} | N/A | N/A |
+| Create posted deal relationship*   | POST | /api/posteddeals/{userId}  | N/A | { "userId": 1, "dealId": 2 } |
+| Delete posted deal**               | DELETE | N/A   | N/A | N/A |
+| Count all posted deals of a user   | GET  | /api/posteddeals/{userId}/count | N/A | N/A |
+
+> *There are 2 ways you can create a new PostedDeal: 1) By creating a new deal will automatically create a new PostedDeal. 2) By creating a new PostedDeal directly.
+> **See DELETE action for DEALS.
+> POSTED DEALS do not have a PUT method as when a user edits a deal, the userId and dealId will not change therefore the PostedDealId will not change.
 
 #### Example Query Search Parameters
 
