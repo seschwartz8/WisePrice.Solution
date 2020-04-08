@@ -46,7 +46,9 @@
             <div class="menu">
               @foreach (Item item in ViewBag.allItems)
               {
-                <div value='@item.ItemId' class="item">@item.ItemName</div>
+                <div value='@item.ItemId' class="item">
+                  @item.ItemName
+                </div>
               }
             </div>
           </div>
@@ -82,9 +84,11 @@
         </div>
 
         <input type="hidden" asp-for="UserId" value="@ViewBag.userId"/>
-
-      <button class='ui button' type='submit'>Add Deal</button>
-      <small><a asp-action='Index'>Cancel</a></small>
+      
+      <div class='submit-field'>
+        <button class='ui button' type='submit'>Add Deal</button>
+        <small><a asp-action='Index'>Cancel</a></small>
+      </div>
     </form>
   </div>
 </div>
