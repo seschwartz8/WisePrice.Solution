@@ -28,14 +28,18 @@ namespace WisePriceClient.Controllers
     }
 
     [HttpPost]
-    public IActionResult Create(string ItemId, string LocationId, string Price, string UserId)
+    public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
-      System.Console.WriteLine("---------------------------------------------------------");
-      System.Console.WriteLine("---------------------" + ItemId);
-      System.Console.WriteLine("---------------------" + LocationId);
+      // ItemId = int.Parse(ItemId);
+      // LocationId = int.Parse(LocationId);
+      // UserId = int.Parse(UserId);
+      // Deal newDeal = new Deal { ItemId = ItemId, LocationId = LocationId, Price = Price, UserId = UserId };
+
+      System.Console.WriteLine("-------------------------------------------------------------------------------------------" + newItemName + "-------------------------------------------");
       // receive new item? if so, overwrite any possible existing itemId
       // turn information into a deal
-      //Deal.Post(deal);
+
+      // Deal.Post(newDeal);
       return RedirectToAction("Index");
     }
 
