@@ -14,6 +14,7 @@
 
         $('#item-btn').click(function() {
           $('#item-field').toggle();
+          $("#item-input").val('');
         });
     });
 </script>
@@ -39,17 +40,18 @@
               <!-- FOR LOOP FOR ALL ITEMS -->
                 <div class="item">ITEM FOR LOOP</div>
               </div>
+              @Html.DropDownList("ItemId")
             </div>
           </div>
         </div>
 
-        <div class='field'>
+        <div class='item-btn-container field'>
           <a id="item-btn" type='button'>I don't see my item</a>
         </div>
 
         <div id='item-field' class="field">
           <label for='Item'>Add a new item</label>
-          <input type="text" placeholder="Spaghetti Squash">
+          <input id='item-input' type="text" placeholder="Spaghetti Squash">
         </div>
 
         <div class="field">

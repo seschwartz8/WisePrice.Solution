@@ -18,6 +18,8 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Create()
     {
+      // ViewBag.ItemId = new SelectList(_db.Items, "ItemId", "ItemName");
+      // ViewBag.LocationId = new SelectList(_db.Locations, "LocationId", "Name");
       return View();
     }
 
