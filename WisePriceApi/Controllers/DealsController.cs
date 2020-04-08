@@ -77,10 +77,13 @@ namespace WisePriceApi.Controllers
     [HttpPost]
     public void Post([FromBody] Deal deal)
     {
+      DateTime currentTime = new DateTime();
+      currentTime = DateTime.Now;
+      deal.TimeUpdated = currentTime;
       _db.Deals.Add(deal);
-      if (deal.UserId != 0)
+      if (deal.UserId != null)
       {
-        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId });
+        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId});
       }
       _db.SaveChanges();
     }
@@ -96,10 +99,10 @@ namespace WisePriceApi.Controllers
 
     // DELETE api/deals/1/5
     [HttpDelete("{userId}/{dealId}")]
-    public void Delete(int userId, int dealId)
+    public void Delete(string userId, int dealId)
     {
       var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == dealId);
-      if (dealToDelete.UserId != 0)
+      if (dealToDelete.UserId != null)
       {
         var postedDealToDelete = _db.PostedDeals.Where(entry => entry.UserId == userId).FirstOrDefault(entry => entry.DealId == dealId);
         _db.PostedDeals.Remove(postedDealToDelete);

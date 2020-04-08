@@ -21,7 +21,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/pinneddeals/1
     [HttpGet("{userId}")]
-    public ActionResult<IEnumerable<PinnedDeal>> Get(int userId, int page, int zipcode, int size)
+    public ActionResult<IEnumerable<PinnedDeal>> Get(string userId, int page, int zipcode, int size)
     {
       var query = _db.PinnedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)
@@ -44,7 +44,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/posteddeals/1/5
     [HttpGet("{userId}/{dealId}")]
-    public ActionResult<PinnedDeal> Get(int userId, int dealId)
+    public ActionResult<PinnedDeal> Get(string userId, int dealId)
     {
       return _db.PinnedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)
@@ -75,7 +75,7 @@ namespace WisePriceApi.Controllers
 
     // DELETE api/pinneddeals/1/5
     [HttpDelete("{userId}/{dealId}")]
-    public void Delete(int userId, int dealId)
+    public void Delete(string userId, int dealId)
     {
       var joinDealEntry = _db.PinnedDeals.Where(entry => entry.UserId == userId).FirstOrDefault(entry => entry.DealId == dealId);
       _db.PinnedDeals.Remove(joinDealEntry);
