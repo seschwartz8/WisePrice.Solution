@@ -77,10 +77,13 @@ namespace WisePriceApi.Controllers
     [HttpPost]
     public void Post([FromBody] Deal deal)
     {
+      DateTime currentTime = new DateTime();
+      currentTime = DateTime.Now;
+      deal.TimeUpdated = currentTime;
       _db.Deals.Add(deal);
       if (deal.UserId != 0)
       {
-        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId });
+        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId});
       }
       _db.SaveChanges();
     }

@@ -59,7 +59,7 @@ To run dev mode locally:
   # After successfull pkg installtion
   $ dotnet run
 ```
-Now, it will automatically open http://localhost:5000 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](https://localhost:5000/swagger)
+Now, it will automatically open http://localhost:5003 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](https://localhost:5003/swagger)
 
 ## API Documentation
 
@@ -181,7 +181,7 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 
 #### Example Query
 
-- Example query: http://localhost:5000/api/deals/?itemname=broccoli&zipcode=98105&page=3&size=25
+- Example query: http://localhost:5003/api/deals/?itemname=broccoli&zipcode=98105&page=3&size=25
 
   - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 5 results per page.
 
