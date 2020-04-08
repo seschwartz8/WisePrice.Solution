@@ -13,8 +13,11 @@ namespace WisePriceClient.Controllers
 {
   public class DealsController : Controller
   {
-    public IActionResult Index()
+    public IActionResult Index(int id = 1)
     {
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
       ViewBag.DealCount = Deal.GetCount();
 
       var allDeals = Deal.GetAll();

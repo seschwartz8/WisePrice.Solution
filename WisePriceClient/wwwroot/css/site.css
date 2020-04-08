@@ -18,6 +18,18 @@ small {
   flex: 1;
 }
 
+/* PAGINATION */
+.pagination {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-page {
+  font-weight: 700;
+}
+
 /* HOMEPAGE */
 h1.title {
   font-size: 8em;
@@ -38,7 +50,6 @@ h1.title {
   align-items: center;
 }
 
-
 /* DEALS PAGE and CARDS*/
 .deals-body {
   height: 100%;
@@ -50,6 +61,7 @@ h1.title {
 
 .col {
   width: 33%;
+  padding: 0 10%;
 }
 
 .deals-top {
@@ -79,10 +91,11 @@ div.ui.icon.input {
 }
 
 .ui.cards {
-  margin: 1%;  
+  margin: 1%;
 }
 
-.content, .description {
+.content,
+.description {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -123,7 +136,7 @@ div.ui.bottom {
 }
 
 #item-btn {
-  color: #0000EE;
+  color: #0000ee;
   float: right;
 }
 
@@ -181,7 +194,6 @@ div.ui.bottom {
   flex-direction: column;
   align-items: center;
 }
-
 
 /* FOOTER */
 footer {
