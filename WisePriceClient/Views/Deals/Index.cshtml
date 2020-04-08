@@ -1,6 +1,12 @@
 @{
     ViewData["Title"] = "Deals";
 }
+
+@{
+  int nextPage = ViewBag.Page + 1;
+  int prevPage = ViewBag.Page - 1;
+}
+
 @using WisePriceClient.Models
 @model List<Deal>
 
@@ -8,7 +14,28 @@
     <div class='deals-top'>
         <div class='col'></div>
         <h1>Deals</h1>
-        <div class='col'></div>
+        <div class='col'>
+          <div class='pagination'>
+            <div>
+              @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+            </div>
+            <div>
+              <div class='page-nav'>
+                @if (ViewBag.Page > 1)
+                {
+                  <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+                }
+
+                <span class="current-page">Page @ViewBag.Page</span>
+                
+                @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+                {
+                  <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="ui search">
