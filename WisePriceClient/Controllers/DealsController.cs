@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WisePriceClient.Models;
 
 namespace WisePriceClient.Controllers
@@ -18,8 +19,12 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Create()
     {
-      // ViewBag.ItemId = new SelectList(_db.Items, "ItemId", "ItemName");
-      // ViewBag.LocationId = new SelectList(_db.Locations, "LocationId", "Name");
+      // List<Item> allItems = Item.GetAll();
+      // List<Location> allLocations = Location.GetAll();
+      // ViewBag.ItemId = new SelectList(allItems, "ItemId", "ItemName");
+      // ViewBag.LocationId = new SelectList(allLocations, "LocationId", "Name");
+      ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
+      ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
       return View();
     }
 

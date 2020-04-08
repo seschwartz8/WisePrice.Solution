@@ -2,6 +2,23 @@
     ViewData["Title"] = "Edit Deal";
 }
 
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#item-field').hide();
+
+        $('#item-btn').click(function() {
+          $('#item-field').toggle();
+          $("#item-input").val('');
+        });
+    });
+</script>
+
 <div class='create-body'>
   <div class='create-top'>
       <div class='col'></div>
@@ -29,9 +46,13 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class='item-btn-container field'>
+          <a id="item-btn" type='button'>I don't see my item</a>
+        </div>
+
+        <div id='item-field' class="field">
           <label for='Item'>Add a new item</label>
-          <input type="text" placeholder="Spaghetti Squash">
+          <input id='item-input' type="text" placeholder="Spaghetti Squash">
         </div>
         
         <div class="field">
@@ -61,5 +82,3 @@
   </form>
 
 </div>
-
-
