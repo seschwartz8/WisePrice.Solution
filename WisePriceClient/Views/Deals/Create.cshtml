@@ -1,6 +1,22 @@
 @{
-    ViewData["Title"] = "Add Deal";
+  ViewData["Title"] = "Add Deal";
 }
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#item-field').hide();
+
+        $('#item-btn').click(function() {
+          $('#item-field').toggle();
+        });
+    });
+</script>
 
 <div class='create-body'>
   <div class='create-top'>
@@ -27,11 +43,15 @@
           </div>
         </div>
 
-        <div class="field">
+        <div class='field'>
+          <a id="item-btn" type='button'>I don't see my item</a>
+        </div>
+
+        <div id='item-field' class="field">
           <label for='Item'>Add a new item</label>
           <input type="text" placeholder="Spaghetti Squash">
         </div>
-        
+
         <div class="field">
           <label>Location</label>
           <div class="ui compact menu">
@@ -47,7 +67,7 @@
         </div>
 
         <div class="field">
-          <label for='Price'>Price per unit</label>
+          <label for='Price'>Price and unit amount</label>
           <!-- <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb"> -->
           <input type="text" placeholder="$3.50 per lb">
         </div>
@@ -59,5 +79,4 @@
   </form>
 
 </div>
-
 

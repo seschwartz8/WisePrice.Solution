@@ -123,6 +123,10 @@ div.ui.bottom {
   margin: 5%;
 }
 
+#item-btn {
+  color: #0000EE;
+}
+
 /* ACCOUNT PAGES */
 .account-body {
   height: 100%;
