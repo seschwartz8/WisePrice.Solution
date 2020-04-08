@@ -14,6 +14,14 @@ namespace WisePriceClient.Models
       return response.Content;
     }
 
+    public static async Task<string> GetDealCount()
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"deals/count", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
     public static async Task<string> GetDeal(int id)
     {
       RestClient client = new RestClient("http://localhost:5003/api");

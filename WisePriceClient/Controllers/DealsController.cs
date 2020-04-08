@@ -15,6 +15,8 @@ namespace WisePriceClient.Controllers
   {
     public IActionResult Index()
     {
+      ViewBag.DealCount = Deal.GetCount();
+
       var allDeals = Deal.GetAll();
       return View(allDeals);
     }

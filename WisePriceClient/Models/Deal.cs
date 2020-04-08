@@ -37,6 +37,14 @@ namespace WisePriceClient.Models
       return dealList;
     }
 
+    // Gets Count of all deals
+    public static int GetCount()
+    {
+      var apiCallTask = ApiHelper.GetDealCount();
+      var result = int.Parse(apiCallTask.Result);
+      return result;
+    }
+
     public static Deal Get(int id)
     {
       var apiCallTask = ApiHelper.GetDeal(id);
