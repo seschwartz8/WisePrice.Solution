@@ -2,6 +2,11 @@
   ViewData["Title"] = "Add Deal";
 }
 
+@model Deal
+
+
+
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -17,9 +22,7 @@
       $("#item-input").val('');
     });
 
-    $('.ui.dropdown')
-      .dropdown()
-    ;
+    $('.ui.dropdown').dropdown();
   });
 </script>
 
@@ -37,14 +40,14 @@
         <div class="field">
           <label for='Item'>Item</label>
           <div class="ui search selection dropdown">
-            <input type="hidden" name="item">
+            <input type="hidden" id='Item' asp-for='ItemId'>
             <i class="dropdown icon"></i>
             <div class="default text">Select the item</div>
             <div class="menu">
-                @foreach (Item item in ViewBag.allItems)
-                {
-                  <div value='@item.ItemId' class="item">@item.ItemName</div>
-                }
+              @foreach (Item item in ViewBag.allItems)
+              {
+                <div value='@item.ItemId' class="item">@item.ItemName</div>
+              }
             </div>
           </div>
         </div>
@@ -61,7 +64,7 @@
         <div class="field">
           <label for='Location'>Location</label>
           <div class="ui search selection dropdown">
-            <input type="hidden" name="location">
+            <input type="hidden" asp-for='LocationId'>
             <i class="dropdown icon"></i>
             <div class="default text">Select the location</div>
             <div class="menu">
@@ -75,9 +78,10 @@
 
         <div class="field">
           <label for='Price'>Price and unit amount</label>
-          <!-- <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb"> -->
-          <input type="text" placeholder="$3.50 per lb">
+          <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb">
         </div>
+
+        <input type="hidden" asp-for="UserId" value="@ViewBag.userId"/>
 
       <button class='ui button' type='submit'>Add Deal</button>
       <small><a asp-action='Index'>Cancel</a></small>

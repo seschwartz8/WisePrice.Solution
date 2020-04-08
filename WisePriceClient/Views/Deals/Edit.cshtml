@@ -9,14 +9,18 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#item-field').hide();
+  $(document).ready(function() {
+    $('#item-field').hide();
 
-        $('#item-btn').click(function() {
-          $('#item-field').toggle();
-          $("#item-input").val('');
-        });
+    $('#item-btn').click(function() {
+      $('#item-field').toggle();
+      $("#item-input").val('');
     });
+
+    $('.ui.dropdown')
+      .dropdown()
+    ;
+  });
 </script>
 
 <div class='create-body'>
@@ -34,14 +38,15 @@
 
         <div class="field">
           <label for='Item'>Item</label>
-          <div class="ui compact menu">
-            <div class="ui simple selection dropdown">
-            Select the item
-              <i class="dropdown icon"></i>
-              <div asp-for='Item' id='Item' class="menu">
-              <!-- FOR LOOP FOR ALL ITEMS -->
-                <div class="item">ITEM FOR LOOP</div>
-              </div>
+          <div class="ui search selection dropdown">
+            <input type="hidden" name="item">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select the item</div>
+            <div class="menu">
+                @foreach (Item item in ViewBag.allItems)
+                {
+                  <div value='@item.ItemId' class="item">@item.ItemName</div>
+                }
             </div>
           </div>
         </div>
@@ -56,15 +61,16 @@
         </div>
         
         <div class="field">
-          <label>Location</label>
-          <div class="ui compact menu">
-            <div class="ui simple selection dropdown">
-            Select the location
-              <i class="dropdown icon"></i>
-              <div class="menu">
-              <!-- FOR LOOP FOR ALL LOCATIONS -->
-                <div class="item">LOCATION FOR LOOP</div>
-              </div>
+          <label for='Location'>Location</label>
+          <div class="ui search selection dropdown">
+            <input type="hidden" name="location">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select the location</div>
+            <div class="menu">
+                @foreach (Location location in ViewBag.allLocations)
+                {
+                  <div value='@location.LocationId' class="item"><strong>@location.Name</strong> @location.Address</div>
+                }
             </div>
           </div>
         </div>

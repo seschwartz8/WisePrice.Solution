@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WisePriceClient.Models;
@@ -19,13 +21,22 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Create()
     {
-      // List<Item> allItems = Item.GetAll();
-      // List<Location> allLocations = Location.GetAll();
-      // ViewBag.ItemId = new SelectList(allItems, "ItemId", "ItemName");
-      // ViewBag.LocationId = new SelectList(allLocations, "LocationId", "Name");
       ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
       ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
+      ViewBag.userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(string ItemId, string LocationId, string Price, string UserId)
+    {
+      System.Console.WriteLine("---------------------------------------------------------");
+      System.Console.WriteLine("---------------------" + ItemId);
+      System.Console.WriteLine("---------------------" + LocationId);
+      // receive new item? if so, overwrite any possible existing itemId
+      // turn information into a deal
+      //Deal.Post(deal);
+      return RedirectToAction("Index");
     }
 
     [HttpPost]
