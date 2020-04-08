@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -7,9 +7,14 @@ namespace WisePriceClient.Models
 {
   public class Item
   {
-    public string ItemName {get; set;}
-    public int ItemId {get; set;}
-    public virtual ICollection<Deal> Deals {get; set;}
+    public string ItemName { get; set; }
+    public int ItemId { get; set; }
+    public virtual ICollection<Deal> Deals { get; set; }
+
+    public Item(string itemName)
+    {
+      ItemName = itemName;
+    }
 
     public static List<Item> GetAll()
     {

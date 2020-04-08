@@ -4,14 +4,6 @@
 @using WisePriceClient.Models
 @model List<Deal>
 
-<!-- TEST -->
-      @foreach (var deal in Model)
-      {
-        <p>@deal.Item.ItemName</p>
-      }
-<!-- TEST -->
-
-
 <div class='deals-body'>
     <div class='deals-top'>
         <div class='col'></div>
@@ -27,29 +19,40 @@
     </div>
 
     <div class='deals-cards-container'>
-    <!-- FOR LOOP FOR EACH CARD IN MODEL -->
-        <div class="ui cards">
-          <div class="card">
-            <div class="ui top">
-              <a><i class="thumbtack icon large"></i></a>
+    @foreach (var deal in Model)
+    {
+      <div class="ui cards">
+        <div class="card">
+          <div class="ui top">
+            <a><i class="thumbtack icon large"></i></a>
+          </div>
+          <div class="content">
+            <div class="header">
+              @deal.Item.ItemName
+              <h4>
+                @deal.Price
+              </h4>
             </div>
-            <div class="content">
-              <div class="header">Item Name</div>
-              <div class="description">
-                <div>
-                  Store Location
-                </div>
-                <div>
-                  Date
-                </div>
+            <div class="description">
+              <div>
+                @deal.Location.Name
+              </div>
+              <div>
+                @deal.Location.Address
+              </div>
+              <div>
+                @deal.TimeUpdated
               </div>
             </div>
-            <div class="ui bottom">
-              <a><i class="thumbs up outline icon blue large"></i></a>
-              <a><i class="thumbs down outline icon red large"></i></a>
-            </div>
+          </div>
+          <div class="ui bottom">
+            <a><i class="thumbs up outline icon blue large"></i></a>
+            <a><i class="thumbs down outline icon red large"></i></a>
           </div>
         </div>
+      </div>
+    }
+
 
     </div>
 
