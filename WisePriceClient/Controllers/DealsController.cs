@@ -30,17 +30,38 @@ namespace WisePriceClient.Controllers
     [HttpPost]
     public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
-      // ItemId = int.Parse(ItemId);
-      // LocationId = int.Parse(LocationId);
-      // UserId = int.Parse(UserId);
-      // Deal newDeal = new Deal { ItemId = ItemId, LocationId = LocationId, Price = Price, UserId = UserId };
+      // Create new item and set ItemId = to newItem's Id
+      if (newItemName != null)
+      {
+        Item newItem = new Item(newItemName);
+        Item.Post(newItem);
+        List<Item> allItems = Item.GetAll();
+        foreach (Item item in allItems)
+        {
+          if (item.ItemName == newItemName)
+          {
+            ItemId = item.ItemId.ToString();
+          }
+        }
+      }
+      // Make sure user is logged in
+      if (UserId != null)
+      {
+        int ItemIdInt = int.Parse(ItemId);
+        int LocationIdInt = int.Parse(LocationId);
 
-      System.Console.WriteLine("-------------------------------------------------------------------------------------------" + newItemName + "-------------------------------------------");
-      // receive new item? if so, overwrite any possible existing itemId
-      // turn information into a deal
-
-      // Deal.Post(newDeal);
-      return RedirectToAction("Index");
+        Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
+        System.Console.WriteLine("---------------------------------" + newDeal.ItemId + "---------------------------------------");
+        System.Console.WriteLine("---------------------------------" + newDeal.LocationId + "---------------------------------------");
+        System.Console.WriteLine("---------------------------------" + newDeal.Price + "---------------------------------------");
+        System.Console.WriteLine("---------------------------------" + newDeal.UserId + "---------------------------------------");
+        Deal.Post(newDeal);
+        return RedirectToAction("Index");
+      }
+      else
+      {
+        return View();
+      }
     }
 
     [HttpPost]
