@@ -136,7 +136,7 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 | Retrieve specific pinned deal      | GET    | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
 | Create pinned deal and doensn't allow duplicated pinned deal | POST | /api/posteddeals | N/A | { "userId": "[User Id]" } { "dealId": "[Deal Id]" }|
 | Delete pinned deal                 | DELETE | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
-| Count all pinneddeals              | GET    | /api/pinneddeals/count | N/A | N/A |
+| Count all pinneddeals              | GET    | /api/pinneddeals/{userId}/count | N/A | N/A |
 
 > PINNED DEALS do not have a PUT method as when a user pins/unpins a deal, the user creates/deletes a PinnedDeal relationship.
 
@@ -183,7 +183,7 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 
 - Example query: http://localhost:5003/api/deals/?itemname=broccoli&zipcode=98105&page=3&size=25
 
-  - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 5 results per page.
+  - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 25 results per page.
 
 ## API Known Bugs
 

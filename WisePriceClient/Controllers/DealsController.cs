@@ -94,8 +94,9 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Pinned()
+    public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
     {
+      PinnedDeal.Post(DealtoPinned);
       return View();
     }
 

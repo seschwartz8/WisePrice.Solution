@@ -45,6 +45,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <div class='deals-cards-container'>
     @foreach (var deal in Model)
     {
@@ -59,25 +60,46 @@
               <h4>
                 @deal.Price
               </h4>
+=======
+    <div class='deals-cards-container'>
+    @* @using (Html.BeginForm())
+    { *@
+      @foreach (var deal in Model)
+      {
+        <div class="ui cards">
+          <div class="card">
+            <div class="ui top">
+              @* <label asp-for=""> *@
+                <a><i class="thumbtack icon large"></i></a>
+              @* </label> *@
+>>>>>>> jiwon
             </div>
-            <div class="description">
-              <div>
-                @deal.Location.Name
+            <div class="content">
+              <div class="header">
+                @deal.Item.ItemName
+                <h4>
+                  @deal.Price
+                </h4>
               </div>
-              <div>
-                @deal.Location.Address
-              </div>
-              <div>
-                @deal.TimeUpdated
+              <div class="description">
+                <div>
+                  @deal.Location.Name
+                </div>
+                <div>
+                  @deal.Location.Address
+                </div>
+                <div>
+                  @deal.TimeUpdated
+                </div>
               </div>
             </div>
-          </div>
-          <div class="ui bottom">
-            <a><i class="thumbs up outline icon blue large"></i></a>
-            <a><i class="thumbs down outline icon red large"></i></a>
+            <div class="ui bottom">
+              <a><i class="thumbs up outline icon blue large"></i></a>
+              <a><i class="thumbs down outline icon red large"></i></a>
+            </div>
           </div>
         </div>
-      </div>
+      @* } *@
     }
   </div>
 
