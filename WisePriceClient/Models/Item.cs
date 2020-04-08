@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -40,6 +42,12 @@ namespace WisePriceClient.Models
     {
       string jsonReview = JsonConvert.SerializeObject(newItem);
       var apiCallTask = ApiHelper.PostItem(jsonReview);
+      // foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(apiCallTask))
+      // {
+      //   string name = descriptor.Name;
+      //   object value = descriptor.GetValue(apiCallTask);
+      //   Console.WriteLine("{0}={1}", name, value);
+      // }
     }
 
     public static void Put(Item itemToEdit)
