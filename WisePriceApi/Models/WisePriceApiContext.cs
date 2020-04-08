@@ -22,7 +22,7 @@ namespace WisePriceApi.Models
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<User>().HasData(
           new User {UserId = 1},
-          new User {UserId =2}
+          new User {UserId = 2}
         );
 
         modelBuilder.Entity<Location>().HasData(
@@ -34,26 +34,32 @@ namespace WisePriceApi.Models
 
         modelBuilder.Entity<Item>().HasData(
           new Item {ItemId = 1, ItemName = "Strawberry"},
-          new Item {ItemId = 2, ItemName = "Milk"}
+          new Item {ItemId = 2, ItemName = "Milk"},
+          new Item {ItemId = 3, ItemName = "Beef"}
         );
 
         modelBuilder.Entity<Deal>().HasData(
-          new Deal {DealId = 1, ItemId = 1, LocationId = 1, UserId = 1,  Price = 20, TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 10, DownVotes = 2},
-          new Deal {DealId = 2, ItemId = 2, LocationId = 2, UserId = 2,Price = 10, TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 8, DownVotes = 1}
+          new Deal {DealId = 1, ItemId = 1, LocationId = 1, UserId = 1,  Price = "$10 for 5 lbs", TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 10, DownVotes = 2},
+          new Deal {DealId = 2, ItemId = 2, LocationId = 2, UserId = 2,Price = "$10", TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 8, DownVotes = 1},
+          new Deal {DealId = 3, ItemId = 1, LocationId = 1, UserId = 1,  Price = "Buy 2lbs get 1lb free", TimeUpdated = DateTime.Parse("4/8/2020"), UpVotes = 10, DownVotes = 2}
         );
 
         modelBuilder.Entity<PinnedDeal>().HasData(
           new PinnedDeal {PinnedDealId = 1, 
           UserId = 1, DealId = 1},
           new PinnedDeal {PinnedDealId = 2, 
-          UserId = 2, DealId = 2}
+          UserId = 2, DealId = 2},
+          new PinnedDeal {PinnedDealId = 3, 
+          UserId = 2, DealId = 3}
         );
 
         modelBuilder.Entity<PostedDeal>().HasData(
           new PostedDeal {PostedDealId = 1, 
           UserId = 1, DealId = 1},
           new PostedDeal {PostedDealId = 2, 
-          UserId = 2, DealId = 2}
+          UserId = 2, DealId = 2},
+          new PostedDeal {PostedDealId = 3, 
+          UserId = 2, DealId = 3}
         );
     }
   }

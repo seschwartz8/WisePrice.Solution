@@ -1,0 +1,107 @@
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using Microsoft.AspNetCore.Mvc;
+// using WisePriceApi.Models;
+// using Microsoft.EntityFrameworkCore;
+
+// namespace WisePriceApi.Controllers
+// {
+//   [Route("/api/[controller]")]
+//   [ApiController]
+//   public class PinnedDealsController : ControllerBase
+//   {
+//     private WisePriceApiContext _db;
+
+//     public PinnedDealsController(WisePriceApiContext db)
+//     {
+//       _db = db;
+//     }
+
+//     // GET api/deals
+//     [HttpGet]
+//     public ActionResult<IEnumerable<PinnedDeal>> Get(string itemName, string zipCode, int page, int size)
+//     {
+//       var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).AsQueryable();
+      
+//       if (itemName != null)
+//       {
+//         query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
+//       }
+
+//       if (zipCode != null)
+//       {
+//         query = query.Where(entry => entry.Location.ZipCode.ToString() == zipCode);
+//       }
+
+//       // Pagination
+//       int maxPageSize = 40; // max of 40 deals per page
+//       int pageSize = 20; //defaults to 20 deals per page
+
+//       int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+//       if (size > 0)
+//       {
+//         pageSize = (size > maxPageSize) ? maxPageSize : size;
+//       }
+
+//       return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+//     }
+
+//     // GET api/deals/count
+//     [HttpGet("count")]
+//     public ActionResult<int> CountDeals(string itemName, string locationName)
+//     {
+//       var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).AsQueryable();
+
+//       if (itemName != null)
+//       {
+//         query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
+//       }
+
+//       if (locationName != null)
+//       {
+//         query = query.Where(entry => entry.Location.Name.Contains(locationName));
+//       }
+//       return query.ToList().Count();
+//     }
+
+
+//     // GET api/deals/5
+//     [HttpGet("{id}")]
+//     public ActionResult<PinnedDeal> Get(int id)
+//     {
+//       return _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).FirstOrDefault(entry => entry.DealId == id);
+//     }
+
+//     // POST api/deals
+//     [HttpPost]
+//     public void Post([FromBody] Deal deal)
+//     {
+//       _db.Deals.Add(deal);
+//       if (deal.ItemId != 0)
+//       {
+//         _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId });
+//       }
+//       _db.SaveChanges();
+//     }
+
+//     // PUT api/deals/5
+//     [HttpPut("{id}")]
+//     public void Put(int id, [FromBody] Deal deal)
+//     {
+//         deal.DealId = id;
+//         _db.Entry(deal).State = EntityState.Modified;
+//         _db.SaveChanges();
+//     }
+
+//     // DELETE api/deals/5
+//     [HttpDelete("{id}")]
+//     public void Delete(int id)
+//     {
+//       var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == id);
+//       _db.Deals.Remove(dealToDelete);
+//       _db.SaveChanges();
+//     }
+//   }
+// }
