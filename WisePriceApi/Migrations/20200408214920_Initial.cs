@@ -40,8 +40,7 @@ namespace WisePriceApi.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,8 +55,8 @@ namespace WisePriceApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ItemId = table.Column<int>(nullable: false),
                     LocationId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    Price = table.Column<string>(nullable: true),
                     TimeUpdated = table.Column<DateTime>(nullable: false),
                     UpVotes = table.Column<int>(nullable: false),
                     DownVotes = table.Column<int>(nullable: false)
@@ -82,7 +81,7 @@ namespace WisePriceApi.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +90,7 @@ namespace WisePriceApi.Migrations
                 {
                     PinnedDealId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     DealId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -108,7 +107,7 @@ namespace WisePriceApi.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +116,7 @@ namespace WisePriceApi.Migrations
                 {
                     PostedDealId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     DealId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -134,7 +133,72 @@ namespace WisePriceApi.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "ItemId", "ItemName" },
+                values: new object[,]
+                {
+                    { 1, "Strawberry" },
+                    { 2, "Milk" },
+                    { 3, "Beef" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "LocationId", "Address", "Name", "ZipCode" },
+                values: new object[,]
+                {
+                    { 1, "300 Bellevue Way NE", "SafeWay", 98015 },
+                    { 2, "2636 Bellevue Way NE", "QFC", 98004 },
+                    { 3, "1212 Bellevue Way NE", "QFC", 98004 },
+                    { 4, "1212 Seattle Way NE", "SafeWay", 98015 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                column: "UserId",
+                values: new object[]
+                {
+                    "145c9f41-ed89-43c7-8619-e13188de7188",
+                    "test"
+                });
+
+            migrationBuilder.InsertData(
+                table: "Deals",
+                columns: new[] { "DealId", "DownVotes", "ItemId", "LocationId", "Price", "TimeUpdated", "UpVotes", "UserId" },
+                values: new object[] { 1, 2, 1, 1, "$10 for 5 lbs", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "145c9f41-ed89-43c7-8619-e13188de7188" });
+
+            migrationBuilder.InsertData(
+                table: "Deals",
+                columns: new[] { "DealId", "DownVotes", "ItemId", "LocationId", "Price", "TimeUpdated", "UpVotes", "UserId" },
+                values: new object[] { 3, 2, 1, 1, "Buy 2lbs get 1lb free", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "145c9f41-ed89-43c7-8619-e13188de7188" });
+
+            migrationBuilder.InsertData(
+                table: "Deals",
+                columns: new[] { "DealId", "DownVotes", "ItemId", "LocationId", "Price", "TimeUpdated", "UpVotes", "UserId" },
+                values: new object[] { 2, 1, 2, 2, "$10", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "test" });
+
+            migrationBuilder.InsertData(
+                table: "PinnedDeals",
+                columns: new[] { "PinnedDealId", "DealId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, "145c9f41-ed89-43c7-8619-e13188de7188" },
+                    { 3, 3, "test" },
+                    { 2, 2, "test" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PostedDeals",
+                columns: new[] { "PostedDealId", "DealId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, "145c9f41-ed89-43c7-8619-e13188de7188" },
+                    { 3, 3, "test" },
+                    { 2, 2, "test" }
                 });
 
             migrationBuilder.CreateIndex(

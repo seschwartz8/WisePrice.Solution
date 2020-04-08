@@ -21,7 +21,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/posteddeals/1
     [HttpGet("{userId}")]
-    public ActionResult<IEnumerable<PostedDeal>> Get(int userId, int page, int size)
+    public ActionResult<IEnumerable<PostedDeal>> Get(string userId, int page, int size)
     {
       var query = _db.PostedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)
@@ -44,7 +44,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/posteddeals/1/5
     [HttpGet("{userId}/{dealId}")]
-    public ActionResult<PostedDeal> Get(int userId, int dealId)
+    public ActionResult<PostedDeal> Get(string userId, int dealId)
     {
       return _db.PostedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)
@@ -55,7 +55,7 @@ namespace WisePriceApi.Controllers
 
     // POST api/posteddeals/1
     [HttpPost("{userId}")]
-    public void Post(int userId, [FromBody] PostedDeal postedDeal)
+    public void Post(string userId, [FromBody] PostedDeal postedDeal)
     {
       _db.PostedDeals.Add(postedDeal);
       _db.SaveChanges();
@@ -63,7 +63,7 @@ namespace WisePriceApi.Controllers
 
     // GET api/posteddeals/1/count
     [HttpGet("{userId}/count")]
-    public ActionResult<int> CountPostedDeals(int userId, string itemName, string locationName)
+    public ActionResult<int> CountPostedDeals(string userId, string itemName, string locationName)
     {
       var query = _db.PostedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)

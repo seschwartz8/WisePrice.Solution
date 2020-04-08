@@ -7,7 +7,7 @@ namespace WisePriceApi.Models
 {
   public class User
   {
-    public int UserId { get; set; }
+    public string UserId { get; set; }
     public virtual ICollection<PinnedDeal> PinnedDeals {get; set;}
     public virtual ICollection<PostedDeal> PostedDeals {get; set;}
 

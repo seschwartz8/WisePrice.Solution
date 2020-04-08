@@ -26,20 +26,6 @@ namespace WisePriceApi.Controllers
         .Include(entry => entry.Deals).ThenInclude(entry => entry.User)
         .Include(entry => entry.Deals).ThenInclude(entry => entry.Location).AsQueryable();
 
-        // FAILED ATTEMPTS TO LIST ALL ITEMS WITHOUT OVERPOPULATING DATA LOADED IN RESPONSE:
-        // .Include(entry => entry.Deals)
-        // .Include(entry => entry.Deals.User)
-        // .Include(Deals.Location)
-        // .AsQueryable();
-
-        // .Include(e => e.Deals.Select(a => a.User))
-        // .Include(b => b.Deals.Select(c => c.Location))
-        // .AsQueryable();
-
-        // .Include(e => e.Deals).ThenInclude(d => d.User)
-        // .Include(b => b.Deals.Select(c => c.Location))
-        // .AsQueryable();
-
       if (name != null)
       {
           query = query.Where(entry => entry.ItemName.Contains(name));
