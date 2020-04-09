@@ -129,6 +129,7 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Details", id);
     }
 
+    [HttpPost]
     public IActionResult Delete(int DealId)
     {
       Deal.Delete(DealId);

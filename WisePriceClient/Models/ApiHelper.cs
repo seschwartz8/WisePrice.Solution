@@ -50,6 +50,7 @@ namespace WisePriceClient.Models
 
     public static async Task DeleteDeal(int id)
     {
+      System.Console.WriteLine("-----------------------------------------" + id + "-------------------");
       RestClient client = new RestClient("http://localhost:5003/api");
       RestRequest request = new RestRequest($"deals/{id}", Method.DELETE);
       request.AddHeader("Content-Type", "application/json");

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WisePriceApi.Models;
 using Microsoft.EntityFrameworkCore;
+using WisePriceApi.Models;
 
 namespace WisePriceApi.Controllers
 {
@@ -24,7 +24,7 @@ namespace WisePriceApi.Controllers
     public ActionResult<IEnumerable<Deal>> Get(string itemName, string zipCode, int page, int size)
     {
       var query = _db.Deals.Include(entry => entry.Item).Include(entry => entry.Location).Include(entry => entry.User).AsQueryable();
-      
+
       if (itemName != null)
       {
         query = query.Where(entry => entry.Item.ItemName.Contains(itemName));
@@ -83,7 +83,7 @@ namespace WisePriceApi.Controllers
       _db.Deals.Add(deal);
       if (deal.UserId != null)
       {
-        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId});
+        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId });
       }
       _db.SaveChanges();
     }
@@ -97,17 +97,26 @@ namespace WisePriceApi.Controllers
       _db.SaveChanges();
     }
 
-    // DELETE api/deals/1/5
-    [HttpDelete("{userId}/{dealId}")]
-    public void Delete(string userId, int dealId)
+    // // DELETE api/deals/1/5   WITH AUTHORIZATION
+    // [HttpDelete("{userId}/{dealId}")]
+    // public void Delete(string userId, int dealId)
+    // {
+    //   var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == dealId);
+    //   if (dealToDelete.UserId != null)
+    //   {
+    //     var postedDealToDelete = _db.PostedDeals.Where(entry => entry.UserId == userId).FirstOrDefault(entry => entry.DealId == dealId);
+    //     _db.PostedDeals.Remove(postedDealToDelete);
+    //     _db.SaveChanges();
+    //   }
+    //   _db.Deals.Remove(dealToDelete);
+    //   _db.SaveChanges();
+    // }
+
+    // DELETE api/deals/5
+    [HttpDelete("{dealId}")]
+    public void Delete(int dealId)
     {
       var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == dealId);
-      if (dealToDelete.UserId != null)
-      {
-        var postedDealToDelete = _db.PostedDeals.Where(entry => entry.UserId == userId).FirstOrDefault(entry => entry.DealId == dealId);
-        _db.PostedDeals.Remove(postedDealToDelete);
-        _db.SaveChanges();
-      }
       _db.Deals.Remove(dealToDelete);
       _db.SaveChanges();
     }
