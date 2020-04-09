@@ -101,9 +101,17 @@ namespace WisePriceClient.Controllers
       return View();
     }
 
-    public IActionResult Posted()
+    // Don't remove the "= 1", this sets the default page to 1
+    public IActionResult Posted(int id = 1)
     {
-      return View();
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.DealCount = PostedDeal.GetCount(userId);
+
+      var allPostedDeals = PostedDeal.GetAll(userId);
+      return View(allPostedDeals);
     }
   }
 }

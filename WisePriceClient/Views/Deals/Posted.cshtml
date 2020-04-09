@@ -8,7 +8,7 @@
 }
 
 @using WisePriceClient.Models
-@model List<Deal>
+@model List<PostedDeal>
 
 
 <div class='deals-body'>
@@ -39,6 +39,9 @@
     </div>
   </div>
 
+  <h3>Posted by: @User.Identity.Name</h3>
+
+
   <div class='deals-cards-container'>
     @foreach (var deal in Model)
     {
@@ -49,30 +52,30 @@
           </div>
           <div class="content">
             <div class="header">
-              @deal.Item.ItemName
+              @deal.Deal.Item.ItemName
               <h4>
-                @deal.Price
+                @deal.Deal.Price
               </h4>
             </div>
             <div class="description">
               <div>
-                @deal.Location.Name
+                @deal.Deal.Location.Name
               </div>
               <div>
-                @deal.Location.Address
+                @deal.Deal.Location.Address
               </div>
               <div>
-                @deal.TimeUpdated
+                @deal.Deal.TimeUpdated
               </div>
             </div>
           </div>
-            <div class="ui bottom">
-              <a class="ui button grey"  asp-route-id="@deal.DealId" asp-action="Edit">Edit</a>
+            <!-- <div class="ui bottom">
+              <a class='ui button grey' asp-route-id='@deal.DealId' asp-action='Edit'>Edit</a>
               <form asp-controller="Deals" asp-action="Delete" method="post">
-                <input type="hidden" value="@deal.DealId" asp-for="DealId">
+                <input type='hidden' value='@deal.DealId' asp-for='DealId'>
                 <input type="submit" value="Delete" class="ui button"/>
               </form>
-            </div>
+            </div> -->
         </div>
       </div>
     }
