@@ -176,10 +176,10 @@ namespace WisePriceClient.Models
       return response.Content;
     }
 
-    public static async Task PostPinnedDeal(string newPinnedDeal)
+    public static async Task PostPinnedDeal(string userId, string newPinnedDeal)
     {
       RestClient client = new RestClient("http://localhost:5003/api");
-      RestRequest request = new RestRequest($"pinneddeals", Method.POST);
+      RestRequest request = new RestRequest($"pinneddeals/{userId}", Method.POST);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newPinnedDeal);
       var response = await client.ExecuteTaskAsync(request);
@@ -237,7 +237,7 @@ namespace WisePriceClient.Models
       request.AddHeader("Content-Type", "application/json");
       var response = await client.ExecuteTaskAsync(request);
     }
-    
+
     public static async Task<string> GetUser(string userId)
     {
       RestClient client = new RestClient("http://localhost:5003/api");

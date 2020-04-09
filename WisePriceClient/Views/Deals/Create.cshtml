@@ -34,7 +34,7 @@
   <div class='create-sub'>
 
     <form asp-controller='Deals' asp-action='Create' method='post' class="ui equal width form">
-      <div class="field">
+      <div class="required field">
         <label for='Item'>Item</label>
         <div class="ui search selection dropdown">
           <input type="hidden" id='Item' asp-for='ItemId'>
@@ -60,7 +60,7 @@
         <input id='item-input' name='newItemName' type="text" placeholder="Spaghetti Squash">
       </div>
 
-      <div class="field">
+      <div class="required field">
         <label for='Location'>Location</label>
         <div class="ui search selection dropdown">
           <input type="hidden" asp-for='LocationId'>
@@ -75,7 +75,7 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="required field">
         <label for='Price'>Price and unit amount</label>
         <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb" required>
       </div>

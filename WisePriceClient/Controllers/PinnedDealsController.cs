@@ -25,10 +25,15 @@ namespace WisePriceClient.Controllers
     // }
 
     [HttpPost]
-    public IActionResult PinnedPost(string userId, int dealId)
+    public IActionResult PinnedPost(int dealId)
     {
-      PinnedDeal newPinnedDeal = new PinnedDeal(userId, dealId);
-      PinnedDeal.Post(newPinnedDeal);
+      string userId = User.Identity.GetUserId();
+
+      Deal deal = Deal.Get(dealId);
+      APIUser user = APIUser.Get(userId);
+
+      PinnedDeal newPinnedDeal = new PinnedDeal(userId, dealId, deal, user);
+      PinnedDeal.Post(userId, newPinnedDeal);
       return RedirectToAction("Index", "Deals");
     }
   }
