@@ -2,44 +2,89 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WisePriceClient.Models;
 
 namespace WisePriceClient.Controllers
 {
   public class DealsController : Controller
   {
-    public IActionResult Index()
+    public IActionResult Index(int id = 1)
     {
-      var allDeals = Deal.GetDeals();
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
+      ViewBag.DealCount = Deal.GetCount();
+
+      var allDeals = Deal.GetAll();
       return View(allDeals);
     }
 
-    [HttpPost]
-    public IActionResult Index(Deal deal)
+    public IActionResult Create()
     {
-      Deal.AddDeal(deal);
-      return RedirectToAction("Index");
+      ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
+      ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
+      ViewBag.userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      return View();
     }
 
-    public IActionResult Details(int id)
+    [HttpPost]
+    public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
-      var selectedDeal = Deal.GetDetails(id);
-      return View(selectedDeal);
+      // // Make sure user is logged in
+      // if (UserId != null)
+      // {
+      // Create new item and set ItemId = to newItem's Id
+      if (newItemName != null)
+      {
+        Item newItem = new Item(newItemName);
+        Item.Post(newItem);
+        List<Item> allItems = Item.GetAll();
+        foreach (Item item in allItems)
+        {
+          if (item.ItemName == newItemName)
+          {
+            ItemId = item.ItemId.ToString();
+          }
+        }
+      }
+
+      int ItemIdInt = int.Parse(ItemId);
+      int LocationIdInt = int.Parse(LocationId);
+
+      Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
+      Deal.Post(newDeal);
+      return RedirectToAction("Index");
+      // }
+      // else
+      // {
+      //   return RedirectToAction("Index");
+      // }
+    }
+
+    [HttpPost]
+    public IActionResult Index(Deal newDeal)
+    {
+      ViewBag.ItemId = Item.GetAll(); // returns a list of Item objects for dropdown of items
+      Deal.Post(newDeal);
+      return RedirectToAction("Index");
     }
 
     public IActionResult Edit(int id)
     {
-      var selectedDeal = Deal.GetDetails(id);
+      var selectedDeal = Deal.Get(id);
       return View(selectedDeal);
     }
 
     [HttpPost]
-    public IActionResult Details(int id, Deal deal)
+    public IActionResult Details(int id, Deal dealToEdit)
     {
-      deal.DealId = id;
-      Deal.Update(deal);
+      dealToEdit.DealId = id;
+      Deal.Put(dealToEdit);
       return RedirectToAction("Details", id);
     }
 
@@ -47,6 +92,17 @@ namespace WisePriceClient.Controllers
     {
       Deal.Delete(id);
       return RedirectToAction("Index");
+    }
+
+    public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
+    {
+      PinnedDeal.Post(DealtoPinned);
+      return View();
+    }
+
+    public IActionResult Posted()
+    {
+      return View();
     }
   }
 }

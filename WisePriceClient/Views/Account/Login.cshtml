@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Log In";
+}
+
+@using WisePriceClient.ViewModels
+@model LoginViewModel
+
+<div class='account-body'>
+  <div class='account-top'>
+      <div class='col'></div>
+      <h1>Log In</h1>
+      <div class='col'></div>
+  </div>
+
+
+  <div class='account-sub'>
+    <form asp-controller='Account' asp-action='Login' method='post' class="ui equal width form">
+      <div class='field'>
+        <label for='UserName'>Username</label>
+        <input asp-for="UserName" id='UserName' placeholder='Username' required>
+      </div>     
+
+      <div class='field'>
+        <label for='Password'>Password</label>
+        <input type='password' id='Password' asp-for="Password" placeholder='Password' required>
+      </div>
+
+      <div class='submit-field'>
+        <input type="submit" value="Log in" class="ui button" />
+        <small>New to Wise Price? <a asp-action="Register">Sign Up</a></small>
+      </div>
+    </form>
+  
+  </div>
+
+</div>
+
+

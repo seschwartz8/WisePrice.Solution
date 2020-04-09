@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Register";
+}
+
+@using WisePriceClient.ViewModels
+@model RegisterViewModel
+
+<div class='account-body'>
+  <div class='account-top'>
+      <div class='col'></div>
+      <h1>Register</h1>
+      <div class='col'></div>
+  </div>
+
+
+  <div class='account-sub'>
+    <form asp-controller='Account' asp-action='Register' method='post' class="ui equal width form">
+      <div class='two fields'>
+        <div class='field'>
+          <label>First Name</label>
+          <input asp-for="FirstName" id='FirstName' placeholder='FirstName' required>
+        </div>
+
+        <div class='field'>
+          <label>Last Name</label>
+          <input asp-for="LastName" id='LastName' placeholder='LastName' required>
+        </div>
+      </div> 
+
+      <div class='two fields'>
+        <div class='field'>
+          <label>Email</label>
+          <input asp-for="Email" id='Email' placeholder='Email' required>
+        </div>   
+
+        <div class='field'>
+          <label>Username</label>
+          <input id='username' asp-for="UserName" placeholder='UserName' required>
+        </div>
+      </div> 
+
+      <div class='two fields'>
+        <div class='field'>
+          <label>Password</label>
+          <input id='password' asp-for="Password" placeholder="Password" required>
+        </div>
+
+        <div class='field'>
+          <label>Zip Code</label>
+            <input asp-for="ZipCode" id='ZipCode' placeholder='ZipCode' required>
+        </div> 
+      </div>
+
+
+      <div class='submit-field'>
+        <small>By registering, you agree to Wise Price's <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a></small>
+        <input type="submit" value="Register" class="ui button" />
+        <small>Already have an account? <a asp-action="Login">Log In</a></small>
+      </div>
+    </form>
+  
+  </div>
+
+</div>
+
+

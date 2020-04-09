@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace WisePriceApi.Models
 {
   public class Item

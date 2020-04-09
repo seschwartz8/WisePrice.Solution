@@ -1,28 +1,20 @@
-using Microsoft.AspNetCore.Identity;
+// using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WisePriceApi.Models
 {
-  public class User : IdentityUser
+  public class User
   {
-    public int UserId { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string UserName { get; set; }
-
-    [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }
-    public string Zip { get; set; }
-    public int Password {get; set;}
-    public virtual ICollection<Deal> PinnedDeals {get; set;}
-    public virtual ICollection<Deal> AddedDeals {get; set;}
+    public string UserId { get; set; }
+    public virtual ICollection<PinnedDeal> PinnedDeals {get; set;}
+    public virtual ICollection<PostedDeal> PostedDeals {get; set;}
 
     public User()
     {
-      this.PinnedDeals = new HashSet<Deal>();
-      this.AddedDeals = new HashSet<Deal>();
+      this.PinnedDeals = new HashSet<PinnedDeal>();
+      this.PostedDeals = new HashSet<PostedDeal>();
     }
-      
   }
 }

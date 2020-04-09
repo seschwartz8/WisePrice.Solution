@@ -4,25 +4,207 @@
   flex-direction: column;
 }
 
+a {
+  color: steelblue;
+}
+
 h1 {
   text-align: center;
+  font-size: 4em;
 }
 
-.center-horizontal {
+small {
+  font-size: 1em;
+  margin: 10px;
+}
+
+.page-content {
+  flex: 1;
+}
+
+/* PAGINATION */
+.pagination {
+  float: right;
   display: flex;
-  justify-content: center;
-}
-
-.column {
   flex-direction: column;
   align-items: center;
 }
 
-.content {
-  flex: 1;
+.current-page {
+  font-weight: 700;
 }
 
+/* HOMEPAGE */
+h1.title {
+  font-size: 8em;
+}
+
+.homepage-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* DEALS PAGE and CARDS*/
+.deals-body {
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+}
+
+.col {
+  width: 33%;
+  padding: 0 10%;
+}
+
+.deals-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+div.ui.search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+div.ui.icon.input {
+  width: 50vw;
+}
+
+.deals-cards-container {
+  padding: 2%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ui.cards {
+  margin: 1%;
+}
+
+.content,
+.description {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+}
+
+div.ui.top {
+  padding: 2%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.ui.bottom {
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* CREATE and EDIT DEAL */
+.create-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+}
+
+.create-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.create-sub {
+  margin: 5%;
+}
+
+#item-btn {
+  color: steelblue;
+  float: right;
+}
+
+.dropdown1 {
+  z-index: 5;
+}
+
+.dropdown2 {
+  z-index: 2;
+}
+
+/* ACCOUNT PAGES */
+.account-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+}
+
+.account-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.account-sub {
+  margin: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.account-info {
+  width: 60%;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.row > h4 {
+  width: 20%;
+}
+
+.row > p {
+  width: 50%;
+}
+
+.submit-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* FOOTER */
 footer {
+  /* position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%; */
   padding: 1%;
   margin-top: 2%;
   display: flex;

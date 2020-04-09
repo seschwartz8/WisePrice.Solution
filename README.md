@@ -51,41 +51,127 @@ To run dev mode locally:
   $ cd WisePrice
   $ dotnet add package Microsoft.EntityFrameworkCore -v 2.2.0
   $ dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0
-  $ dotnet add package Microsoft.EntityFrameworkCore.Proxies
-  - To enable lazy loading
+  $ dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 2.2.0
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
-  - for Swagger that describes the capabilities of the API and how to access it with HTTP
   $ dotnet build 
   $ dotnet ef migrations add MigrationName
   $ dotnet ef database update  
   # After successfull pkg installtion
   $ dotnet run
 ```
-Now, it will automatically open http://localhost:5000 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](localhost:5000/swagger)
+Now, it will automatically open http://localhost:5003 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](https://localhost:5003/swagger)
 
 ## API Documentation
 
-- Base url: http://localhost:5000
+- Base url: http://localhost:5003/
+- Swagger that describes the capabilities of the API and how to access it with HTTP. Go to Swagger UI, http://localhost:5003/swagger or check swagger.json in the folder
 
 #### Routes
 
-| Action                           | Method | Endpoint          |
-| :------------------------------- | :----- | :---------------- |
-| List all deals (paginated)       | GET    | /api/deals        |
-| Retrieve specific deal           | GET    | /api/deals/{id}   |
-| Create deal                      | POST   | /api/deals        |
-| Edit deal                        | PUT    | /api/deals/{id}   |
-| Delete deal                      | DELETE | /api/deals/{id}   |
-| Count all deals                  | GET    | /api/deals/count  |
+<details>
+  <summary>DEALS</summary>
 
-#### Search Parameters
+| Action for DEALS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all deals (paginated)       | GET    | /api/deals        | string itemName, string zipCode, int page, int size | N/A |
+| Retrieve specific deal           | GET    | /api/deals/{id}   | N/A | N/A |
+| Create deal*                     | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "upVotes": #, "downVotes": # } |
+| Edit deal                        | PUT    | /api/deals/{id}   | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "timeUpdated": "YYYY-MM-DD HH:MM", "upVotes": #, "downVotes": # } |
+| Delete deal**                    | DELETE | /api/deals/{userId}/{dealId} | N/A | N/A |
+| Count all deals                  | GET    | /api/deals/count  | string itemName, string locationName | N/A |
+
+> *Creating a new deal will automatically create a PostedDeal relationship given a userId in JSON input.
+> **Deleting a deal will automatically delete its PostedDeal.
+
+</details>
+
+<details>
+  <summary>ITEMS</summary>
+  
+| Action for ITEMS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all items* (paginated)      | GET    | /api/items        | string name, int page, int size | N/A |
+| Retrieve specific location       | GET    | /api/locations/{id}   | N/A | N/A |
+| Create item                      | POST   | /api/items        | N/A | { "ItemName": "[item name]" } |
+| Edit item                        | PUT    | /api/items/{id}   | N/A | { "ItemName": "[edited item name]" } |
+| Delete item                      | DELETE | /api/items/{id}   | N/A | N/A |
+| Count all items                  | GET    | /api/items/count  | N/A | N/A |
+
+</details>
+
+<details>
+  <summary>LOCATIONS</summary>
+
+| Action for LOCATIONS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| List all locations* (paginated)      | GET    | /api/locations        | string name, string zipcode, string address, int page, int size | N/A |
+| Retrieve specific location           | GET    | /api/locations/{id}   | N/A | N/A |
+| Create location                      | POST   | /api/locations        | N/A | { "Name": "[location name]" } |
+| Edit location                        | PUT    | /api/locations/{id}   | N/A | { "Name": "[edited location name]" } |
+| Delete location                      | DELETE | /api/locations/{id}   | N/A | N/A |
+| Count all locations                  | GET    | /api/locations/count  | N/A | N/A |
+| Retrieve locations in specific zip code | GET | api/locations/neareststores | int userZipCode | N/A |
+
+</details>
+
+<details>
+  <summary>USERS</summary>
+
+| Action for USERS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
+| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
+| Retrieve a user                  | GET    | /api/users/{id}   | N/A | N/A |
+| Delete a user                    | DELETE | /api/users/{id}   | N/A | N/A |
+| Create a user                    | POST   | /api/users        | N/A | { "UserId": # } |
+
+> USER does NOT have a PUT method as UserId cannot be edited (due to it being a Primary Key).
+
+</details>
+
+<details>
+  <summary>PINNED DEALS</summary>
+
+| Action for PINNED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
+| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
+| List all pinned deals sorted by item name (paginated)* | GET | /api/pinneddeals/{userId} | int page, int size | N/A |
+| Retrieve specific pinned deal      | GET    | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
+| Create pinned deal and doensn't allow duplicated pinned deal | POST | /api/posteddeals | N/A | { "userId": "[User Id]" } { "dealId": "[Deal Id]" }|
+| Delete pinned deal                 | DELETE | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
+| Count all pinneddeals              | GET    | /api/pinneddeals/{userId}/count | N/A | N/A |
+
+> PINNED DEALS do not have a PUT method as when a user pins/unpins a deal, the user creates/deletes a PinnedDeal relationship.
+
+</details>
+
+<details>
+  <summary>POSTED DEALS</summary>
+
+| Action for POSTED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
+| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
+| List all posted deals (paginated)* | GET  | /api/posteddeals/{userId}  | int page, int size | N/A |
+| Retrieve specific posted deal      | GET  | /api/posteddeals/{userId}/{dealId} | N/A | N/A |
+| Create posted deal relationship*   | POST | /api/posteddeals/{userId}  | N/A | { "userId": 1, "dealId": 2 } |
+| Delete posted deal**               | DELETE | N/A   | N/A | N/A |
+| Count all posted deals of a user   | GET  | /api/posteddeals/{userId}/count | N/A | N/A |
+
+> *There are 2 ways you can create a new PostedDeal: 1) By creating a new deal will automatically create a new PostedDeal. 2) By creating a new PostedDeal directly.
+> **See DELETE action for DEALS.
+> POSTED DEALS do not have a PUT method as when a user edits a deal, the userId and dealId will not change therefore the PostedDealId will not change.
+
+</details>
+
+<details>
+  <summary>Examples</summary>
+
+#### Examples of Query Search
 
 | Parameter | Type   | Example            | Response                                             |
 | :-------- | :----- | :----------------- | :--------------------------------------------------- |
-| Name      | String | /?itemname="broccoli" | Deals with name "broccoli"                        |
-| Location  | String | /?zipcode="98105"  | Deals offered in the area of "98105"                 |
-| Page      | Int    | /?page=2           | Page 2 of paginated deal results (default is page 1) |
-| Size      | Int    | /?size=25          | 25 deals per page (default is 20 and max is 50)      |
+| Name      | String | http://localhost:5003/api/deals?itemname="broccoli" | Deals with name "broccoli"                        |
+| Location  | String | http://localhost:5003/api/deals?zipcode="98105"  | Deals offered in the area of "98105"                 |
+| Page      | Int    | http://localhost:5003/api/deals?page=2           | Page 2 of paginated deal results (default is page 1) |
+| Size      | Int    | http://localhost:5003/api/deals?size=25          | 25 deals per page (default is 20 and max is 50)      |
+
+</details>
 
 #### Pagination
 
@@ -95,9 +181,9 @@ Now, it will automatically open http://localhost:5000 and API is available on [P
 
 #### Example Query
 
-- Example query: http://localhost:5000/api/deal/?itemname=broccoli&zipcode=98105&page=3&size=25
+- Example query: http://localhost:5003/api/deals/?itemname=broccoli&zipcode=98105&page=3&size=25
 
-  - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 5 results per page.
+  - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 25 results per page.
 
 ## API Known Bugs
 
@@ -195,10 +281,12 @@ INSERT PARKING LOT ITEMS HERE AT END OF WEEK
 - Entity Framework and Razor
 - [MySQL](https://dev.mysql.com/downloads/file/?id=484919)
 - [Semantic UI](https://semantic-ui.com/)
+- [Swagger](https://www.c-sharpcorner.com/article/how-to-use-swagger-with-asp-net-core-web-apis/)
+- [Pagination](https://www.carlrippon.com/scalable-and-performant-asp-net-core-web-apis-paging/)
 
 ## Support and Contact Details
 
-_If there are any question or concerns please contact us at our emails: [Sasa Schwartz](mailto:#), [Adela Darmansyah](mailto:#), [Tiffany Siu](mailto:tsiu88@gmail.com), and [Jiwon Han](mailto:#jiwon1.han@gmail.com). Thank you._
+_If there are any question or concerns please contact us at our emails: [Sasa Schwartz](mailto:#), [Adela Darmansyah](mailto:adela.yohana@gmail.com), [Tiffany Siu](mailto:tsiu88@gmail.com), and [Jiwon Han](mailto:#jiwon1.han@gmail.com). Thank you._
 
 ### License
 

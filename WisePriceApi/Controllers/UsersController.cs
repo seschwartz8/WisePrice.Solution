@@ -3,43 +3,83 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WisePriceApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WisePriceApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("/api/[controller]")]
   [ApiController]
   public class UsersController : ControllerBase
   {
-    // GET api/users
-    [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
+    private WisePriceApiContext _db;
+
+    public UsersController(WisePriceApiContext db)
     {
-      return new string[] { "user1", "user2" };
+      _db = db;
     }
+
+    // NOT USING? ================================
+    // GET api/users
+    // [HttpGet]
+    // public ActionResult<IEnumerable<User>> Get(int page, int size)
+    // {
+    //   var query = _db.Users
+    //     .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Item)
+    //     //.Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal).ThenInclude(entry => entry.Location)
+    //     // .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Location)
+    //     .Include(entry => entry.PostedDeals).AsQueryable();
+
+    //   // Pagination
+    //   int maxPageSize = 40; // max of 40 users per page
+    //   int pageSize = 20; //defaults to 20 users per page
+
+    //   int pageNumber = (page > 0) ? page : 1; //defaults to page 1
+    //   if (size > 0)
+    //   {
+    //     pageSize = (size > maxPageSize) ? maxPageSize : size;
+    //   }
+
+    //   return query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+    // }
+
+    // NOT USING? ================================
+    // // GET api/users/count
+    // [HttpGet("count")]
+    // public ActionResult<int> CountUsers()
+    // {
+    //   var query = _db.Users.AsQueryable();
+    //   return query.ToList().Count();
+    // }
 
     // GET api/users/5
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<User> Get(string id)
     {
-      return "user";
+      var query = _db.Users
+      .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal)
+      .Include(entry => entry.PostedDeals).ThenInclude(entry => entry.Deal)
+      .FirstOrDefault(entry => entry.UserId == id);
+      return query;
     }
+
 
     // POST api/users
     [HttpPost]
-    public void Post([FromBody] string user)
+    public void Post([FromBody] User user)
     {
+      _db.Users.Add(user);
+      _db.SaveChanges();
     }
 
-    // PUT api/users/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string user)
-    {
-    }
-
-    // DELETE api/users/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }
+    // GET api/users/5/pinneddeals
+    // [HttpGet("{id}/pinneddeals")]
+    // public ActionResstring<User> Get(int id, int page, int size)
+    // {
+    //   var query = _db.Users
+    //   .Include(entry => entry.PinnedDeals).ThenInclude(entry => entry.Deal)
+    //   .FirstOrDefault(entry => entry.UserId == id);
+    //   return query;
+    // }
   }
 }
