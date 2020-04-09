@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WisePriceApi.Models;
 using Microsoft.EntityFrameworkCore;
+using WisePriceApi.Models;
 
 namespace WisePriceApi.Controllers
 {
@@ -63,15 +63,23 @@ namespace WisePriceApi.Controllers
       return query.ToList().Count();
     }
 
-    //POST api/pinneddeals
-    [HttpPost]
-    public void Post(string userId, int dealId, [FromBody] Deal Deal)
+    // //POST api/pinneddeals
+    // [HttpPost]
+    // public void Post(string userId, int dealId, [FromBody] Deal Deal)
+    // {
+    //   if (_db.PinnedDeals.Where(entry => entry.DealId == Deal.DealId).ToList().Count() == 0)
+    //   {
+    //     var newPinnedDeal = _db.PinnedDeals.Include(entry => entry.Deal).FirstOrDefault(entry => entry.Deal.DealId == dealId);
+    //     _db.PinnedDeals.Add(newPinnedDeal);
+    //   }
+    //   _db.SaveChanges();
+    // }
+
+    // POST api/pinneddeals/1
+    [HttpPost("{userId}")]
+    public void Post(string userId, [FromBody] PinnedDeal pinnedDeal)
     {
-      if (_db.PinnedDeals.Where(entry => entry.DealId == Deal.DealId).ToList().Count() == 0)
-      {
-        var newPinnedDeal = _db.PinnedDeals.Include(entry => entry.Deal).FirstOrDefault(entry => entry.Deal.DealId == dealId);
-        _db.PinnedDeals.Add(newPinnedDeal);
-      }
+      _db.PinnedDeals.Add(pinnedDeal);
       _db.SaveChanges();
     }
 

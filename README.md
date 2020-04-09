@@ -6,9 +6,9 @@
 
 #### By Sarah "Sasa" Schwartz, Adela Darmansyah, Tiffany Siu, Jiwon Han
 
-<!-- [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive) -->
+<!-- [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip) -->
 
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 ![LastCommit](https://img.shields.io/github/last-commit/seschwartz8/WisePrice.Solution)
 ![Languages](https://img.shields.io/github/languages/top/seschwartz8/WisePrice.Solution)
 [![MIT license](https://img.shields.io/badge/License-MIT-orange.svg)](https://lbesson.mit-license.org/)
@@ -43,7 +43,7 @@
 
 ## API Description
 
-A C#/.NET Core API that hosts information on grocery locations, items, and deals. This API provides full CRUD functionality, allowing users to create, view, edit, and delete grocery deals.
+A C#/.NET Core API that hosts information on grocery locations, items, deals and users. This API provides full CRUD functionality, allowing users to create, view, edit, and delete grocery deals, store locations, grocery items and users.
 
 ## API Setup
 
@@ -68,9 +68,9 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 ## API Documentation
 
 - Base url: http://localhost:5003/
-- Swagger that describes the capabilities of the API and how to access it with HTTP. Go to Swagger UI, http://localhost:5003/swagger or check swagger.json in the folder
+- View all API endpoints using Swagger: http://localhost:5003/swagger or see [API Endpoints](#api-endpoints) below.
 
-#### Routes
+#### API Endpoints
 
 <details>
   <summary>DEALS</summary>
@@ -179,19 +179,22 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 
 #### Pagination
 
-- This API returns paginated results, with a default page size of 20 results per page and a max page size of 50 results per page.
+<details>
+<summary>Click to expand!</summary>
+
+- This API returns paginated results, with a default page size of 20 results per page and a max page size of 40 results per page.
 - The default page number is set to 1.
 - See the [search parameters](#search-parameters) above for information on how to adjust page size and number.
-
-#### Example Query
-
 - Example query: http://localhost:5003/api/deals/?itemname=broccoli&zipcode=98105&page=3&size=25
-
   - This query returns deals for the item broccoli in the area near 98105. It starts at page 3 with 25 results per page.
+
+</details>
 
 ## API Known Bugs
 
-_There are currently no known bugs in this program._
+- Create a new pinned deal join entity works. However, unable to link the functionality to the MVC application.
+- List of all deals do not have sorting by time updated functionality.
+- All search queries work. However, unable to link the functionality to the MVC application.
 
 ## API Screenshots
 
@@ -199,20 +202,20 @@ _There are currently no known bugs in this program._
 
 ## MVC Description
 
-WRITE THE MVC DESCRIPTION HERE
+An MVC web application that enables a community to share grocery deals. Our website has full CRUD functionality via our API application, allowing users to create, view, edit, and delete grocery deals. A user can register for an account, log in and out, and view their account details. A user can see all the deals they have posted, as well as pin deals they want to save for later.
 
 ## MVC Setup
 
 - Clone the repository on Github
 - Open the terminal on your desktop
-- \$git clone "insert your cloned URL here"
+- \$ git clone "insert your cloned URL here"
 - Change directory to the WisePriceClient directory, within the WisePrice.Solution directory
-- \$dotnet restore
+- \$ dotnet restore
 - Recreate the database structure with migration:
   - \$dotnet ef migrations add Initial
   - \$dotnet ef database update
   - If you receive an error during this stage, check to make sure the password in "appsettings.json" matches your personal MySQL password
-- \$dotnet run (runs the server at localhost:5000)
+- \$ dotnet run (runs the server at localhost:5000)
 - Call this API with your web application or test out the requests using Postman.
 
 ## Specifications
@@ -242,32 +245,59 @@ WRITE THE MVC DESCRIPTION HERE
 - As a developer, I want to notify the user about the privacy policy prior to them logging on.
 - As a developer, I want the website to have a navigation bar at the top and footer at the bottom.
 
-### Future Specs?
+### Future Specs
 
-High - Low prioritized future features:
-As a user, I want to be able to remove deals I have pinned.
-As a user, I want to see how recently each deal was posted/updated.
-As a user, I want to view deals sorted by how close they are to my inputted location.
-As a user, I want to view deals sorted by how recently they were posted.
+<details>
+  <summary>Click to expand!</summary>
 
-As a user, I want to be able to "like" or vote up a deal that I like.
-As a user, I want to be able to "dislike" or vote down a deal that I dislike.
-As a user, I want to be able to see the overall vote percentage for another user to know if their deals are trustworthy?
+- As a user, I want to be able to remove deals I have pinned.
+- As a user, I want to see how recently each deal was posted/updated.
+- As a user, I want to view deals sorted by how close they are to my inputted location.
+- As a user, I want to view deals sorted by how recently they were posted.
+- As a user, I want to be able to "like" or vote up a deal that I like.
+- As a user, I want to be able to "dislike" or vote down a deal that I dislike.
+- As a user, I want to be able to see the overall vote percentage for another user to know if their deals are trustworthy.
+- As a user, I want to add items per category.
+- As an admin, I want to be able to view and manage all member accounts.
+- As a developer, I want to be able to launch a live demo of the application.
+- As a user, I want to be able to change my password.
 
-As a user, I want to add items per category.
-As an admin, I want to be able to view and manage all member accounts.
-As a developer, I want to be able to launch a live demo of the application.
-As a user, I want to be able to change my password.
+</details>
 
 ## MVC Known Bugs
 
-- No known bugs
+- Adding new items that are not in the drop down does not have functionality written
+- Pagination does not have functionality written
+- Navigating to "My Pinned Deals" or "Posted Deals" when not logged in throws an exception
+- Voting up/down for deals does not have functionality
+- Clicking Push pins on deals does not have working functionality of adding deals to "My Pinned Deals"
 
 ## MVC Screenshots
+
+The Homepage:
+
+![Homepage](./homepage.png/)
+
+Here's an example of the Deals Index:
+
+![List of Deals](./deals.png/)
 
 ---
 
 ## Work Distribution
+
+- Sasa Schwartz
+  - Front End
+  - Project Manager
+- Adela Darmansyah
+  - Full Stack
+  - Scrum Master
+- Tiffany Siu
+  - Full Stack
+  - Scrum Master
+- Jiwon Han
+  - Back-end
+  - Database management
 
 <a href="https://github.com/seschwartz8/WisePrice.Solution/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=seschwartz8/WisePrice.Solution" />
@@ -275,14 +305,23 @@ As a user, I want to be able to change my password.
 
 Made with [contributors-img](https://contributors-img.web.app).
 
-- Sasa Schwartz
-- Adela Darmansyah
-- Tiffany Siu
-- Jiwon Han
-
 ## Improvement Opportunities
 
-INSERT PARKING LOT ITEMS HERE AT END OF WEEK
+- Ability to remove deals that have been pinned
+- View how recently deals were posted/update from now
+- Sort all deals by how close they are to inputted location or how recently they were posted
+- Ability to vote deals up or down and see the overall vote approval percentage for another user to know if their deals are trustworthy
+- Add items with an asssociated category
+- Ability to add new locations
+- Show deals in sections by location
+- Ability to change password
+- Add log out button to account drop down
+- Points of interest API functionality to view/search for stores on a map
+- Ability for users to comment on deals
+- Pictures of items showing with the chosen item when adding a deal and on deal cards
+- Function to send daily texts/emails on relevant deals for users
+- Get actual prices for comparison from real store databases
+- Add live demo for project
 
 ## Technologies Used
 
