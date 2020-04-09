@@ -2,6 +2,8 @@
     ViewData["Title"] = "Edit Deal";
 }
 
+@model Deal
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -29,62 +31,70 @@
       <h1>Edit Deal</h1>
       <div class='col'></div>
   </div>
-  <h4>Original Item Name: Original price typed right here, Location?</h4>
+  <h4>@Model.Item.ItemName: @Model.Price, at @Model.Location.Name @Model.Location.Address</h4>
 
 
   <div class='create-sub'>
 
     <form asp-controller='Deals' asp-action='Edit' method='post' class="ui equal width form">
 
-        <div class="field">
-          <label for='Item'>Item</label>
-          <div class="ui search selection dropdown">
-            <input type="hidden" name="item">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select the item</div>
-            <div class="menu">
-                @foreach (Item item in ViewBag.allItems)
-                {
-                  <div value='@item.ItemId' class="item">@item.ItemName</div>
-                }
-            </div>
+      <div class="field">
+        <label for='Item'>Item</label>
+        <div class="ui search selection dropdown">
+          <input type="hidden" id="Item" asp-for='ItemId'>
+          <i class="dropdown icon"></i>
+          <div class="default text">@Model.Item.ItemName</div>
+          <div class="menu">
+            @foreach (Item item in ViewBag.allItems)
+            {
+              <div data-value='@item.ItemId' class="item">@item.ItemName</div>
+            }
           </div>
         </div>
+      </div>
 
-        <div class='item-btn-container field'>
-          <a id="item-btn" type='button'>I don't see my item</a>
-        </div>
+      <div class='item-btn-container field'>
+        <a id="item-btn" type='button'>I don't see my item</a>
+      </div>
 
-        <div id='item-field' class="field">
-          <label for='Item'>Add a new item</label>
-          <input id='item-input' type="text" placeholder="Spaghetti Squash">
-        </div>
+      <div id='item-field' class="field">
+        <label for='Item'>Add a new item</label>
+        <input id='item-input' type="text" placeholder="Spaghetti Squash">
+      </div>
         
-        <div class="field">
-          <label for='Location'>Location</label>
-          <div class="ui search selection dropdown">
-            <input type="hidden" name="location">
-            <i class="dropdown icon"></i>
-            <div class="default text">Select the location</div>
-            <div class="menu">
-                @foreach (Location location in ViewBag.allLocations)
-                {
-                  <div value='@location.LocationId' class="item"><strong>@location.Name</strong> @location.Address</div>
-                }
-            </div>
+      <div class="field">
+        <label for='Location'>Location</label>
+        <div class="ui search selection dropdown">
+          <input type="hidden" id="Location" asp-for='LocationId'>
+          <i class="dropdown icon"></i>
+          <div class="default text"><strong>@Model.Location.Name</strong> @Model.Location.Address</div>
+          <div class="menu">
+            @foreach (Location location in ViewBag.allLocations)
+            {
+              <div data-value='@location.LocationId' class="item"><strong>@location.Name</strong> @location.Address</div>
+            }
           </div>
         </div>
+      </div>
 
-        <div class="field">
-          <label for='Price'>Price per unit</label>
-          <!-- <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb"> -->
-          <input type="text" placeholder="$3.50 per lb">
-        </div>
+      <div class="field">
+        <label for='Price'>Price per unit</label>
+        <input type="text" id='Price' asp-for='Price' placeholder="@Model.Price" required>
+      </div>
 
-      <button class='ui button' type='submit'>Add Deal</button>
-      <small><a asp-action='Index'>Cancel</a></small>
+      <input type="hidden" asp-for="UserId" value="@ViewBag.userId"/>
+
+      <input type="hidden" asp-for="DealId" value="@Model.DealId"/>
+
+      <div class='submit-field'>
+        <button class='ui button' type='submit'>Edit Deal</button>
+        <small><a asp-action='Index'>Cancel</a></small>
+      </div>
 
     </form>
   </div>
 
 </div>
+
+
+

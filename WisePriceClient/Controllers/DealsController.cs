@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,7 +30,8 @@ namespace WisePriceClient.Controllers
     {
       ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
       ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
-      ViewBag.userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.userId = User.Identity.GetUserId();
+
       return View();
     }
 
@@ -77,8 +79,46 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Edit(int id)
     {
+      ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
+      ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
+      ViewBag.userId = User.Identity.GetUserId();
       var selectedDeal = Deal.Get(id);
       return View(selectedDeal);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(string ItemId, string newItemName, string LocationId, string Price, string UserId, int DealId)
+    {
+      // // Make sure user is logged in
+      if (User.Identity.IsAuthenticated)
+      //if (UserId != null)
+      {
+        // Create new item and set ItemId = to newItem's Id
+        if (newItemName != null)
+        {
+          Item newItem = new Item(newItemName);
+          Item.Post(newItem);
+          List<Item> allItems = Item.GetAll();
+          foreach (Item item in allItems)
+          {
+            if (item.ItemName == newItemName)
+            {
+              ItemId = item.ItemId.ToString();
+            }
+          }
+        }
+
+        int ItemIdInt = int.Parse(ItemId);
+        int LocationIdInt = int.Parse(LocationId);
+
+        Deal dealToEdit = new Deal(DealId, ItemIdInt, LocationIdInt, Price, UserId);
+        Deal.Put(dealToEdit);
+        return RedirectToAction("Posted");
+      }
+      else
+      {
+        return RedirectToAction("Posted");
+      }
     }
 
     [HttpPost]
@@ -89,10 +129,10 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Details", id);
     }
 
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int DealId)
     {
-      Deal.Delete(id);
-      return RedirectToAction("Index");
+      Deal.Delete(DealId);
+      return RedirectToAction("Posted");
     }
 
     public IActionResult Pinned(int id = 1)
@@ -115,9 +155,17 @@ namespace WisePriceClient.Controllers
       }
     }
 
-    public IActionResult Posted()
+    // Don't remove the "= 1", this sets the default page to 1
+    public IActionResult Posted(int id = 1)
     {
-      return View();
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.DealCount = PostedDeal.GetCount(userId);
+
+      var allPostedDeals = PostedDeal.GetAll(userId);
+      return View(allPostedDeals);
     }
   }
 }
