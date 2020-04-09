@@ -95,10 +95,16 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
+    public IActionResult Pinned(int id = 1)
     {
-      PinnedDeal.Post(DealtoPinned);
-      return View();
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.DealCount = PinnedDeal.GetCount(userId);
+
+      var allPinnedDeals = PinnedDeal.GetAll(userId);
+      return View(allPinnedDeals);
     }
 
     public IActionResult Posted()

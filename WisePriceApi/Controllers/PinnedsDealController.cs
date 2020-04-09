@@ -26,6 +26,7 @@ namespace WisePriceApi.Controllers
       var query = _db.PinnedDeals
         .Include(entry => entry.User).Where(entry => entry.UserId == userId)
         .Include(entry => entry.Deal).ThenInclude(entry => entry.Item)
+        .Include(entry => entry.Deal).ThenInclude(entry => entry.Location)
         .OrderByDescending(entry => entry.Deal.Item.ItemName)
         .AsQueryable();
 
