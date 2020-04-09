@@ -12,8 +12,14 @@ namespace WisePriceClient.Models
     public int DealId { get; set; }
 
     public virtual ApplicationUser AppUser { get; set; }
-    public virtual User User {get; set;}
+    public virtual User User { get; set; }
     public virtual Deal Deal { get; set; }
+
+    public PinnedDeal(string userId, int dealId)
+    {
+      UserId = userId;
+      DealId = dealId;
+    }
 
     public static List<PinnedDeal> GetAll(string userId)
     {
@@ -35,7 +41,7 @@ namespace WisePriceClient.Models
       return pinnedDeal;
     }
 
-    public static void Post(Deal newPinnedDeal)
+    public static void Post(PinnedDeal newPinnedDeal)
     {
       string jsonPinnedDeal = JsonConvert.SerializeObject(newPinnedDeal);
       var apiCallTask = ApiHelper.PostPinnedDeal(jsonPinnedDeal);

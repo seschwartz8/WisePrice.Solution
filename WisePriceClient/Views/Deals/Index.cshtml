@@ -51,7 +51,10 @@
       <div class="ui cards">
         <div class="card">
           <div class="ui top">
-            <a><i class="thumbtack icon large"></i></a>
+            <form asp-controller="PinnedDeals" asp-action="PinnedPost" method="post">
+              <input type='hidden' value='@deal.DealId' name='DealId'>
+              <button type="submit" id='invis-btn'><i class='thumbtack icon large'></i></button>
+            </form>
           </div>
             <div class="content">
               <div class="header">

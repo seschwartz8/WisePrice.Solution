@@ -55,6 +55,11 @@ h1.title {
 }
 
 /* DEALS PAGE and CARDS*/
+#invis-btn {
+  border: none;
+  background-color: white;
+}
+
 .deals-body {
   height: max-content;
   display: flex;
