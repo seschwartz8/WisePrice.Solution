@@ -2,11 +2,12 @@
 
 #### Team Week C# Project for Epicodus. Built API and MVC applications for a community to share grocery deals.
 
-#### Current version: 04.06.20
+#### Current version: 04.09.20
 
 #### By Sarah "Sasa" Schwartz, Adela Darmansyah, Tiffany Siu, Jiwon Han
 
 <!-- [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive) -->
+
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 ![LastCommit](https://img.shields.io/github/last-commit/seschwartz8/WisePrice.Solution)
 ![Languages](https://img.shields.io/github/languages/top/seschwartz8/WisePrice.Solution)
@@ -42,23 +43,26 @@
 
 ## API Description
 
-A C#/.NET Core API that hosts information on grocery locations, items, and deals. This API provides full CRUD functionality, allowing users to create, view, edit, and delete grocery deals. 
+A C#/.NET Core API that hosts information on grocery locations, items, and deals. This API provides full CRUD functionality, allowing users to create, view, edit, and delete grocery deals.
 
 ## API Setup
+
 To run dev mode locally:
+
 ```bash
-  $ git clone 
+  $ git clone
   $ cd WisePrice
   $ dotnet add package Microsoft.EntityFrameworkCore -v 2.2.0
   $ dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0
   $ dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 2.2.0
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
-  $ dotnet build 
+  $ dotnet build
   $ dotnet ef migrations add MigrationName
-  $ dotnet ef database update  
+  $ dotnet ef database update
   # After successfull pkg installtion
   $ dotnet run
 ```
+
 Now, it will automatically open http://localhost:5003 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](https://localhost:5003/swagger)
 
 ## API Documentation
@@ -71,17 +75,17 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 <details>
   <summary>DEALS</summary>
 
-| Action for DEALS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
-| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
-| List all deals (paginated)       | GET    | /api/deals        | string itemName, string zipCode, int page, int size | N/A |
-| Retrieve specific deal           | GET    | /api/deals/{id}   | N/A | N/A |
-| Create deal*                     | POST   | /api/deals        | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "upVotes": #, "downVotes": # } |
-| Edit deal                        | PUT    | /api/deals/{id}   | N/A | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "timeUpdated": "YYYY-MM-DD HH:MM", "upVotes": #, "downVotes": # } |
-| Delete deal**                    | DELETE | /api/deals/{userId}/{dealId} | N/A | N/A |
-| Count all deals                  | GET    | /api/deals/count  | string itemName, string locationName | N/A |
+| Action for DEALS           | Method | Endpoint                     | Query Parameters                                    | Raw JSON Body Input                                                                                                                             |
+| :------------------------- | :----- | :--------------------------- | :-------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| List all deals (paginated) | GET    | /api/deals                   | string itemName, string zipCode, int page, int size | N/A                                                                                                                                             |
+| Retrieve specific deal     | GET    | /api/deals/{id}              | N/A                                                 | N/A                                                                                                                                             |
+| Create deal\*              | POST   | /api/deals                   | N/A                                                 | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "upVotes": #, "downVotes": # }                                    |
+| Edit deal                  | PUT    | /api/deals/{id}              | N/A                                                 | { "itemId": #, "locationId": #, "userId": #, "price": "[specify-price-here]", "timeUpdated": "YYYY-MM-DD HH:MM", "upVotes": #, "downVotes": # } |
+| Delete deal\*\*            | DELETE | /api/deals/{userId}/{dealId} | N/A                                                 | N/A                                                                                                                                             |
+| Count all deals            | GET    | /api/deals/count             | string itemName, string locationName                | N/A                                                                                                                                             |
 
-> *Creating a new deal will automatically create a PostedDeal relationship given a userId in JSON input.
-> **Deleting a deal will automatically delete its PostedDeal.
+> \*Creating a new deal will automatically create a PostedDeal relationship given a userId in JSON input.
+> \*\*Deleting a deal will automatically delete its PostedDeal.
 
 </details>
 
@@ -102,26 +106,26 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 <details>
   <summary>LOCATIONS</summary>
 
-| Action for LOCATIONS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
-| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
-| List all locations* (paginated)      | GET    | /api/locations        | string name, string zipcode, string address, int page, int size | N/A |
-| Retrieve specific location           | GET    | /api/locations/{id}   | N/A | N/A |
-| Create location                      | POST   | /api/locations        | N/A | { "Name": "[location name]" } |
-| Edit location                        | PUT    | /api/locations/{id}   | N/A | { "Name": "[edited location name]" } |
-| Delete location                      | DELETE | /api/locations/{id}   | N/A | N/A |
-| Count all locations                  | GET    | /api/locations/count  | N/A | N/A |
-| Retrieve locations in specific zip code | GET | api/locations/neareststores | int userZipCode | N/A |
+| Action for LOCATIONS                    | Method | Endpoint                    | Query Parameters                                                | Raw JSON Body Input                  |
+| :-------------------------------------- | :----- | :-------------------------- | :-------------------------------------------------------------- | :----------------------------------- |
+| List all locations\* (paginated)        | GET    | /api/locations              | string name, string zipcode, string address, int page, int size | N/A                                  |
+| Retrieve specific location              | GET    | /api/locations/{id}         | N/A                                                             | N/A                                  |
+| Create location                         | POST   | /api/locations              | N/A                                                             | { "Name": "[location name]" }        |
+| Edit location                           | PUT    | /api/locations/{id}         | N/A                                                             | { "Name": "[edited location name]" } |
+| Delete location                         | DELETE | /api/locations/{id}         | N/A                                                             | N/A                                  |
+| Count all locations                     | GET    | /api/locations/count        | N/A                                                             | N/A                                  |
+| Retrieve locations in specific zip code | GET    | api/locations/neareststores | int userZipCode                                                 | N/A                                  |
 
 </details>
 
 <details>
   <summary>USERS</summary>
 
-| Action for USERS                 | Method | Endpoint          | Query Parameters | Raw JSON Body Input |
-| :------------------------------- | :----- | :---------------- | :--------------- | :------------------ |
-| Retrieve a user                  | GET    | /api/users/{id}   | N/A | N/A |
-| Delete a user                    | DELETE | /api/users/{id}   | N/A | N/A |
-| Create a user                    | POST   | /api/users        | N/A | { "UserId": # } |
+| Action for USERS | Method | Endpoint        | Query Parameters | Raw JSON Body Input |
+| :--------------- | :----- | :-------------- | :--------------- | :------------------ |
+| Retrieve a user  | GET    | /api/users/{id} | N/A              | N/A                 |
+| Delete a user    | DELETE | /api/users/{id} | N/A              | N/A                 |
+| Create a user    | POST   | /api/users      | N/A              | { "UserId": # }     |
 
 > USER does NOT have a PUT method as UserId cannot be edited (due to it being a Primary Key).
 
@@ -130,13 +134,13 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 <details>
   <summary>PINNED DEALS</summary>
 
-| Action for PINNED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
-| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
-| List all pinned deals sorted by item name (paginated)* | GET | /api/pinneddeals/{userId} | int page, int size | N/A |
-| Retrieve specific pinned deal      | GET    | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
-| Create pinned deal and doensn't allow duplicated pinned deal | POST | /api/posteddeals | N/A | { "userId": "[User Id]" } { "dealId": "[Deal Id]" }|
-| Delete pinned deal                 | DELETE | /api/pinneddeals/{userId}/{dealId} | N/A | N/A |
-| Count all pinneddeals              | GET    | /api/pinneddeals/{userId}/count | N/A | N/A |
+| Action for PINNED DEALS                                      | Method | Endpoint                           | Query Parameters   | Raw JSON Body Input                                 |
+| :----------------------------------------------------------- | :----- | :--------------------------------- | :----------------- | :-------------------------------------------------- |
+| List all pinned deals sorted by item name (paginated)\*      | GET    | /api/pinneddeals/{userId}          | int page, int size | N/A                                                 |
+| Retrieve specific pinned deal                                | GET    | /api/pinneddeals/{userId}/{dealId} | N/A                | N/A                                                 |
+| Create pinned deal and doensn't allow duplicated pinned deal | POST   | /api/posteddeals                   | N/A                | { "userId": "[User Id]" } { "dealId": "[Deal Id]" } |
+| Delete pinned deal                                           | DELETE | /api/pinneddeals/{userId}/{dealId} | N/A                | N/A                                                 |
+| Count all pinneddeals                                        | GET    | /api/pinneddeals/{userId}/count    | N/A                | N/A                                                 |
 
 > PINNED DEALS do not have a PUT method as when a user pins/unpins a deal, the user creates/deletes a PinnedDeal relationship.
 
@@ -145,16 +149,16 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 <details>
   <summary>POSTED DEALS</summary>
 
-| Action for POSTED DEALS            | Method | Endpoint                 | Query Parameters | Raw JSON Body Input |
-| :--------------------------------- | :----- | :----------------------- | :--------------- | :------------------ |
-| List all posted deals (paginated)* | GET  | /api/posteddeals/{userId}  | int page, int size | N/A |
-| Retrieve specific posted deal      | GET  | /api/posteddeals/{userId}/{dealId} | N/A | N/A |
-| Create posted deal relationship*   | POST | /api/posteddeals/{userId}  | N/A | { "userId": 1, "dealId": 2 } |
-| Delete posted deal**               | DELETE | N/A   | N/A | N/A |
-| Count all posted deals of a user   | GET  | /api/posteddeals/{userId}/count | N/A | N/A |
+| Action for POSTED DEALS             | Method | Endpoint                           | Query Parameters   | Raw JSON Body Input          |
+| :---------------------------------- | :----- | :--------------------------------- | :----------------- | :--------------------------- |
+| List all posted deals (paginated)\* | GET    | /api/posteddeals/{userId}          | int page, int size | N/A                          |
+| Retrieve specific posted deal       | GET    | /api/posteddeals/{userId}/{dealId} | N/A                | N/A                          |
+| Create posted deal relationship\*   | POST   | /api/posteddeals/{userId}          | N/A                | { "userId": 1, "dealId": 2 } |
+| Delete posted deal\*\*              | DELETE | N/A                                | N/A                | N/A                          |
+| Count all posted deals of a user    | GET    | /api/posteddeals/{userId}/count    | N/A                | N/A                          |
 
-> *There are 2 ways you can create a new PostedDeal: 1) By creating a new deal will automatically create a new PostedDeal. 2) By creating a new PostedDeal directly.
-> **See DELETE action for DEALS.
+> \*There are 2 ways you can create a new PostedDeal: 1) By creating a new deal will automatically create a new PostedDeal. 2) By creating a new PostedDeal directly.
+> \*\*See DELETE action for DEALS.
 > POSTED DEALS do not have a PUT method as when a user edits a deal, the userId and dealId will not change therefore the PostedDealId will not change.
 
 </details>
@@ -164,12 +168,12 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 
 #### Examples of Query Search
 
-| Parameter | Type   | Example            | Response                                             |
-| :-------- | :----- | :----------------- | :--------------------------------------------------- |
-| Name      | String | http://localhost:5003/api/deals?itemname="broccoli" | Deals with name "broccoli"                        |
-| Location  | String | http://localhost:5003/api/deals?zipcode="98105"  | Deals offered in the area of "98105"                 |
-| Page      | Int    | http://localhost:5003/api/deals?page=2           | Page 2 of paginated deal results (default is page 1) |
-| Size      | Int    | http://localhost:5003/api/deals?size=25          | 25 deals per page (default is 20 and max is 50)      |
+| Parameter | Type   | Example                                             | Response                                             |
+| :-------- | :----- | :-------------------------------------------------- | :--------------------------------------------------- |
+| Name      | String | http://localhost:5003/api/deals?itemname="broccoli" | Deals with name "broccoli"                           |
+| Location  | String | http://localhost:5003/api/deals?zipcode="98105"     | Deals offered in the area of "98105"                 |
+| Page      | Int    | http://localhost:5003/api/deals?page=2              | Page 2 of paginated deal results (default is page 1) |
+| Size      | Int    | http://localhost:5003/api/deals?size=25             | 25 deals per page (default is 20 and max is 50)      |
 
 </details>
 
@@ -191,8 +195,8 @@ _There are currently no known bugs in this program._
 
 ## API Screenshots
 
-
 ---
+
 ## MVC Description
 
 WRITE THE MVC DESCRIPTION HERE
@@ -211,17 +215,18 @@ WRITE THE MVC DESCRIPTION HERE
 - \$dotnet run (runs the server at localhost:5000)
 - Call this API with your web application or test out the requests using Postman.
 
-
 ## Specifications
+
 ### MVP Specs
+
 - As a user, I want to be able to share a deal for a specific item at a specific store.
   - Sample input: User fills out and submits "add deal" form
-  - Expected output:  Deal is added to list of deals for all users
+  - Expected output: Deal is added to list of deals for all users
 - As a user, I want to be able to add an item if the one I'm looking for is not already present.
   - Sample input: User fills out deal form, but cannot find their item and clicks "don't see your item?"
   - Expected output: Additional form field appears, allowing user to add a new item for their deal
 - As a user, I want to be able to edit deals I have posted.
-  - Sample input: User edits the milk deal posted on today and clicks edit button 
+  - Sample input: User edits the milk deal posted on today and clicks edit button
   - Expected output: Milk price is edited from $2 to $1.50
 - As a user, I want to be able to delete deals I have posted.
   - Sample input: User delete the egg deal posted on yesterday and clicks delete button
@@ -232,11 +237,10 @@ WRITE THE MVC DESCRIPTION HERE
 - As a user, I want to be able to browse through deals.
   - Sample input: User clicks the "deals" button
   - Expected output: A list of deals is presented to the user to scroll through
-- As a user, I want to be able to register for an account on Wise Price. 
+- As a user, I want to be able to register for an account on Wise Price.
 - As a user, I want to be able to log into and out of my account on Wise Price.
 - As a developer, I want to notify the user about the privacy policy prior to them logging on.
 - As a developer, I want the website to have a navigation bar at the top and footer at the bottom.
-
 
 ### Future Specs?
 
@@ -261,14 +265,20 @@ As a user, I want to be able to change my password.
 
 ## MVC Screenshots
 
---- 
+---
 
 ## Work Distribution
 
-* Sasa Schwartz
-* Adela Darmansyah
-* Tiffany Siu
-* Jiwon Han
+<a href="https://github.com/seschwartz8/WisePrice.Solution/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=seschwartz8/WisePrice.Solution" />
+</a>
+
+Made with [contributors-img](https://contributors-img.web.app).
+
+- Sasa Schwartz
+- Adela Darmansyah
+- Tiffany Siu
+- Jiwon Han
 
 ## Improvement Opportunities
 

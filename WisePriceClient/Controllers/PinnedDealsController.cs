@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceClient.Models;
-using Microsoft.AspNet.Identity;
-using System.Security.Claims;
 
 namespace WisePriceClient.Controllers
 {
@@ -23,5 +23,13 @@ namespace WisePriceClient.Controllers
     //   var allPinnedDeals = PinnedDeal.GetAll(userId);
     //   return View(allPinnedDeals);
     // }
+
+    [HttpPost]
+    public IActionResult PinnedPost(string userId, int dealId)
+    {
+      PinnedDeal newPinnedDeal = new PinnedDeal(userId, dealId);
+      PinnedDeal.Post(newPinnedDeal);
+      return RedirectToAction("Index", "Deals");
+    }
   }
 }
