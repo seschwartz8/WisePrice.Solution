@@ -26,13 +26,6 @@ namespace WisePriceClient.Models
       return pinnedDealList;
     }
 
-    public static int GetCount(string userId)
-    {
-      var apiCallTask = ApiHelper.GetPinnedDealCount(userId);
-      var result = int.Parse(apiCallTask.Result);
-      return result;
-    }
-
     public static PinnedDeal Get(string userId, int dealId)
     {
       var apiCallTask = ApiHelper.GetPinnedDeal(userId, dealId);
@@ -52,7 +45,12 @@ namespace WisePriceClient.Models
     {
       var apiCallTask = ApiHelper.DeletePinnedDeal(userId, dealId);
     }
-  }
 
-  
+    public static int GetCount(string userId)
+    {
+      var apiCallTask = ApiHelper.GetPinnedDealCount(userId);
+      var result = int.Parse(apiCallTask.Result);
+      return result;
+    }
+  }
 }

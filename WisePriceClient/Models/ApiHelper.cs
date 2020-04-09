@@ -183,5 +183,40 @@ namespace WisePriceClient.Models
       request.AddJsonBody(newPinnedDeal);
       var response = await client.ExecuteTaskAsync(request);
     }
+
+    // POSTED DEALS ================================
+    // See DEALS for DELETE POSTED DEAL ACTION
+    public static async Task<string> GetAllPostedDeals(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"posteddeals/{userId}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
+    public static async Task<string> GetPostedDeal(string userId, int dealId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"posteddeals/{userId}/{dealId}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
+    public static async Task PostPostedDeal(string userId, string newPostedDeal)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"posteddeals/{userId}", Method.POST);
+      request.AddHeader("Content-Type", "application/json");
+      request.AddJsonBody(newPostedDeal);
+      var response = await client.ExecuteTaskAsync(request);
+    }
+
+    public static async Task<string> GetPostedDealCount(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"posteddeals/{userId}/count", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
   }
 }
