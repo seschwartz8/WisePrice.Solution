@@ -34,53 +34,53 @@
   <div class='create-sub'>
 
     <form asp-controller='Deals' asp-action='Create' method='post' class="ui equal width form">
-        <div class="field">
-          <label for='Item'>Item</label>
-          <div class="ui search selection dropdown">
-            <input type="hidden" id='Item' asp-for='ItemId'>
-            <i class="dropdown icon"></i>
-            <div class="default text">Select the item</div>
-            <div class="menu">
-              @foreach (Item item in ViewBag.allItems)
+      <div class="field">
+        <label for='Item'>Item</label>
+        <div class="ui search selection dropdown">
+          <input type="hidden" id='Item' asp-for='ItemId'>
+          <i class="dropdown icon"></i>
+          <div class="default text">Select the item</div>
+          <div class="menu">
+            @foreach (Item item in ViewBag.allItems)
+            {
+              <div data-value='@item.ItemId' class="item">
+                @item.ItemName
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class='item-btn-container field'>
+        <a id="item-btn" type='button'>I don't see my item</a>
+      </div>
+
+      <div id='item-field' class="field">
+        <label for='item-input'>Add a new item</label>
+        <input id='item-input' name='newItemName' type="text" placeholder="Spaghetti Squash">
+      </div>
+
+      <div class="field">
+        <label for='Location'>Location</label>
+        <div class="ui search selection dropdown">
+          <input type="hidden" asp-for='LocationId'>
+          <i class="dropdown icon"></i>
+          <div class="default text">Select the location</div>
+          <div class="menu">
+              @foreach (Location location in ViewBag.allLocations)
               {
-                <div data-value='@item.ItemId' class="item">
-                  @item.ItemName
-                </div>
+                <div data-value='@location.LocationId' class="item"><strong>@location.Name</strong> @location.Address</div>
               }
-            </div>
           </div>
         </div>
+      </div>
 
-        <div class='item-btn-container field'>
-          <a id="item-btn" type='button'>I don't see my item</a>
-        </div>
+      <div class="field">
+        <label for='Price'>Price and unit amount</label>
+        <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb" required>
+      </div>
 
-        <div id='item-field' class="field">
-          <label for='item-input'>Add a new item</label>
-          <input id='item-input' name='newItemName' type="text" placeholder="Spaghetti Squash">
-        </div>
-
-        <div class="field">
-          <label for='Location'>Location</label>
-          <div class="ui search selection dropdown">
-            <input type="hidden" asp-for='LocationId'>
-            <i class="dropdown icon"></i>
-            <div class="default text">Select the location</div>
-            <div class="menu">
-                @foreach (Location location in ViewBag.allLocations)
-                {
-                  <div data-value='@location.LocationId' class="item"><strong>@location.Name</strong> @location.Address</div>
-                }
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for='Price'>Price and unit amount</label>
-          <input type="text" id='Price' asp-for='Price' placeholder="$3.50 per lb" required>
-        </div>
-
-        <input type="hidden" asp-for="UserId" value="@ViewBag.userId"/>
+      <input type="hidden" asp-for="UserId" value="@ViewBag.userId"/>
       
       <div class='submit-field'>
         <button class='ui button' type='submit'>Add Deal</button>

@@ -3,39 +3,39 @@
 }
 
 <div class='deals-body'>
-    <div class='deals-top'>
-        <div class='col'></div>
-        <h1>Posted Deals</h1>
-        <div class='col'></div>
-    </div>
+  <div class='deals-top'>
+    <div class='col'></div>
+    <h1>Posted Deals</h1>
+    <div class='col'></div>
+  </div>
 
-    <div class='deals-cards-container'>
-    <!-- FOR LOOP FOR EACH CARD IN MODEL -->
-        <div class="ui cards">
-          <div class="grey card">
-            <div class="content">
-              <div class="header">Item Name</div>
-              <div class="description">
-                <div>
-                  Store Location
-                </div>
-                <div>
-                  Date
-                </div>
-              </div>
+  <div class='deals-cards-container'>
+  <!-- FOR LOOP FOR EACH CARD IN MODEL -->
+    <div class="ui cards">
+      <div class="grey card">
+        <div class="content">
+          <div class="header">Item Name</div>
+          <div class="description">
+            <div>
+              Store Location
             </div>
-            <div class="ui bottom">
-              <!-- <a class="ui button grey"  asp-route-id="@Model.DealId" asp-action="Edit">Edit</a> -->
-              <a class="ui button grey" asp-action="Edit">Edit</a>
-                <form asp-controller="Deals" asp-action="Delete" method="post">
-                  <!-- <input type="hidden" value="@Model.DealId" asp-fpr="DealId"> -->
-                  <input type="submit" value="Delete" class="ui button"/>
-                </form>
+            <div>
+              Date
             </div>
           </div>
         </div>
-
+        <div class="ui bottom">
+          <!-- <a class="ui button grey"  asp-route-id="@Model.DealId" asp-action="Edit">Edit</a> -->
+          <a class="ui button grey" asp-action="Edit">Edit</a>
+            <form asp-controller="Deals" asp-action="Delete" method="post">
+              <!-- <input type="hidden" value="@Model.DealId" asp-fpr="DealId"> -->
+              <input type="submit" value="Delete" class="ui button"/>
+            </form>
+        </div>
+      </div>
     </div>
+
+  </div>
 
 </div>
 
