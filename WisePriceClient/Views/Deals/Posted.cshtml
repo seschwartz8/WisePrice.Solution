@@ -71,6 +71,7 @@
           </div>
             <div class="ui bottom">
               <a class='ui button grey' asp-route-id='@deal.DealId' asp-action='Edit'>Edit</a>
+              <p>@deal.DealId</p>
               <form asp-controller="Deals" asp-action="Delete" method="post">
                 <!-- <input type='hidden' value='@deal.DealId' asp-for='DealId'> -->
                 <input type="submit" value="Delete" class="ui button"/>

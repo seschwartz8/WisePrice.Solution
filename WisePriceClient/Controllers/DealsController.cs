@@ -129,10 +129,10 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Details", id);
     }
 
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int DealId)
     {
-      Deal.Delete(id);
-      return RedirectToAction("Index");
+      Deal.Delete(DealId);
+      return RedirectToAction("Posted");
     }
 
     public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
