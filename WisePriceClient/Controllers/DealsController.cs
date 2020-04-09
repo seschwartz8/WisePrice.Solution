@@ -13,7 +13,7 @@ namespace WisePriceClient.Controllers
 {
   public class DealsController : Controller
   {
-    public IActionResult Index(int id = 1)
+    public IActionResult Index(int id)
     {
       string page = $"{id}";
       ViewBag.Page = id;
@@ -36,8 +36,8 @@ namespace WisePriceClient.Controllers
     public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
       // // Make sure user is logged in
-      // if (UserId != null)
-      // {
+      if (UserId != null)
+      {
       // Create new item and set ItemId = to newItem's Id
       if (newItemName != null)
       {
@@ -59,11 +59,11 @@ namespace WisePriceClient.Controllers
       Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
       Deal.Post(newDeal);
       return RedirectToAction("Index");
-      // }
-      // else
-      // {
-      //   return RedirectToAction("Index");
-      // }
+      }
+      else
+      {
+        return RedirectToAction("Index");
+      }
     }
 
     [HttpPost]

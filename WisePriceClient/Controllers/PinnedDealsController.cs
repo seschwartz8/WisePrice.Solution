@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceClient.Models;
+using Microsoft.AspNet.Identity;
 
 namespace WisePriceClient.Controllers
 {
@@ -15,9 +16,9 @@ namespace WisePriceClient.Controllers
       string page = $"{id}";
       ViewBag.Page = id;
       ViewBag.Size = 20;
-      ViewBag.DealCount = PinnedDeal.GetCount();
+      ViewBag.DealCount = PinnedDeal.GetCount(User.Identity.GetUserId());
 
-      var allPinnedDeals = PinnedDeal.GetAll(userId);
+      var allPinnedDeals = PinnedDeal.GetAll(User.Identity.GetUserId());
       return View(allPinnedDeals);
     }
   }

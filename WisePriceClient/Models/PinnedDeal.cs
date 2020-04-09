@@ -42,7 +42,7 @@ namespace WisePriceClient.Models
       return pinnedDeal;
     }
 
-    public static void Post(PinnedDeal newPinnedDeal)
+    public static void Post(Deal newPinnedDeal)
     {
       string jsonPinnedDeal = JsonConvert.SerializeObject(newPinnedDeal);
       var apiCallTask = ApiHelper.PostPinnedDeal(jsonPinnedDeal);
