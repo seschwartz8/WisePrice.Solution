@@ -28,13 +28,13 @@ namespace WisePriceApi.Migrations
 
                     b.Property<int>("LocationId");
 
-                    b.Property<int>("Price");
+                    b.Property<string>("Price");
 
                     b.Property<DateTime>("TimeUpdated");
 
                     b.Property<int>("UpVotes");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("DealId");
 
@@ -53,10 +53,10 @@ namespace WisePriceApi.Migrations
                             DownVotes = 2,
                             ItemId = 1,
                             LocationId = 1,
-                            Price = 20,
-                            TimeUpdated = new DateTime(2020, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = "$10 for 5 lbs",
+                            TimeUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UpVotes = 10,
-                            UserId = 1
+                            UserId = "145c9f41-ed89-43c7-8619-e13188de7188"
                         },
                         new
                         {
@@ -64,10 +64,21 @@ namespace WisePriceApi.Migrations
                             DownVotes = 1,
                             ItemId = 2,
                             LocationId = 2,
-                            Price = 10,
-                            TimeUpdated = new DateTime(2020, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = "$10",
+                            TimeUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UpVotes = 8,
-                            UserId = 2
+                            UserId = "test"
+                        },
+                        new
+                        {
+                            DealId = 3,
+                            DownVotes = 2,
+                            ItemId = 1,
+                            LocationId = 1,
+                            Price = "Buy 2lbs get 1lb free",
+                            TimeUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpVotes = 10,
+                            UserId = "145c9f41-ed89-43c7-8619-e13188de7188"
                         });
                 });
 
@@ -92,6 +103,11 @@ namespace WisePriceApi.Migrations
                         {
                             ItemId = 2,
                             ItemName = "Milk"
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            ItemName = "Beef"
                         });
                 });
 
@@ -148,7 +164,7 @@ namespace WisePriceApi.Migrations
 
                     b.Property<int>("DealId");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("PinnedDealId");
 
@@ -163,13 +179,19 @@ namespace WisePriceApi.Migrations
                         {
                             PinnedDealId = 1,
                             DealId = 1,
-                            UserId = 1
+                            UserId = "145c9f41-ed89-43c7-8619-e13188de7188"
                         },
                         new
                         {
                             PinnedDealId = 2,
                             DealId = 2,
-                            UserId = 2
+                            UserId = "test"
+                        },
+                        new
+                        {
+                            PinnedDealId = 3,
+                            DealId = 3,
+                            UserId = "test"
                         });
                 });
 
@@ -180,7 +202,7 @@ namespace WisePriceApi.Migrations
 
                     b.Property<int>("DealId");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("PostedDealId");
 
@@ -195,19 +217,25 @@ namespace WisePriceApi.Migrations
                         {
                             PostedDealId = 1,
                             DealId = 1,
-                            UserId = 1
+                            UserId = "145c9f41-ed89-43c7-8619-e13188de7188"
                         },
                         new
                         {
                             PostedDealId = 2,
                             DealId = 2,
-                            UserId = 2
+                            UserId = "test"
+                        },
+                        new
+                        {
+                            PostedDealId = 3,
+                            DealId = 3,
+                            UserId = "test"
                         });
                 });
 
             modelBuilder.Entity("WisePriceApi.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<string>("UserId")
                         .ValueGeneratedOnAdd();
 
                     b.HasKey("UserId");
@@ -217,11 +245,11 @@ namespace WisePriceApi.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = 1
+                            UserId = "145c9f41-ed89-43c7-8619-e13188de7188"
                         },
                         new
                         {
-                            UserId = 2
+                            UserId = "test"
                         });
                 });
 
@@ -239,8 +267,7 @@ namespace WisePriceApi.Migrations
 
                     b.HasOne("WisePriceApi.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WisePriceApi.Models.PinnedDeal", b =>
@@ -252,8 +279,7 @@ namespace WisePriceApi.Migrations
 
                     b.HasOne("WisePriceApi.Models.User", "User")
                         .WithMany("PinnedDeals")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WisePriceApi.Models.PostedDeal", b =>
@@ -265,8 +291,7 @@ namespace WisePriceApi.Migrations
 
                     b.HasOne("WisePriceApi.Models.User", "User")
                         .WithMany("PostedDeals")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

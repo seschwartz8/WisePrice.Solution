@@ -9,8 +9,8 @@ using WisePriceClient.Models;
 namespace WisePriceClient.Migrations
 {
     [DbContext(typeof(WisePriceClientContext))]
-    [Migration("20200407183243_Identity")]
-    partial class Identity
+    [Migration("20200408224711_Clientpart")]
+    partial class Clientpart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,6 +141,10 @@ namespace WisePriceClient.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -163,6 +167,8 @@ namespace WisePriceClient.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 

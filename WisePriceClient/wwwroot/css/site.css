@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+a {
+  color: steelblue;
+}
+
 h1 {
   text-align: center;
   font-size: 4em;
@@ -18,6 +22,17 @@ small {
   flex: 1;
 }
 
+/* PAGINATION */
+.pagination {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-page {
+  font-weight: 700;
+}
 
 /* HOMEPAGE */
 h1.title {
@@ -39,10 +54,9 @@ h1.title {
   align-items: center;
 }
 
-
 /* DEALS PAGE and CARDS*/
 .deals-body {
-  height: 100%;
+  height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +65,7 @@ h1.title {
 
 .col {
   width: 33%;
+  padding: 0 10%;
 }
 
 .deals-top {
@@ -80,10 +95,11 @@ div.ui.icon.input {
 }
 
 .ui.cards {
-  margin: 1%;  
+  margin: 1%;
 }
 
-.content, .description {
+.content,
+.description {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -121,6 +137,19 @@ div.ui.bottom {
 
 .create-sub {
   margin: 5%;
+}
+
+#item-btn {
+  color: steelblue;
+  float: right;
+}
+
+.dropdown1 {
+  z-index: 5;
+}
+
+.dropdown2 {
+  z-index: 2;
 }
 
 /* ACCOUNT PAGES */
@@ -170,9 +199,12 @@ div.ui.bottom {
   align-items: center;
 }
 
-
 /* FOOTER */
 footer {
+  /* position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%; */
   padding: 1%;
   margin-top: 2%;
   display: flex;

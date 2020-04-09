@@ -2,23 +2,68 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WisePriceClient.Models;
 
 namespace WisePriceClient.Controllers
 {
   public class DealsController : Controller
   {
-    public IActionResult Index()
+    public IActionResult Index(int id = 1)
     {
+      string page = $"{id}";
+      ViewBag.Page = id;
+      ViewBag.Size = 20;
+      ViewBag.DealCount = Deal.GetCount();
+
       var allDeals = Deal.GetAll();
       return View(allDeals);
     }
 
     public IActionResult Create()
     {
+      ViewBag.allItems = Item.GetAll().OrderBy(item => item.ItemName).ToList();
+      ViewBag.allLocations = Location.GetAll().OrderBy(location => location.Name).ToList();
+      ViewBag.userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
+    {
+      // // Make sure user is logged in
+      // if (UserId != null)
+      // {
+      // Create new item and set ItemId = to newItem's Id
+      if (newItemName != null)
+      {
+        Item newItem = new Item(newItemName);
+        Item.Post(newItem);
+        List<Item> allItems = Item.GetAll();
+        foreach (Item item in allItems)
+        {
+          if (item.ItemName == newItemName)
+          {
+            ItemId = item.ItemId.ToString();
+          }
+        }
+      }
+
+      int ItemIdInt = int.Parse(ItemId);
+      int LocationIdInt = int.Parse(LocationId);
+
+      Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
+      Deal.Post(newDeal);
+      return RedirectToAction("Index");
+      // }
+      // else
+      // {
+      //   return RedirectToAction("Index");
+      // }
     }
 
     [HttpPost]
@@ -49,8 +94,9 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Pinned()
+    public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
     {
+      PinnedDeal.Post(DealtoPinned);
       return View();
     }
 

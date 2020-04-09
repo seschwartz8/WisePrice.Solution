@@ -14,6 +14,14 @@ namespace WisePriceClient.Models
       return response.Content;
     }
 
+    public static async Task<string> GetDealCount()
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"deals/count", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
     public static async Task<string> GetDeal(int id)
     {
       RestClient client = new RestClient("http://localhost:5003/api");
@@ -131,6 +139,48 @@ namespace WisePriceClient.Models
       RestClient client = new RestClient("http://localhost:5003/api");
       RestRequest request = new RestRequest($"locations/{id}", Method.DELETE);
       request.AddHeader("Content-Type", "application/json");
+      var response = await client.ExecuteTaskAsync(request);
+    }
+
+    // PINNED DEALS =========================================
+    public static async Task<string> GetAllPinnedDeals(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"pinneddeals/{userId}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
+    public static async Task<string> GetPinnedDeal(string userId, int dealId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"pinneddeals/{userId}/{dealId}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
+    public static async Task DeletePinnedDeal(string userId, int dealId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"pinneddeals/{userId}/{dealId}", Method.DELETE);
+      request.AddHeader("Content-Type", "application/json");
+      var response = await client.ExecuteTaskAsync(request);
+    }
+
+    public static async Task<string> GetPinnedDealCount(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"pinneddeals/{userId}/count", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
+    public static async Task PostPinnedDeal(string newPinnedDeal)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"pinneddeals", Method.POST);
+      request.AddHeader("Content-Type", "application/json");
+      request.AddJsonBody(newPinnedDeal);
       var response = await client.ExecuteTaskAsync(request);
     }
   }

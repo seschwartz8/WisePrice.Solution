@@ -21,8 +21,8 @@ namespace WisePriceApi.Models
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<User>().HasData(
-          new User {UserId = 1},
-          new User {UserId =2}
+          new User {UserId = "145c9f41-ed89-43c7-8619-e13188de7188"},
+          new User {UserId = "test"}
         );
 
         modelBuilder.Entity<Location>().HasData(
@@ -34,26 +34,32 @@ namespace WisePriceApi.Models
 
         modelBuilder.Entity<Item>().HasData(
           new Item {ItemId = 1, ItemName = "Strawberry"},
-          new Item {ItemId = 2, ItemName = "Milk"}
+          new Item {ItemId = 2, ItemName = "Milk"},
+          new Item {ItemId = 3, ItemName = "Beef"}
         );
 
         modelBuilder.Entity<Deal>().HasData(
-          new Deal {DealId = 1, ItemId = 1, LocationId = 1, UserId = 1,  Price = 20, TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 10, DownVotes = 2},
-          new Deal {DealId = 2, ItemId = 2, LocationId = 2, UserId = 2,Price = 10, TimeUpdated = DateTime.Parse("4/3/2020"), UpVotes = 8, DownVotes = 1}
+          new Deal {DealId = 1, ItemId = 1, LocationId = 1, UserId = "145c9f41-ed89-43c7-8619-e13188de7188",  Price = "$10 for 5 lbs", UpVotes = 10, DownVotes = 2},
+          new Deal {DealId = 2, ItemId = 2, LocationId = 2, UserId = "test",Price = "$10", UpVotes = 8, DownVotes = 1},
+          new Deal {DealId = 3, ItemId = 1, LocationId = 1, UserId = "145c9f41-ed89-43c7-8619-e13188de7188",  Price = "Buy 2lbs get 1lb free", UpVotes = 10, DownVotes = 2}
         );
 
         modelBuilder.Entity<PinnedDeal>().HasData(
           new PinnedDeal {PinnedDealId = 1, 
-          UserId = 1, DealId = 1},
+          UserId = "145c9f41-ed89-43c7-8619-e13188de7188", DealId = 1},
           new PinnedDeal {PinnedDealId = 2, 
-          UserId = 2, DealId = 2}
+          UserId = "test", DealId = 2},
+          new PinnedDeal {PinnedDealId = 3, 
+          UserId = "test", DealId = 3}
         );
 
         modelBuilder.Entity<PostedDeal>().HasData(
           new PostedDeal {PostedDealId = 1, 
-          UserId = 1, DealId = 1},
+          UserId = "145c9f41-ed89-43c7-8619-e13188de7188", DealId = 1},
           new PostedDeal {PostedDealId = 2, 
-          UserId = 2, DealId = 2}
+          UserId = "test", DealId = 2},
+          new PostedDeal {PostedDealId = 3, 
+          UserId = "test", DealId = 3}
         );
     }
   }

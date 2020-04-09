@@ -10,13 +10,21 @@ namespace WisePriceClient.Models
     public int DealId { get; set; }
     public int ItemId { get; set; }
     public int LocationId { get; set; }
-    public int UserId { get; set; }
-    public int Price { get; set; }
+    public string UserId { get; set; }
+    public string Price { get; set; }
     public DateTime TimeUpdated { get; set; }
     public int UpVotes { get; set; }
     public int DownVotes { get; set; }
     public virtual Item Item { get; set; }
     public virtual Location Location { get; set; }
+
+    public Deal(int itemId, int locationId, string price, string userId)
+    {
+      ItemId = itemId;
+      LocationId = locationId;
+      Price = price;
+      UserId = userId;
+    }
 
     public static List<Deal> GetAll()
     {
@@ -27,6 +35,14 @@ namespace WisePriceClient.Models
       List<Deal> dealList = JsonConvert.DeserializeObject<List<Deal>>(jsonResponse.ToString());
 
       return dealList;
+    }
+
+    // Gets Count of all deals
+    public static int GetCount()
+    {
+      var apiCallTask = ApiHelper.GetDealCount();
+      var result = int.Parse(apiCallTask.Result);
+      return result;
     }
 
     public static Deal Get(int id)

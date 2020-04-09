@@ -66,7 +66,6 @@ namespace WisePriceApi.Controllers
       return query.ToList().Count();
     }
 
-
     // GET api/deals/5
     [HttpGet("{id}")]
     public ActionResult<Deal> Get(int id)
@@ -78,7 +77,14 @@ namespace WisePriceApi.Controllers
     [HttpPost]
     public void Post([FromBody] Deal deal)
     {
+      DateTime currentTime = new DateTime();
+      currentTime = DateTime.Now;
+      deal.TimeUpdated = currentTime;
       _db.Deals.Add(deal);
+      if (deal.UserId != null)
+      {
+        _db.PostedDeals.Add(new PostedDeal() { UserId = deal.UserId, DealId = deal.DealId});
+      }
       _db.SaveChanges();
     }
 
@@ -86,16 +92,22 @@ namespace WisePriceApi.Controllers
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] Deal deal)
     {
-        deal.DealId = id;
-        _db.Entry(deal).State = EntityState.Modified;
-        _db.SaveChanges();
+      deal.DealId = id;
+      _db.Entry(deal).State = EntityState.Modified;
+      _db.SaveChanges();
     }
 
-    // DELETE api/deals/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
+    // DELETE api/deals/1/5
+    [HttpDelete("{userId}/{dealId}")]
+    public void Delete(string userId, int dealId)
     {
-      var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == id);
+      var dealToDelete = _db.Deals.FirstOrDefault(entry => entry.DealId == dealId);
+      if (dealToDelete.UserId != null)
+      {
+        var postedDealToDelete = _db.PostedDeals.Where(entry => entry.UserId == userId).FirstOrDefault(entry => entry.DealId == dealId);
+        _db.PostedDeals.Remove(postedDealToDelete);
+        _db.SaveChanges();
+      }
       _db.Deals.Remove(dealToDelete);
       _db.SaveChanges();
     }

@@ -1,46 +1,81 @@
 @{
     ViewData["Title"] = "Deals";
 }
+
+@{
+  int nextPage = ViewBag.Page + 1;
+  int prevPage = ViewBag.Page - 1;
+}
+
 @using WisePriceClient.Models
 @model List<Deal>
 
-<!-- TEST -->
-      @foreach (var deal in Model)
-      {
-        <p>@deal.Item.ItemName</p>
-      }
-<!-- TEST -->
-
-
 <div class='deals-body'>
-    <div class='deals-top'>
-        <div class='col'></div>
-        <h1>Deals</h1>
-        <div class='col'></div>
-    </div>
+  <div class='deals-top'>
+    <div class='col'></div>
+    <h1>Deals</h1>
+    <div class='col'>
+      <div class='pagination'>
+        <div>
+          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+        </div>
+        <div>
+          <div class='page-nav'>
+            @if (ViewBag.Page > 1)
+            {
+              <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+            }
 
-    <div class="ui search">
-      <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="Search by item...">
-        <i class="search icon"></i>
+            <span class="current-page">Page @ViewBag.Page</span>
+            
+            @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+            {
+              <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+            }
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class='deals-cards-container'>
-    <!-- FOR LOOP FOR EACH CARD IN MODEL -->
-        <div class="ui cards">
-          <div class="card">
-            <div class="ui top">
-              <a><i class="thumbtack icon large"></i></a>
+  <div class="ui search">
+    <div class="ui icon input">
+      <input class="prompt" type="text" placeholder="Search by item...">
+      <i class="search icon"></i>
+    </div>
+  </div>
+
+  <div class='deals-cards-container'>
+    @foreach (var deal in Model)
+    {
+      <div class="ui cards">
+        <div class="card">
+          <div class="ui top">
+            <a><i class="thumbtack icon large"></i></a>
+          </div>
+          <div class="content">
+            <div class="header">
+              @deal.Item.ItemName
+              <h4>
+                @deal.Price
+              </h4>
             </div>
             <div class="content">
-              <div class="header">Item Name</div>
+              <div class="header">
+                @deal.Item.ItemName
+                <h4>
+                  @deal.Price
+                </h4>
+              </div>
               <div class="description">
                 <div>
-                  Store Location
+                  @deal.Location.Name
                 </div>
                 <div>
-                  Date
+                  @deal.Location.Address
+                </div>
+                <div>
+                  @deal.TimeUpdated
                 </div>
               </div>
             </div>
@@ -49,10 +84,9 @@
               <a><i class="thumbs down outline icon red large"></i></a>
             </div>
           </div>
-        </div>
+            </div>
+    }
 
-    </div>
-
+  </div>
 </div>
-
-
+    
