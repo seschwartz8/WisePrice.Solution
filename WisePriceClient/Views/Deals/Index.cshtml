@@ -11,41 +11,41 @@
 @model List<Deal>
 
 <div class='deals-body'>
-    <div class='deals-top'>
-        <div class='col'></div>
-        <h1>Deals</h1>
-        <div class='col'>
-          <div class='pagination'>
-            <div>
-              @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
-            </div>
-            <div>
-              <div class='page-nav'>
-                @if (ViewBag.Page > 1)
-                {
-                  <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
-                }
+  <div class='deals-top'>
+    <div class='col'></div>
+    <h1>Deals</h1>
+    <div class='col'>
+      <div class='pagination'>
+        <div>
+          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+        </div>
+        <div>
+          <div class='page-nav'>
+            @if (ViewBag.Page > 1)
+            {
+              <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+            }
 
-                <span class="current-page">Page @ViewBag.Page</span>
-                
-                @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
-                {
-                  <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
-                }
-              </div>
-            </div>
+            <span class="current-page">Page @ViewBag.Page</span>
+            
+            @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+            {
+              <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+            }
           </div>
         </div>
-    </div>
-
-    <div class="ui search">
-      <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="Search by item...">
-        <i class="search icon"></i>
       </div>
     </div>
+  </div>
 
-    <div class='deals-cards-container'>
+  <div class="ui search">
+    <div class="ui icon input">
+      <input class="prompt" type="text" placeholder="Search by item...">
+      <i class="search icon"></i>
+    </div>
+  </div>
+
+  <div class='deals-cards-container'>
     @foreach (var deal in Model)
     {
       <div class="ui cards">
@@ -60,29 +60,33 @@
                 @deal.Price
               </h4>
             </div>
-            <div class="description">
-              <div>
-                @deal.Location.Name
+            <div class="content">
+              <div class="header">
+                @deal.Item.ItemName
+                <h4>
+                  @deal.Price
+                </h4>
               </div>
-              <div>
-                @deal.Location.Address
-              </div>
-              <div>
-                @deal.TimeUpdated
+              <div class="description">
+                <div>
+                  @deal.Location.Name
+                </div>
+                <div>
+                  @deal.Location.Address
+                </div>
+                <div>
+                  @deal.TimeUpdated
+                </div>
               </div>
             </div>
-          </div>
-          <div class="ui bottom">
-            <a><i class="thumbs up outline icon blue large"></i></a>
-            <a><i class="thumbs down outline icon red large"></i></a>
+            <div class="ui bottom">
+              <a><i class="thumbs up outline icon blue large"></i></a>
+              <a><i class="thumbs down outline icon red large"></i></a>
+            </div>
           </div>
         </div>
       </div>
     }
-
-
-    </div>
-
+  </div>
 </div>
-
-
+    

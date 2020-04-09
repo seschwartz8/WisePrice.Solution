@@ -53,22 +53,23 @@ namespace WisePriceApi.Controllers
         .FirstOrDefault(entry => entry.PinnedDealId == dealId);
     }
 
-    // GET api/pinneddeals/count
-    [HttpGet("count")]
-    public ActionResult<int> CountPinnedDeals()
+    // GET api/pinneddeals/1/count
+    [HttpGet("{userId}/count")]
+    public ActionResult<int> CountPinnedDeals(string userId)
     {
-      var query = _db.PinnedDeals.AsQueryable();
+      var query = _db.PinnedDeals.Where(entry => entry.UserId == userId).AsQueryable();
 
       return query.ToList().Count();
     }
 
     //POST api/pinneddeals
     [HttpPost]
-    public void Post([FromBody] PinnedDeal pinnedDeal)
+    public void Post(string userId, int dealId, [FromBody] Deal Deal)
     {
-      if (_db.PinnedDeals.Where(entry => entry.DealId == pinnedDeal.DealId).ToList().Count() == 0)
+      if (_db.PinnedDeals.Where(entry => entry.DealId == Deal.DealId).ToList().Count() == 0)
       {
-        _db.PinnedDeals.Add(pinnedDeal);
+        var newPinnedDeal = _db.PinnedDeals.Include(entry => entry.Deal).FirstOrDefault(entry => entry.Deal.DealId == dealId);
+        _db.PinnedDeals.Add(newPinnedDeal);
       }
       _db.SaveChanges();
     }

@@ -35,6 +35,9 @@ namespace WisePriceClient.Controllers
     [HttpPost]
     public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
+      // // Make sure user is logged in
+      // if (UserId != null)
+      // {
       // Create new item and set ItemId = to newItem's Id
       if (newItemName != null)
       {
@@ -49,24 +52,18 @@ namespace WisePriceClient.Controllers
           }
         }
       }
-      // Make sure user is logged in
-      if (UserId != null)
-      {
-        int ItemIdInt = int.Parse(ItemId);
-        int LocationIdInt = int.Parse(LocationId);
 
-        Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
-        System.Console.WriteLine("---------------------------------" + newDeal.ItemId + "---------------------------------------");
-        System.Console.WriteLine("---------------------------------" + newDeal.LocationId + "---------------------------------------");
-        System.Console.WriteLine("---------------------------------" + newDeal.Price + "---------------------------------------");
-        System.Console.WriteLine("---------------------------------" + newDeal.UserId + "---------------------------------------");
-        Deal.Post(newDeal);
-        return RedirectToAction("Index");
-      }
-      else
-      {
-        return View();
-      }
+      int ItemIdInt = int.Parse(ItemId);
+      int LocationIdInt = int.Parse(LocationId);
+
+      Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
+      Deal.Post(newDeal);
+      return RedirectToAction("Index");
+      // }
+      // else
+      // {
+      //   return RedirectToAction("Index");
+      // }
     }
 
     [HttpPost]
@@ -97,8 +94,9 @@ namespace WisePriceClient.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Pinned()
+    public IActionResult Pinned(string userId, int dealId, Deal DealtoPinned)
     {
+      PinnedDeal.Post(DealtoPinned);
       return View();
     }
 
