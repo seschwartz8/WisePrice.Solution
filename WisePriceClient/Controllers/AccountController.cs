@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WisePriceClient.Models;
@@ -47,6 +49,11 @@ namespace WisePriceClient.Controllers
 
       if (result.Succeeded)
       {
+        // string newUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        string newUserId = user.Id;
+        Console.WriteLine(">>>>>>>>>>>>>>>>>>>>> YOUR USER ID: " + newUserId);
+        var newAPIUser = new APIUser { UserId = newUserId };
+        APIUser.Post(newAPIUser);
         return RedirectToAction("Login");
       }
       else
