@@ -218,5 +218,31 @@ namespace WisePriceClient.Models
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;
     }
+
+    // USERS =================================
+    public static async Task PostUser(string newUser)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"users", Method.POST);
+      request.AddHeader("Content-Type", "application/json");
+      request.AddJsonBody(newUser);
+      var response = await client.ExecuteTaskAsync(request);
+    }
+
+    public static async Task DeleteUser(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"users/{userId}", Method.DELETE);
+      request.AddHeader("Content-Type", "application/json");
+      var response = await client.ExecuteTaskAsync(request);
+    }
+    
+    public static async Task<string> GetUser(string userId)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"users/{userId}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
   }
 }

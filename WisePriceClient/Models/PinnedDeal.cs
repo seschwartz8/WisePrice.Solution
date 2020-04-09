@@ -11,8 +11,8 @@ namespace WisePriceClient.Models
     public string UserId { get; set; }
     public int DealId { get; set; }
 
-    public virtual ApplicationUser AppUser { get; set; }
-    public virtual User User {get; set;}
+    public virtual ApplicationUser User { get; set; }
+    public virtual APIUser APIUser {get; set;}
     public virtual Deal Deal { get; set; }
 
     public static List<PinnedDeal> GetAll(string userId)
