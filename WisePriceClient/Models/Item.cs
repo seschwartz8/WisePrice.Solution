@@ -38,10 +38,20 @@ namespace WisePriceClient.Models
       return item;
     }
 
+    public static Item GetId(string itemName)
+    {
+      var apiCallTask = ApiHelper.GetItemId(itemName);
+      var result = apiCallTask.Result;
+      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
+      Item item = JsonConvert.DeserializeObject<Item>(jsonResponse.ToString());
+      Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>" + item);
+      return item;
+    }
+
     public static void Post(Item newItem)
     {
-      string jsonReview = JsonConvert.SerializeObject(newItem);
-      var apiCallTask = ApiHelper.PostItem(jsonReview);
+      string jsonItem = JsonConvert.SerializeObject(newItem);
+      var apiCallTask = ApiHelper.PostItem(jsonItem);
       // foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(apiCallTask))
       // {
       //   string name = descriptor.Name;

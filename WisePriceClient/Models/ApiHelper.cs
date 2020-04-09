@@ -74,6 +74,14 @@ namespace WisePriceClient.Models
       return response.Content;
     }
 
+    public static async Task<string> GetItemId(string itemName)
+    {
+      RestClient client = new RestClient("http://localhost:5003/api");
+      RestRequest request = new RestRequest($"items?name={itemName}", Method.GET);
+      var response = await client.ExecuteTaskAsync(request);
+      return response.Content;
+    }
+
     public static async Task PostItem(string newItem)
     {
       RestClient client = new RestClient("http://localhost:5003/api");

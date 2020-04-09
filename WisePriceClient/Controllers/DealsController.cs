@@ -38,6 +38,7 @@ namespace WisePriceClient.Controllers
     [HttpPost]
     public IActionResult Create(string ItemId, string newItemName, string LocationId, string Price, string UserId)
     {
+      int ItemIdInt;
       // // Make sure user is logged in
       if (UserId != null)
       {
@@ -55,8 +56,13 @@ namespace WisePriceClient.Controllers
             }
           }
         }
+        // else
+        // {
+        //   ItemIdInt = int.Parse(ItemId);
+        // }
 
-        int ItemIdInt = int.Parse(ItemId);
+        ItemIdInt = int.Parse(ItemId);
+        Console.WriteLine(">>>>>>>>>>>" + Item.GetId("milk"));
         int LocationIdInt = int.Parse(LocationId);
 
         Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
