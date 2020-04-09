@@ -2,41 +2,85 @@
     ViewData["Title"] = "Posted Deals";
 }
 
-<div class='deals-body'>
-    <div class='deals-top'>
-        <div class='col'></div>
-        <h1>Posted Deals</h1>
-        <div class='col'></div>
-    </div>
+@{
+  int nextPage = ViewBag.Page + 1;
+  int prevPage = ViewBag.Page - 1;
+}
 
-    <div class='deals-cards-container'>
-    <!-- FOR LOOP FOR EACH CARD IN MODEL -->
-        <div class="ui cards">
-          <div class="grey card">
-            <div class="content">
-              <div class="header">Item Name</div>
-              <div class="description">
-                <div>
-                  Store Location
-                </div>
-                <div>
-                  Date
-                </div>
-              </div>
-            </div>
-            <div class="ui bottom">
-              <!-- <a class="ui button grey"  asp-route-id="@Model.DealId" asp-action="Edit">Edit</a> -->
-              <a class="ui button grey" asp-action="Edit">Edit</a>
-                <form asp-controller="Deals" asp-action="Delete" method="post">
-                  <!-- <input type="hidden" value="@Model.DealId" asp-fpr="DealId"> -->
-                  <input type="submit" value="Delete" class="ui button"/>
-                </form>
-            </div>
+@using WisePriceClient.Models
+@model List<Deal>
+
+
+<div class='deals-body'>
+  <div class='deals-top'>
+    <div class='col'></div>
+    <h1>Posted Deals</h1>
+    <div class='col'>
+      <div class='pagination'>
+        <div>
+          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+        </div>
+        <div>
+          <div class='page-nav'>
+            @if (ViewBag.Page > 1)
+            {
+              <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+            }
+
+            <span class="current-page">Page @ViewBag.Page</span>
+            
+            @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+            {
+              <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+            }
           </div>
         </div>
-
+      </div>
     </div>
+  </div>
+
+  <div class='deals-cards-container'>
+    @foreach (var deal in Model)
+    {
+      <div class="ui cards">
+        <div class="card">
+          <div class="ui top">
+            <a><i class="thumbtack icon large"></i></a>
+          </div>
+          <div class="content">
+            <div class="header">
+              @deal.Item.ItemName
+              <h4>
+                @deal.Price
+              </h4>
+            </div>
+            <div class="description">
+              <div>
+                @deal.Location.Name
+              </div>
+              <div>
+                @deal.Location.Address
+              </div>
+              <div>
+                @deal.TimeUpdated
+              </div>
+            </div>
+          </div>
+            <div class="ui bottom">
+              <a class="ui button grey"  asp-route-id="@deal.DealId" asp-action="Edit">Edit</a>
+              <form asp-controller="Deals" asp-action="Delete" method="post">
+                <input type="hidden" value="@deal.DealId" asp-for="DealId">
+                <input type="submit" value="Delete" class="ui button"/>
+              </form>
+            </div>
+        </div>
+      </div>
+    }
+  </div>
 
 </div>
+
+
+
 
 
