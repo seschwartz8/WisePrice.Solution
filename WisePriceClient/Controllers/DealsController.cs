@@ -13,7 +13,8 @@ namespace WisePriceClient.Controllers
 {
   public class DealsController : Controller
   {
-    public IActionResult Index(int id)
+    // Don't remove the "= 1", this sets the default page to 1
+    public IActionResult Index(int id = 1)
     {
       string page = $"{id}";
       ViewBag.Page = id;
@@ -38,27 +39,27 @@ namespace WisePriceClient.Controllers
       // // Make sure user is logged in
       if (UserId != null)
       {
-      // Create new item and set ItemId = to newItem's Id
-      if (newItemName != null)
-      {
-        Item newItem = new Item(newItemName);
-        Item.Post(newItem);
-        List<Item> allItems = Item.GetAll();
-        foreach (Item item in allItems)
+        // Create new item and set ItemId = to newItem's Id
+        if (newItemName != null)
         {
-          if (item.ItemName == newItemName)
+          Item newItem = new Item(newItemName);
+          Item.Post(newItem);
+          List<Item> allItems = Item.GetAll();
+          foreach (Item item in allItems)
           {
-            ItemId = item.ItemId.ToString();
+            if (item.ItemName == newItemName)
+            {
+              ItemId = item.ItemId.ToString();
+            }
           }
         }
-      }
 
-      int ItemIdInt = int.Parse(ItemId);
-      int LocationIdInt = int.Parse(LocationId);
+        int ItemIdInt = int.Parse(ItemId);
+        int LocationIdInt = int.Parse(LocationId);
 
-      Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
-      Deal.Post(newDeal);
-      return RedirectToAction("Index");
+        Deal newDeal = new Deal(ItemIdInt, LocationIdInt, Price, UserId);
+        Deal.Post(newDeal);
+        return RedirectToAction("Index");
       }
       else
       {

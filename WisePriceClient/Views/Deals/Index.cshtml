@@ -17,7 +17,7 @@
     <div class='col'>
       <div class='pagination'>
         <div>
-          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) to @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
         </div>
         <div>
           <div class='page-nav'>
@@ -53,13 +53,6 @@
           <div class="ui top">
             <a><i class="thumbtack icon large"></i></a>
           </div>
-          <div class="content">
-            <div class="header">
-              @deal.Item.ItemName
-              <h4>
-                @deal.Price
-              </h4>
-            </div>
             <div class="content">
               <div class="header">
                 @deal.Item.ItemName
@@ -83,7 +76,6 @@
               <a><i class="thumbs up outline icon blue large"></i></a>
               <a><i class="thumbs down outline icon red large"></i></a>
             </div>
-          </div>
         </div>
       </div>
     }
