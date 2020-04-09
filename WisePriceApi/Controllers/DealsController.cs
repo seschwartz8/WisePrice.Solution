@@ -97,7 +97,7 @@ namespace WisePriceApi.Controllers
       _db.SaveChanges();
     }
 
-    // // DELETE api/deals/1/5   WITH AUTHORIZATION
+    // // DELETE api/deals/1/5   (WITH AUTHORIZATION)
     // [HttpDelete("{userId}/{dealId}")]
     // public void Delete(string userId, int dealId)
     // {
