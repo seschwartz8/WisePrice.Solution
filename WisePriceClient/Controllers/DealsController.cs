@@ -97,14 +97,22 @@ namespace WisePriceClient.Controllers
 
     public IActionResult Pinned(int id = 1)
     {
-      string page = $"{id}";
-      ViewBag.Page = id;
-      ViewBag.Size = 20;
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ViewBag.DealCount = PinnedDeal.GetCount(userId);
-
-      var allPinnedDeals = PinnedDeal.GetAll(userId);
-      return View(allPinnedDeals);
+      try
+      {
+        string page = $"{id}";
+        ViewBag.Page = id;
+        ViewBag.Size = 20;
+        string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ViewBag.DealCount = PinnedDeal.GetCount(userId);
+        var allPinnedDeals = PinnedDeal.GetAll(userId);
+        return View(allPinnedDeals);
+      }
+      catch (Exception ex)
+      {
+        TempData["ErrorMessage"] = "You are not logged in. Please log in to see your pinned deals.";
+        Console.WriteLine("Exception Error in Deals Controller Pinned Route: " + ex);
+        return View();
+      }
     }
 
     public IActionResult Posted()

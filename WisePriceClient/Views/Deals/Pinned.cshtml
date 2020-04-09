@@ -10,62 +10,83 @@
 @using WisePriceClient.Models
 @model List<PinnedDeal>
 
-<div class='deals-body'>
-  <div class='deals-top'>
-    <div class='col'></div>
-    <h1>My Pinned Deals</h1>
-    <div class='col'>
-      <div class='pagination'>
-        <div>
-          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) to @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
-        </div>
-        <div>
-          <div class='page-nav'>
-            @if (ViewBag.Page > 1)
-            {
-              <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
-            }
+<div class="exceptionError">
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+  <div class='deals-body'>
+    <div class='deals-top'>
+      <div class='col'></div>
+      <h1>My Pinned Deals</h1>
+      <div class='col'>
+      </div>
+    </div>
+    <h4>@TempData["ErrorMessage"]</h4>
+  </div>
+}
+else
+{
 
-            <span class="current-page">Page @ViewBag.Page</span>
-            
-            @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
-            {
-              <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
-            }
+
+  <div class='deals-body'>
+    <div class='deals-top'>
+      <div class='col'></div>
+      <h1>My Pinned Deals</h1>
+      <div class='col'>
+        <div class='pagination'>
+          <div>
+            @((ViewBag.Page - 1) * (ViewBag.Size) + 1) to @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+          </div>
+          <div>
+            <div class='page-nav'>
+              @if (ViewBag.Page > 1)
+              {
+                <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+              }
+
+              <span class="current-page">Page @ViewBag.Page</span>
+              
+              @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+              {
+                <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class='deals-cards-container'>
-    @foreach (var pinnedDeal in Model)
-    {
-      <div class="ui cards">
-        <div class="card">
-          <div class="ui top">
-            <a><i class="thumbtack icon large red"></i></a>
-          </div>
-          <div class="content">
-            <div class="header">@pinnedDeal.Deal.Item.ItemName</div>
-            <div class="description">
-              <div>
-                @pinnedDeal.Deal.Location.Name
-              </div>
-              <div>
-                @pinnedDeal.Deal.TimeUpdated.Day/@pinnedDeal.Deal.TimeUpdated.Month/@pinnedDeal.Deal.TimeUpdated.Year @pinnedDeal.Deal.TimeUpdated.Hour:@pinnedDeal.Deal.TimeUpdated.Minute
+
+
+    <div class='deals-cards-container'>
+      @foreach (var pinnedDeal in Model)
+      {
+        <div class="ui cards">
+          <div class="card">
+            <div class="ui top">
+              <a><i class="thumbtack icon large red"></i></a>
+            </div>
+            <div class="content">
+              <div class="header">@pinnedDeal.Deal.Item.ItemName</div>
+              <div class="description">
+                <div>
+                  @pinnedDeal.Deal.Location.Name
+                </div>
+                <div>
+                  @pinnedDeal.Deal.TimeUpdated.Day/@pinnedDeal.Deal.TimeUpdated.Month/@pinnedDeal.Deal.TimeUpdated.Year @pinnedDeal.Deal.TimeUpdated.Hour:@pinnedDeal.Deal.TimeUpdated.Minute
+                </div>
               </div>
             </div>
-          </div>
-          <div class="ui bottom">
-            <a><i class="thumbs up outline icon blue large"></i></a>
-            <a><i class="thumbs down outline icon red large"></i></a>
+            <div class="ui bottom">
+              <a><i class="thumbs up outline icon blue large"></i></a>
+              <a><i class="thumbs down outline icon red large"></i></a>
+            </div>
           </div>
         </div>
-      </div>
-    }
+      }
+    </div>
+
   </div>
 
+
+} @* End of ELSE statement *@
 </div>
-
-
