@@ -18,8 +18,19 @@ namespace WisePriceClient.Models
     public virtual Item Item { get; set; }
     public virtual Location Location { get; set; }
 
+    public Deal() { }
+
     public Deal(int itemId, int locationId, string price, string userId)
     {
+      ItemId = itemId;
+      LocationId = locationId;
+      Price = price;
+      UserId = userId;
+    }
+
+    public Deal(int dealId, int itemId, int locationId, string price, string userId)
+    {
+      DealId = dealId;
       ItemId = itemId;
       LocationId = locationId;
       Price = price;
