@@ -159,14 +159,23 @@ namespace WisePriceClient.Controllers
     // Don't remove the "= 1", this sets the default page to 1
     public IActionResult Posted(int id = 1)
     {
-      string page = $"{id}";
-      ViewBag.Page = id;
-      ViewBag.Size = 20;
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ViewBag.DealCount = PostedDeal.GetCount(userId);
+      try
+      {
+        string page = $"{id}";
+        ViewBag.Page = id;
+        ViewBag.Size = 20;
+        string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ViewBag.DealCount = PostedDeal.GetCount(userId);
 
-      var allPostedDeals = PostedDeal.GetAll(userId);
-      return View(allPostedDeals);
+        var allPostedDeals = PostedDeal.GetAll(userId);
+        return View(allPostedDeals);
+      }
+      catch (Exception ex)
+      {
+        TempData["ErrorMessage"] = "You are not logged in. Please log in to see your posted deals.";
+        Console.WriteLine("Exception Error in Deals Controller Posted Route: " + ex);
+        return View();
+      }
     }
   }
 }

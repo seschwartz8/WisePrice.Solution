@@ -10,79 +10,94 @@
 @using WisePriceClient.Models
 @model List<PostedDeal>
 
+<div class="exceptionError">
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+  <div class='deals-body'>
+    <div class='deals-top'>
+      <div class='col'></div>
+      <h1>My Posted Deals</h1>
+      <div class='col'>
+      </div>
+    </div>
+    <h4>@TempData["ErrorMessage"]</h4>
+  </div>
+}
+else
+{
 
-<div class='deals-body'>
-  <div class='deals-top'>
-    <div class='col'></div>
-    <h1>Posted Deals</h1>
-    <div class='col'>
-      <div class='pagination'>
-        <div>
-          @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
-        </div>
-        <div>
-          <div class='page-nav'>
-            @if (ViewBag.Page > 1)
-            {
-              <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
-            }
+  <div class='deals-body'>
+    <div class='deals-top'>
+      <div class='col'></div>
+      <h1>Posted Deals</h1>
+      <div class='col'>
+        <div class='pagination'>
+          <div>
+            @((ViewBag.Page - 1) * (ViewBag.Size) + 1) - @((ViewBag.Page - 1) * (ViewBag.Size) + Model.Count) of @ViewBag.DealCount results
+          </div>
+          <div>
+            <div class='page-nav'>
+              @if (ViewBag.Page > 1)
+              {
+                <a  asp-action="Index" asp-route-id="@(prevPage)"> &lt Previous </a>
+              }
 
-            <span class="current-page">Page @ViewBag.Page</span>
-            
-            @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
-            {
-              <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
-            }
+              <span class="current-page">Page @ViewBag.Page</span>
+              
+              @if (ViewBag.Page <= ViewBag.DealCount/ViewBag.Size)
+              {
+                <a asp-action="Index" asp-route-id="@(nextPage)">Next &gt </a>
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <h3>Posted by: @User.Identity.Name</h3>
+    <h3>Posted by: @User.Identity.Name</h3>
 
 
-  <div class='deals-cards-container'>
-    @foreach (var deal in Model)
-    {
-      <div class="ui cards">
-        <div class="card">
-          <div class="ui top">
-            <a><i class="thumbtack icon large"></i></a>
+    <div class='deals-cards-container'>
+      @foreach (var deal in Model)
+      {
+        <div class="ui cards">
+          <div class="card">
+            <div class="ui top">
+              <a><i class="thumbtack icon large"></i></a>
+            </div>
+            <div class="content">
+              <div class="header">
+                @deal.Deal.Item.ItemName
+                <h4>
+                  @deal.Deal.Price
+                </h4>
+              </div>
+              <div class="description">
+                <div>
+                  @deal.Deal.Location.Name
+                </div>
+                <div>
+                  @deal.Deal.Location.Address
+                </div>
+                <div>
+                  @deal.Deal.TimeUpdated
+                </div>
+              </div>
+            </div>
+              <div class="ui bottom">
+                <a class='ui button grey' asp-route-id='@deal.DealId' asp-action='Edit'>Edit</a>
+                <form asp-controller="Deals" asp-action="Delete" method="post">
+                  <input type='hidden' value='@deal.DealId' name='DealId'>
+                  <input type="submit" value="Delete" class="ui button"/>
+                </form>
+              </div>
           </div>
-          <div class="content">
-            <div class="header">
-              @deal.Deal.Item.ItemName
-              <h4>
-                @deal.Deal.Price
-              </h4>
-            </div>
-            <div class="description">
-              <div>
-                @deal.Deal.Location.Name
-              </div>
-              <div>
-                @deal.Deal.Location.Address
-              </div>
-              <div>
-                @deal.Deal.TimeUpdated
-              </div>
-            </div>
-          </div>
-            <div class="ui bottom">
-              <a class='ui button grey' asp-route-id='@deal.DealId' asp-action='Edit'>Edit</a>
-              <form asp-controller="Deals" asp-action="Delete" method="post">
-                <input type='hidden' value='@deal.DealId' name='DealId'>
-                <input type="submit" value="Delete" class="ui button"/>
-              </form>
-            </div>
         </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
 
   </div>
-
+}@* End of ELSE statement *@
 </div>
 
 

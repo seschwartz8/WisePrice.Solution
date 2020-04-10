@@ -56,35 +56,34 @@
               <button type="submit" id='invis-btn'><i class='thumbtack icon large'></i></button>
             </form>
           </div>
-            <div class="content">
-              <div class="header">
-                @deal.Item.ItemName
-                <h4>
-                  @deal.Price
-                </h4>
-              </div>
-              <div class="description">
-                <div>
-                  @deal.Location.Name
-                </div>
-                <div>
-                  @deal.Location.Address
-                </div>
-                <div>
-                  @deal.TimeUpdated
-                </div>
-                <!-- <div>
-                  @deal.UserId
-                </div> -->
-              </div>
+          <div class="content">
+            <div class="header">
+              @deal.Item.ItemName
+              <h4>
+                @deal.Price
+              </h4>
             </div>
-            <div class="ui bottom">
-              <a><i class="thumbs up outline icon blue large"></i></a>
-              <a><i class="thumbs down outline icon red large"></i></a>
+            <div class="description">
+              <div>
+                @deal.Location.Name
+              </div>
+              <div>
+                @deal.Location.Address
+              </div>
+              <div>
+                @deal.TimeUpdated
+              </div>
+              @* <div>
+                @deal.UserId
+              </div> *@
             </div>
+          </div>
+          <div class="ui bottom">
+            <a><i class="thumbs up outline icon blue large"></i></a>
+            <a><i class="thumbs down outline icon red large"></i></a>
+          </div>
         </div>
       </div>
     }
   </div>
 </div>
-    
