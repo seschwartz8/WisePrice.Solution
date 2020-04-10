@@ -60,7 +60,7 @@ To run dev mode locally:
   $ dotnet add package Microsoft.AspNet.Identity
   $ dotnet build
   $ dotnet ef migrations add MigrationName
-  $ dotnet ef database update**
+  $ dotnet ef database update
   # After successfull pkg installtion
   $ dotnet run
 ```
