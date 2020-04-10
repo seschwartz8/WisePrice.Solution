@@ -57,7 +57,6 @@ To run dev mode locally:
   $ dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 2.2.0
   $ dotnet add package Microsoft.AspNet.Identity.EntityFramework --version 2.2.3
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
-  $ dotnet add package Microsoft.AspNet.Identity
   $ dotnet build
   $ dotnet ef migrations add MigrationName
   $ dotnet ef database update
@@ -228,6 +227,7 @@ An MVC web application that enables a community to share grocery deals. Our webs
   - \$dotnet ef migrations add Initial
   - \$dotnet ef database update
   - If you receive an error during this stage, check to make sure the password in "appsettings.json" matches your personal MySQL password
+-  $ dotnet add package Microsoft.AspNet.Identity
 - \$ dotnet run (runs the server at localhost:5000)
 - Call this API with your web application or test out the requests using Postman.
 
