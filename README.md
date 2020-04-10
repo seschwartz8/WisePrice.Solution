@@ -58,12 +58,15 @@ To run dev mode locally:
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
   $ dotnet build
   $ dotnet ef migrations add MigrationName
-  $ dotnet ef database update
+  $ dotnet ef database update**
   # After successfull pkg installtion
   $ dotnet run
 ```
 
 Now, it will automatically open http://localhost:5003 and API is available on [Postman](https://www.postman.com/) or [Swagger UI](https://localhost:5003/swagger)
+
+
+> **If you receive an error during this stage, check to make sure the password in `appsettings.json` matches your personal MySQL password.
 
 ## API Documentation
 
@@ -228,13 +231,19 @@ An MVC web application that enables a community to share grocery deals. Our webs
 
 ## Specifications
 
-MVP UI design:
+<details>
+  <summary>MVP UI design - click to expand!</summary>
 
-![Our MVP Figma workframe](./figma.png/)
+  ![Our MVP Figma workframe](./figma.png/)
 
-Initial Database Design:
+</details>
 
-![Our database design](./databaseDesign.png/)
+<details>
+  <summary>Initial Database Design - click to expand!</summary>
+
+  ![Our database design](./databaseDesign.png/)
+
+</details>
 
 ### MVP Specs
 
