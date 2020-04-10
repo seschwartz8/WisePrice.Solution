@@ -198,6 +198,14 @@ Now, it will automatically open http://localhost:5003 and API is available on [P
 
 ## API Screenshots
 
+Get all deals in Postman:
+
+![List of All Deals](./alldeals.JPG/)
+
+Get all items in Postman:
+
+![List of All Items](./allitems.JPG/)
+
 ---
 
 ## MVC Description
@@ -219,6 +227,14 @@ An MVC web application that enables a community to share grocery deals. Our webs
 - Call this API with your web application or test out the requests using Postman.
 
 ## Specifications
+
+MVP UI design:
+
+![Our MVP Figma workframe](./figma.png/)
+
+Initial Database Design:
+
+![Our database design](./databaseDesign.png/)
 
 ### MVP Specs
 
