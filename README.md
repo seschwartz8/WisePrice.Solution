@@ -57,11 +57,10 @@ To run dev mode locally:
   $ dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 2.2.0
   $ dotnet add package Microsoft.AspNet.Identity.EntityFramework --version 2.2.3
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
-  $ dotnet add package Microsoft.AspNet.Identity
   $ dotnet build
   $ dotnet ef migrations add MigrationName
   $ dotnet ef database update**
-  # After successfull pkg installtion
+  # After successful pkg installtion
   $ dotnet run
 ```
 
@@ -221,20 +220,21 @@ An MVC web application that enables a community to share grocery deals. Our webs
 
 - Clone the repository on Github
 - Open the terminal on your desktop
-- \$ git clone "insert your cloned URL here"
+- `$ git clone "insert your cloned URL here"`
 - Change directory to the WisePriceClient directory, within the WisePrice.Solution directory
-- \$ dotnet restore
+- `$ dotnet restore`
 - Recreate the database structure with migration:
-  - \$dotnet ef migrations add Initial
-  - \$dotnet ef database update
+  - `$dotnet ef migrations add Initial`
+  - `$dotnet ef database update`
   - If you receive an error during this stage, check to make sure the password in "appsettings.json" matches your personal MySQL password
-- \$ dotnet run (runs the server at localhost:5000)
+- `$ dotnet add package Microsoft.AspNet.Identity`
+- `$ dotnet run` (runs the server at localhost:5000)
 - Call this API with your web application or test out the requests using Postman.
 
 ## Specifications
 
 <details>
-  <summary>MVP UI design - click to expand!</summary>
+  <summary>MVP UI design Mockups in Figma - click to expand!</summary>
 
   ![Our MVP Figma workframe](./figma.png/)
 
@@ -362,7 +362,7 @@ Made with [contributors-img](https://contributors-img.web.app).
 
 ## Support and Contact Details
 
-_If there are any question or concerns please contact us at our emails: [Sasa Schwartz](mailto:#), [Adela Darmansyah](mailto:adela.yohana@gmail.com), [Tiffany Siu](mailto:tsiu88@gmail.com), and [Jiwon Han](mailto:#jiwon1.han@gmail.com). Thank you._
+_If there are any question or concerns please contact us at our emails: [Sasa Schwartz](mailto:seschwartz8@gmail.com), [Adela Darmansyah](mailto:adela.yohana@gmail.com), [Tiffany Siu](mailto:tsiu88@gmail.com), and [Jiwon Han](mailto:jiwon1.han@gmail.com). Thank you._
 
 ### License
 
