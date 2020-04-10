@@ -66,13 +66,25 @@ else
               <a><i class="thumbtack icon large red"></i></a>
             </div>
             <div class="content">
-              <div class="header">@pinnedDeal.Deal.Item.ItemName</div>
+              <div class="header">
+                @pinnedDeal.Deal.Item.ItemName
+                <h4>
+                  @pinnedDeal.Deal.Price
+                </h4>
+                </div>
               <div class="description">
                 <div>
                   @pinnedDeal.Deal.Location.Name
                 </div>
                 <div>
-                  @pinnedDeal.Deal.TimeUpdated.Day/@pinnedDeal.Deal.TimeUpdated.Month/@pinnedDeal.Deal.TimeUpdated.Year @pinnedDeal.Deal.TimeUpdated.Hour:@pinnedDeal.Deal.TimeUpdated.Minute
+                  @pinnedDeal.Deal.Location.Address
+                </div>
+                <div>
+                  @pinnedDeal.Deal.TimeUpdated
+                  @* @pinnedDeal.Deal.TimeUpdated.Day/@pinnedDeal.Deal.TimeUpdated.Month/@pinnedDeal.Deal.TimeUpdated.Year @pinnedDeal.Deal.TimeUpdated.Hour:@pinnedDeal.Deal.TimeUpdated.Minute *@
+                </div>
+                <div>
+                  @* @APIUser.Get(@pinnedDeal.Deal.UserId) *@
                 </div>
               </div>
             </div>
