@@ -293,8 +293,8 @@ An MVC web application that enables a community to share grocery deals. Our webs
 ## MVC Known Bugs
 
 - Adding new items that are not in the drop down does not have functionality written
+- Editing posted deals cause timestamp to change to default 1/1/0001 12am instead of current time
 - Pagination does not have functionality written
-- Navigating to "My Pinned Deals" or "Posted Deals" when not logged in throws an exception
 - Voting up/down for deals does not have functionality
 - Clicking Push pins on deals does not have working functionality of adding deals to "My Pinned Deals"
 
