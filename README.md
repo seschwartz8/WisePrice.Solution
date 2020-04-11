@@ -51,7 +51,7 @@ To run dev mode locally:
 
 ```bash
   $ git clone
-  $ cd WisePrice
+  $ cd WisePriceApi
   $ dotnet add package Microsoft.EntityFrameworkCore -v 2.2.0
   $ dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0
   $ dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 2.2.0
@@ -59,7 +59,7 @@ To run dev mode locally:
   $ dotnet add package --version 5.3.1 Swashbuckle.AspNetCore
   $ dotnet build
   $ dotnet ef migrations add MigrationName
-  $ dotnet ef database update**
+  $ dotnet ef database update
   # After successful pkg installtion
   $ dotnet run
 ```
